@@ -332,6 +332,8 @@
         .without-title { color: #D6C6A8; }
         .with-title { color: #7A9E9F; }
 
+        .speaker-claude { color: #F2D6A2; font-weight: 600; }
+
         .terminal-line {
             margin-bottom: 6px;
             color: #0B2532;
@@ -554,7 +556,7 @@
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"I want to build a marketplace for boat parts"</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Great! To help you build the right marketplace, I have</div>
                     <div class="terminal-line">a few questions:</div>
                     <div class="terminal-line">1. Should sellers list parts or manage inventory?</div>
@@ -571,7 +573,7 @@
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"I want to build a marketplace for boat parts"</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"👋 Hey there. It looks like you're kicking off a new project.</div>
                     <div class="terminal-line">&nbsp;</div>
                     <div class="terminal-line">Let's:</div>
@@ -579,7 +581,7 @@
                     <div class="terminal-line">2. Explore 3 experience approaches and pick the winner</div>
                     <div class="terminal-line">3. Choose the tech stack that fits (tech follows experience)</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Ready? What do users DO in this product?"</div>
+                    <div class="terminal-line"><span class="speaker-claude">Ready? What do users DO in this product?"</span></div>
                 </div>
             </div>
         </div>
@@ -597,7 +599,7 @@
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"Let's build user authentication"</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Great! I'll set up JWT tokens, bcrypt password hashing,</div>
                     <div class="terminal-line">OAuth2 with Google and GitHub, email verification, password</div>
                     <div class="terminal-line">reset flows, 2FA, rate limiting, and session management."</div>
@@ -608,7 +610,7 @@
                     <div class="terminal-line">"Wait, I just need email/password login for now. This is</div>
                     <div class="terminal-line">an internal tool for 10 people."</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Oh, let me simplify that..."</div>
                     <div class="terminal-line">&nbsp;</div>
                     <div class="terminal-line" style="color: #7A9E9F;">// Built enterprise features for a startup MVP</div>
@@ -621,7 +623,7 @@
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"Let's build user authentication"</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Let's do it! Every feature has two phases:</div>
                     <div class="terminal-line">&nbsp;</div>
                     <div class="terminal-line">1️⃣ <span style="color: #0B2532; font-weight: bold;">Discovery</span> - Figure out what to build</div>
@@ -634,7 +636,7 @@
                     <div class="terminal-line" style="color: #0B2532; font-weight: 600;">  • Stable: Handle errors & edge cases</div>
                     <div class="terminal-line" style="color: #7A9E9F;">  • Production: Security & scale</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Want to explore authentication approaches first?</div>
+                    <div class="terminal-line"><span class="speaker-claude">Want to explore authentication approaches first?</span></div>
                 </div>
             </div>
         </div>
@@ -652,14 +654,14 @@
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"We need to launch this to customers next week."</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Great! Let me deploy it to production."</div>
                     <div class="terminal-line">&nbsp;</div>
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"Wait, is it secure? Do we have rate limiting? What about</div>
                     <div class="terminal-line">input validation? SQL injection protection?"</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Um... let me check the code..."</div>
                     <div class="terminal-line">&nbsp;</div>
                     <div class="terminal-line" style="color: #7A9E9F; font-style: italic;">[Discovers security gaps days before launch]</div>
@@ -674,7 +676,7 @@
                     <div class="terminal-line" style="color: #7A9E9F;">You:</div>
                     <div class="terminal-line">"We need to launch this to customers next week."</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Claude:</div>
+                    <div class="terminal-line"><span class="speaker-claude">Claude:</span></div>
                     <div class="terminal-line">"Let me check your project state... You're marked as 'internal'.</div>
                     <div class="terminal-line">To go 'external', we need to:</div>
                     <div class="terminal-line">&nbsp;</div>
@@ -688,7 +690,7 @@
                     <div class="terminal-line">  • User input: Add validation & sanitization</div>
                     <div class="terminal-line">  • Database: Parameterized queries for SQL injection</div>
                     <div class="terminal-line">&nbsp;</div>
-                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Ready to upgrade to external?"</div>
+                    <div class="terminal-line"><span class="speaker-claude">Ready to upgrade to external?"</span></div>
                 </div>
             </div>
         </div>
