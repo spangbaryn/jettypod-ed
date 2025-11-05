@@ -404,8 +404,19 @@
                 gap: 8px;
             }
 
+            .os-selector::before {
+                display: none;
+            }
+
             .os-btn {
                 padding: 12px;
+                background: transparent;
+                border: 2px solid transparent;
+            }
+
+            .os-btn.active {
+                background: #7A9E9F;
+                border-color: #7A9E9F;
             }
 
             .install-command {
