@@ -266,31 +266,33 @@
         .fishing-scene {
             position: relative;
             width: 100%;
-            max-width: 400px;
-            height: 200px;
-            margin: 60px auto;
+            max-width: 500px;
+            height: 180px;
+            margin: 0 auto 40px;
         }
 
         .fishing-rod {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
             height: auto;
-            transform: rotate(-15deg);
-            transform-origin: bottom left;
+            z-index: 2;
         }
 
         .caught-button {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
             animation: float 3s ease-in-out infinite;
+            z-index: 1;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-8px); }
         }
 
         .see-demo {
@@ -424,18 +426,19 @@
             }
 
             .fishing-scene {
-                max-width: 280px;
-                height: 160px;
-                margin: 40px auto;
+                max-width: 320px;
+                height: 140px;
+                margin: 0 auto 30px;
             }
 
             .fishing-rod {
-                width: 90px;
+                width: 100px;
             }
 
             .caught-button {
-                bottom: 10px;
-                right: 10px;
+                top: 80px;
+                font-size: 0.85rem;
+                padding: 10px 18px;
             }
 
             .install-box {
@@ -557,9 +560,6 @@
         </header>
 
         <div class="hero">
-            <h1>Build Real Businesses<br>with Claude Code</h1>
-            <p class="subtitle">A powerful CLI tool that puts Claude Code on rails for tomorrow's solo founders.<br>Structured workflows, efficient development, production-ready features.</p>
-
             <div class="fishing-scene">
                 <img src="fishingrod.png" alt="Fishing Rod" class="fishing-rod">
                 <a href="https://github.com/spangbaryn/jettypod-dist" target="_blank" rel="noopener noreferrer" class="github-link caught-button">
@@ -569,6 +569,9 @@
                     View on GitHub
                 </a>
             </div>
+
+            <h1>Build Real Businesses<br>with Claude Code</h1>
+            <p class="subtitle">A powerful CLI tool that puts Claude Code on rails for tomorrow's solo founders.<br>Structured workflows, efficient development, production-ready features.</p>
 
             <div class="install-box">
                 <div class="floater">Uh what's this?</div>
