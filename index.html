@@ -359,6 +359,119 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+
+            .site-header {
+                flex-wrap: wrap;
+                gap: 15px;
+                padding: 15px 0;
+            }
+
+            .github-link {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 40px;
+            }
+
+            .hero {
+                padding: 20px 0 40px;
+            }
+
+            .install-box {
+                padding: 20px;
+                margin-bottom: 40px;
+            }
+
+            .floater {
+                display: none;
+            }
+
+            .os-selector {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .os-btn {
+                padding: 12px;
+            }
+
+            .install-command {
+                font-size: 0.75rem;
+                white-space: pre-wrap;
+                word-break: break-all;
+            }
+
+            .terminal {
+                padding: 15px;
+                font-size: 11px;
+            }
+
+            .terminal-title {
+                font-size: 11px;
+            }
+
+            .comparison-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .comparison-header p {
+                font-size: 1rem;
+            }
+
+            .see-demo {
+                font-size: 1.2rem;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .install-box {
+                padding: 15px;
+            }
+
+            .github-link span {
+                display: none;
+            }
+
+            .github-link::after {
+                content: 'GitHub';
+            }
+
+            .terminal {
+                padding: 12px;
+                font-size: 10px;
+            }
+
+            .terminal-line {
+                margin-bottom: 4px;
+            }
+        }
     </style>
 </head>
 <body>
