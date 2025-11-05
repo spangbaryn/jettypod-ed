@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod Methodology - Linear Flow</title>
+    <link rel="icon" type="image/png" href="jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .back-link {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0B2532;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #7A9E9F;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .phase {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .phase-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid #D6C6A8;
+        }
+
+        .connector-line {
+            width: 2px;
+            height: 40px;
+            background: #7A9E9F;
+            margin: 60px auto;
+            position: relative;
+        }
+
+        .connector-line::after {
+            content: '↓';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #7A9E9F;
+            font-size: 1.5rem;
+        }
+
+        .phase-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .phase-badge.internal {
+            background: #F2D6A2;
+            color: #0B2532;
+        }
+
+        .phase-badge.external {
+            background: #0B2532;
+            color: #E8EBED;
+        }
+
+        .phase-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .phase-desc {
+            font-size: 1.2rem;
+            color: #7A9E9F;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .modes-box {
+            border: 2px solid #D6C6A8;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 20px;
+            background: #fff;
+        }
+
+        .modes-box-header {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #0B2532;
+        }
+
+        .modes-box-subheader {
+            text-align: center;
+            font-size: 1rem;
+            color: #7A9E9F;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .modes-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mode-card {
+            background: #E8EBED;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #D6C6A8;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            min-height: 450px;
+        }
+
+        .mode-card:hover {
+            border-color: #7A9E9F;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(122, 158, 159, 0.3);
+        }
+
+        .mode-card.grayed-out {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .mode-card.grayed-out:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #D6C6A8;
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .mode-card.speed::before { background: #F2D6A2; }
+        .mode-card.stable::before { background: #7A9E9F; }
+        .mode-card.production::before { background: #0B2532; }
+
+        .arrow {
+            font-size: 3rem;
+            color: #7A9E9F;
+            flex-shrink: 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .card-title.speed { color: #D6C6A8; }
+        .card-title.stable { color: #7A9E9F; }
+        .card-title.production { color: #0B2532; }
+
+        .card-desc {
+            color: #7A9E9F;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-details {
+            margin-top: 20px;
+        }
+
+        .card-details h4 {
+            color: #0B2532;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .card-details ul {
+            padding-left: 20px;
+        }
+
+        .card-details li {
+            color: #7A9E9F;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #D6C6A8;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            border: 1px solid #D6C6A8;
+            color: #0B2532;
+        }
+
+        .transition {
+            text-align: center;
+            padding: 60px 40px;
+            margin: 60px 0;
+            background: linear-gradient(135deg, #f59e0b 0%, #61dafb 100%);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .transition-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .transition h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #0a0a0a;
+        }
+
+        .transition p {
+            font-size: 1.1rem;
+            color: #0a0a0a;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .transition ul {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .transition li {
+            color: #0a0a0a;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .transition li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1024px) {
+            .modes-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+
+            .mode-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png" alt="JettyPod Logo" class="logo">
+                <span class="logo-text">JettyPod</span>
+            </a>
+            <a href="index.html" class="back-link">← Back to home</a>
+        </header>
+
+        <h1>Building Projects with JettyPod</h1>
+        <p class="subtitle">The path from idea to production-ready</p>
+
+        <!-- Phase 1: Internal Project -->
+        <div class="phase">
+            <div class="phase-header">
+                <h2 class="phase-title">Start With Just Enough Infrastructure</h2>
+                <p class="phase-desc">
+                    Your project starts with a lightweight infrastructure that assumes <span class="phase-badge internal">Internal</span> use. This allows you to figure out what you ultimately want to build by building fast. Really fast.
+                </p>
+            </div>
+
+            <div class="connector-line"></div>
+
+            <div class="modes-box">
+                <h3 class="modes-box-header">Build Your Features</h3>
+                <p class="modes-box-subheader">Each feature gets a first and second draft. We call these Speed Mode and Stable Mode.</p>
+                <div class="modes-container">
+                    <div class="mode-card speed">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title speed">Speed Mode</h3>
+                    <p class="card-desc">Your first draft</p>
+                    <div class="card-details">
+                        <h4>Purpose</h4>
+                        <ul>
+                            <li>Prove your approach works</li>
+                            <li>Validate happy path</li>
+                        </ul>
+                        <h4 style="margin-top: 15px;">Standards</h4>
+                        <ul>
+                            <li>Happy path only</li>
+                            <li>Single file, localStorage</li>
+                            <li>Basic try/catch</li>
+                            <li>Basic tests</li>
+                        </ul>
+                    </div>
+                    <span class="badge">Pass through quickly</span>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="mode-card stable">
+                    <div class="card-icon">✓</div>
+                    <h3 class="card-title stable">Stable Mode</h3>
+                    <p class="card-desc">Your second draft</p>
+                    <div class="card-details">
+                        <h4>Purpose</h4>
+                        <ul>
+                            <li>Make it dependable</li>
+                            <li>Catch edge cases</li>
+                        </ul>
+                        <h4 style="margin-top: 15px;">Standards</h4>
+                        <ul>
+                            <li>Error handling & edge cases</li>
+                            <li>Input validation</li>
+                            <li>Light refactor</li>
+                            <li>Comprehensive tests</li>
+                        </ul>
+                    </div>
+                    <span class="badge">Features live here</span>
+                </div>
+
+                <div class="arrow" style="opacity: 0.3;">→</div>
+
+                <div class="mode-card production grayed-out">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title production">Production Mode</h3>
+                    <p class="card-desc">Not available in Internal Projects</p>
+                    <div class="card-details">
+                        <h4>Why Grayed Out?</h4>
+                        <ul>
+                            <li>Requires External Project</li>
+                            <li>Need infrastructure features first</li>
+                            <li>For customer-facing only</li>
+                        </ul>
+                    </div>
+                    <span class="badge">Not available yet</span>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="connector-line"></div>
+
+        <!-- Phase 2: External Project -->
+        <div class="phase">
+            <div class="phase-header">
+                <h2 class="phase-title">Get Ready For Real Users</h2>
+                <p class="phase-desc">
+                    Your project becomes <span class="phase-badge external">External</span>. You make sure your project infrastructure is secure, compliant and scalable.
+                </p>
+            </div>
+
+            <div class="connector-line"></div>
+
+            <div class="modes-box">
+                <h3 class="modes-box-header">Make Each Feature Production-Ready</h3>
+                <p class="modes-box-subheader">Features get one final upgrade so they are ready for the real world.</p>
+                <div class="modes-container">
+                    <div class="mode-card speed grayed-out">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title speed">Speed Mode</h3>
+                    <p class="card-desc">Already completed in Internal</p>
+                    <div class="card-details">
+                        <h4>What Happened</h4>
+                        <ul>
+                            <li>Proved the approach works</li>
+                            <li>Validated happy path</li>
+                            <li>Moved to Stable</li>
+                        </ul>
+                    </div>
+                    <span class="badge">Completed</span>
+                </div>
+
+                <div class="arrow" style="opacity: 0.3;">→</div>
+
+                <div class="mode-card stable grayed-out">
+                    <div class="card-icon">✓</div>
+                    <h3 class="card-title stable">Stable Mode</h3>
+                    <p class="card-desc">Already completed in Internal</p>
+                    <div class="card-details">
+                        <h4>What Happened</h4>
+                        <ul>
+                            <li>Added error handling</li>
+                            <li>Covered edge cases</li>
+                            <li>Ready for next step</li>
+                        </ul>
+                        <h4 style="margin-top: 15px;">Internal Tools</h4>
+                        <ul>
+                            <li>Admin dashboards stay here</li>
+                        </ul>
+                    </div>
+                    <span class="badge">Completed (or stay here for internal tools)</span>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="mode-card production">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title production">Production Mode</h3>
+                    <p class="card-desc">Safe, compliant, scalable for customers</p>
+                    <div class="card-details">
+                        <h4>The Three Pillars</h4>
+                        <ul>
+                            <li><strong>Security:</strong> Full hardening, attack protection</li>
+                            <li><strong>Scale:</strong> 100+ users, &lt;200ms response</li>
+                            <li><strong>Compliance:</strong> GDPR/HIPAA/SOC2</li>
+                        </ul>
+                        <h4 style="margin-top: 15px;">Required For</h4>
+                        <ul>
+                            <li>Customer-facing features only</li>
+                            <li>Public APIs</li>
+                            <li>Revenue-critical features</li>
+                        </ul>
+                    </div>
+                    <span class="badge">Customer-facing features end here</span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
