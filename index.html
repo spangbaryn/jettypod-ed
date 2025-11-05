@@ -33,7 +33,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 0;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .logo-link {
@@ -67,21 +67,21 @@
 
         .hero {
             text-align: center;
-            padding: 40px 0 80px;
+            padding: 20px 0 80px;
         }
 
         h1 {
             font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .subtitle {
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: #7A9E9F;
             line-height: 1.6;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -267,27 +267,27 @@
             position: relative;
             width: 100%;
             max-width: 500px;
-            height: 180px;
-            margin: 0 auto 40px;
+            height: 140px;
+            margin: 0 auto 20px;
         }
 
         .fishing-rod {
             position: absolute;
-            top: 0;
+            top: -20px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-160px);
             width: 140px;
             height: auto;
-            z-index: 2;
+            z-index: 1;
         }
 
         .caught-button {
             position: absolute;
-            top: 100px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
             animation: float 3s ease-in-out infinite;
-            z-index: 1;
+            z-index: 2;
         }
 
         @keyframes float {
@@ -427,16 +427,17 @@
 
             .fishing-scene {
                 max-width: 320px;
-                height: 140px;
-                margin: 0 auto 30px;
+                height: 120px;
+                margin: 0 auto 15px;
             }
 
             .fishing-rod {
                 width: 100px;
+                transform: translateX(-100px);
             }
 
             .caught-button {
-                top: 80px;
+                top: 65px;
                 font-size: 0.85rem;
                 padding: 10px 18px;
             }
