@@ -400,23 +400,37 @@
             }
 
             .os-selector {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .os-selector::before {
                 display: none;
             }
 
-            .os-btn {
-                padding: 12px;
-                background: transparent;
-                border: 2px solid transparent;
+            .install-header::after {
+                content: '';
+                display: block;
+                width: 100%;
+                margin-top: 15px;
             }
 
-            .os-btn.active {
-                background: #7A9E9F;
-                border-color: #7A9E9F;
+            .os-dropdown {
+                display: block;
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 1rem;
+                font-family: inherit;
+                background: #E8EBED;
+                color: #0B2532;
+                border: 2px solid #7A9E9F;
+                border-radius: 8px;
+                cursor: pointer;
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237A9E9F' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 12px center;
+                padding-right: 40px;
+            }
+
+            .os-dropdown:focus {
+                outline: none;
+                border-color: #0B2532;
             }
 
             .install-command {
@@ -512,6 +526,10 @@
                         <button class="os-btn active" data-os="mac" onclick="selectOS('mac')">macOS / Linux</button>
                         <button class="os-btn" data-os="windows" onclick="selectOS('windows')">Windows</button>
                     </div>
+                    <select class="os-dropdown" onchange="selectOS(this.value)" style="display: none;">
+                        <option value="mac">macOS / Linux</option>
+                        <option value="windows">Windows</option>
+                    </select>
                 </div>
                 <div class="command-box" onclick="copyToClipboard()">
                     <div class="install-command" id="install-command">curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.sh | bash</div>
@@ -703,19 +721,26 @@
                 btn.classList.remove('active');
             });
             const activeBtn = document.querySelector(`[data-os="${os}"]`);
-            activeBtn.classList.add('active');
+            if (activeBtn) {
+                activeBtn.classList.add('active');
 
-            // Update selector background position and width
-            const selector = document.querySelector('.os-selector');
-            const pill = selector.querySelector('::before') || selector;
-            const btnRect = activeBtn.getBoundingClientRect();
-            const selectorRect = selector.getBoundingClientRect();
+                // Update selector background position and width
+                const selector = document.querySelector('.os-selector');
+                const btnRect = activeBtn.getBoundingClientRect();
+                const selectorRect = selector.getBoundingClientRect();
 
-            const width = btnRect.width;
-            const left = btnRect.left - selectorRect.left;
+                const width = btnRect.width;
+                const left = btnRect.left - selectorRect.left;
 
-            selector.style.setProperty('--pill-width', `${width}px`);
-            selector.style.setProperty('--pill-left', `${left}px`);
+                selector.style.setProperty('--pill-width', `${width}px`);
+                selector.style.setProperty('--pill-left', `${left}px`);
+            }
+
+            // Update dropdown
+            const dropdown = document.querySelector('.os-dropdown');
+            if (dropdown) {
+                dropdown.value = os;
+            }
 
             // Update command
             const commandEl = document.getElementById('install-command');
