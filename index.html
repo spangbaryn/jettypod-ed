@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod - Build Real Businesses with Claude Code</title>
+    <link rel="icon" type="image/png" href="jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .github-header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0 80px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: #7A9E9F;
+            line-height: 1.6;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .install-box {
+            background: #fff;
+            border: 2px solid #7A9E9F;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .install-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .install-label {
+            font-weight: 600;
+            color: #7A9E9F;
+        }
+
+        .os-selector {
+            display: flex;
+            gap: 4px;
+            background: #E8EBED;
+            padding: 4px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(11, 37, 50, 0.1);
+            --pill-width: 0px;
+            --pill-left: 4px;
+        }
+
+        .os-selector::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: var(--pill-left);
+            width: var(--pill-width);
+            height: calc(100% - 8px);
+            background: #7A9E9F;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 12px rgba(122, 158, 159, 0.3);
+            z-index: 1;
+        }
+
+        .os-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #7A9E9F;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .os-btn:hover {
+            color: #0B2532;
+            transform: scale(1.05);
+        }
+
+        .os-btn.active {
+            color: #E8EBED;
+            font-weight: 600;
+        }
+
+        .command-box {
+            background: #0B2532;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .command-box:hover {
+            background: #0d2e3d;
+        }
+
+        .install-command {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            color: #7A9E9F;
+            user-select: all;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .copy-hint {
+            font-size: 0.9rem;
+            color: #7A9E9F;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .copied {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #7A9E9F;
+            color: #E8EBED;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .copied.show {
+            opacity: 1;
+        }
+
+        .floater {
+            position: absolute;
+            top: -25px;
+            right: 20px;
+            background: #F2D6A2;
+            color: #0B2532;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-style: italic;
+            box-shadow: 0 4px 15px rgba(242, 214, 162, 0.4);
+            pointer-events: none;
+            border: 2px solid #D6C6A8;
+        }
+
+        .floater::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 30px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #F2D6A2;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #0B2532;
+            color: #E8EBED;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid #7A9E9F;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            border-color: #F2D6A2;
+            background: #0d2e3d;
+            transform: translateY(-2px);
+        }
+
+        .github-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .see-demo {
+            font-size: 1.5rem;
+            color: #7A9E9F;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .demo-link {
+            display: inline-block;
+            color: #0B2532;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        .demo-link:hover {
+            border-color: #7A9E9F;
+        }
+
+        .comparison-section {
+            margin-bottom: 100px;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .comparison-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .comparison-header p {
+            font-size: 1.1rem;
+            color: #7A9E9F;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .terminal {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+            border: 2px solid #D6C6A8;
+        }
+
+        .terminal-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #D6C6A8;
+            text-align: center;
+        }
+
+        .without-title { color: #D6C6A8; }
+        .with-title { color: #7A9E9F; }
+
+        .terminal-line {
+            margin-bottom: 6px;
+            color: #0B2532;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #D6C6A8;
+        }
+
+        footer a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #0B2532;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="JettyPod Logo" class="logo">
+                <span class="logo-text">JettyPod</span>
+            </a>
+            <a href="https://github.com/spangbaryn/jettypod-dist" target="_blank" rel="noopener noreferrer" class="github-link">
+                <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                View on GitHub
+            </a>
+        </header>
+
+        <div class="hero">
+            <h1>Build Real Businesses<br>with Claude Code</h1>
+            <p class="subtitle">A powerful CLI tool that puts Claude Code on rails for tomorrow's solo founders.<br>Structured workflows, efficient development, production-ready features.</p>
+
+            <div class="install-box">
+                <div class="floater">Uh what's this?</div>
+                <div class="install-header">
+                    <span class="install-label">Install JettyPod</span>
+                    <div class="os-selector">
+                        <button class="os-btn active" data-os="mac" onclick="selectOS('mac')">macOS / Linux</button>
+                        <button class="os-btn" data-os="windows" onclick="selectOS('windows')">Windows</button>
+                    </div>
+                </div>
+                <div class="command-box" onclick="copyToClipboard()">
+                    <div class="install-command" id="install-command">curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.sh | bash</div>
+                </div>
+                <div class="copy-hint">Click to copy</div>
+                <div class="copied" id="copied">Copied!</div>
+            </div>
+
+            <div class="see-demo">See it in action ↓</div>
+        </div>
+
+        <!-- Starting a New Project -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>Starting a New Project</h2>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT JETTYPOD</div>
+                    <div style="color: #0B2532; font-size: 0.95rem; padding: 5px 20px 15px; line-height: 1.5; border-bottom: 2px solid #D6C6A8; text-align: center;">You jump into tech choices before the user experience</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"I want to build a marketplace for boat parts"</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line">"Hi! I'd love to help you build a boat parts marketplace.</div>
+                    <div class="terminal-line">Let me first check what's currently in your project directory,</div>
+                    <div class="terminal-line">then we can discuss the details."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F; font-style: italic;">[Runs ls -la, sees empty directory]</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line">"The directory is empty, so we're starting from scratch!</div>
+                    <div class="terminal-line">To help you build the right marketplace, I have a few questions:</div>
+                    <div class="terminal-line">1. Should sellers list parts or manage inventory?</div>
+                    <div class="terminal-line">2. What platform? Web, mobile, desktop?</div>
+                    <div class="terminal-line">3. Preferred tech stack?"</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">// Jumping straight to implementation details</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH JETTYPOD</div>
+                    <div style="color: #0B2532; font-size: 0.95rem; padding: 5px 20px 15px; line-height: 1.5; border-bottom: 2px solid #D6C6A8; text-align: center;">You explore the user journey and pick tech that fits</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"I want to build a marketplace for boat parts"</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Claude:</div>
+                    <div class="terminal-line">"👋 Hey there. It looks like you're kicking off a new project.</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line">Let's:</div>
+                    <div class="terminal-line">1. Define what users actually DO in your product</div>
+                    <div class="terminal-line">2. Explore 3 experience approaches and pick the winner</div>
+                    <div class="terminal-line">3. Choose the tech stack that fits (tech follows experience)</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Ready? What do users DO in this product?"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Building New Features -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>Building New Features</h2>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT JETTYPOD</div>
+                    <div style="color: #0B2532; font-size: 0.95rem; padding: 5px 20px 15px; line-height: 1.5; border-bottom: 2px solid #D6C6A8; text-align: center;">You overengineer</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"Let's build user authentication"</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line">"Great! I'll set up JWT tokens, bcrypt password hashing,</div>
+                    <div class="terminal-line">OAuth2 with Google and GitHub, email verification, password</div>
+                    <div class="terminal-line">reset flows, 2FA, rate limiting, and session management."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F; font-style: italic;">[Writes 600 lines of code]</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"Wait, I just need email/password login for now. This is</div>
+                    <div class="terminal-line">an internal tool for 10 people."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line">"Oh, let me simplify that..."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">// Built enterprise features for a startup MVP</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH JETTYPOD</div>
+                    <div style="color: #0B2532; font-size: 0.95rem; padding: 5px 20px 15px; line-height: 1.5; border-bottom: 2px solid #D6C6A8; text-align: center;">You build the right thing at the right time</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"Let's build user authentication"</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Claude:</div>
+                    <div class="terminal-line">"Let's do it! Every feature has two phases:</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line">1️⃣ <span style="color: #0B2532; font-weight: bold;">Discovery</span> - Figure out what to build</div>
+                    <div class="terminal-line">  • Explore 2-3 approaches</div>
+                    <div class="terminal-line">  • You pick the winner</div>
+                    <div class="terminal-line">  • We define test scenarios</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line">2️⃣ <span style="color: #0B2532; font-weight: bold;">Implementation</span> - Build it in stages</div>
+                    <div class="terminal-line" style="color: #D6C6A8; font-weight: 600;">  • Speed: Prove it works</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">  • Stable: Handle errors & edge cases</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">  • Production: Security & scale</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Want to explore authentication approaches first?</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Going to Market -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>Going to Market</h2>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT JETTYPOD</div>
+                    <div style="color: #0B2532; font-size: 0.95rem; padding: 5px 20px 15px; line-height: 1.5; border-bottom: 2px solid #D6C6A8; text-align: center;">You don't know if you're production-ready</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"We need to launch this to customers next week."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line">"Great! Let me deploy it to production."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"Wait, is it secure? Do we have rate limiting? What about</div>
+                    <div class="terminal-line">input validation? SQL injection protection?"</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532;">Claude:</div>
+                    <div class="terminal-line">"Um... let me check the code..."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F; font-style: italic;">[Discovers security gaps days before launch]</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">// No systematic approach to production readiness</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH JETTYPOD</div>
+                    <div style="color: #0B2532; font-size: 0.95rem; padding: 5px 20px 15px; line-height: 1.5; border-bottom: 2px solid #D6C6A8; text-align: center;">You're guided through defined production hardening</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #7A9E9F;">You:</div>
+                    <div class="terminal-line">"We need to launch this to customers next week."</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Claude:</div>
+                    <div class="terminal-line">"Let me check your project state... You're marked as 'internal'.</div>
+                    <div class="terminal-line">To go 'external', we need to:</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line">1️⃣ Infrastructure upgrades:</div>
+                    <div class="terminal-line">  • SSL/TLS certificates</div>
+                    <div class="terminal-line">  • Rate limiting & DDoS protection</div>
+                    <div class="terminal-line">  • Production logging & monitoring</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line">2️⃣ Feature hardening chores:</div>
+                    <div class="terminal-line">  • Authentication: Add session security & CSRF protection</div>
+                    <div class="terminal-line">  • User input: Add validation & sanitization</div>
+                    <div class="terminal-line">  • Database: Parameterized queries for SQL injection</div>
+                    <div class="terminal-line">&nbsp;</div>
+                    <div class="terminal-line" style="color: #0B2532; font-weight: 600;">Ready to upgrade to external?"</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <a href="methodology.html" class="demo-link">Read the full methodology →</a>
+        </footer>
+    </div>
+
+    <script>
+        const commands = {
+            mac: 'curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod/main/install.sh | bash',
+            windows: 'iwr -useb https://raw.githubusercontent.com/spangbaryn/jettypod/main/install.ps1 | iex'
+        };
+
+        let currentOS = 'mac';
+
+        function selectOS(os) {
+            currentOS = os;
+
+            // Update active button
+            document.querySelectorAll('.os-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-os="${os}"]`);
+            activeBtn.classList.add('active');
+
+            // Update selector background position and width
+            const selector = document.querySelector('.os-selector');
+            const pill = selector.querySelector('::before') || selector;
+            const btnRect = activeBtn.getBoundingClientRect();
+            const selectorRect = selector.getBoundingClientRect();
+
+            const width = btnRect.width;
+            const left = btnRect.left - selectorRect.left;
+
+            selector.style.setProperty('--pill-width', `${width}px`);
+            selector.style.setProperty('--pill-left', `${left}px`);
+
+            // Update command
+            const commandEl = document.getElementById('install-command');
+            commandEl.textContent = commands[os];
+        }
+
+        function copyToClipboard() {
+            const command = commands[currentOS];
+            navigator.clipboard.writeText(command).then(() => {
+                const copiedEl = document.getElementById('copied');
+                copiedEl.classList.add('show');
+                setTimeout(() => {
+                    copiedEl.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Auto-detect OS and set default
+        window.addEventListener('DOMContentLoaded', () => {
+            const platform = navigator.platform.toLowerCase();
+            if (platform.includes('win')) {
+                selectOS('windows');
+            } else {
+                selectOS('mac'); // Initialize pill position
+            }
+        });
+    </script>
+</body>
+</html>
