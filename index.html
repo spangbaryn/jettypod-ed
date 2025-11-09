@@ -291,6 +291,12 @@
             padding: 40px;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .fullscreen-section.visible {
+            opacity: 1;
         }
 
         .section-text {
@@ -920,6 +926,25 @@
                     starfieldContainer.appendChild(star);
                 }
             }
+
+            // Fade in fullscreen sections on scroll
+            const sections = document.querySelectorAll('.fullscreen-section');
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
         });
     </script>
 </body>
