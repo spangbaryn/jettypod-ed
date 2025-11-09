@@ -283,18 +283,8 @@
         }
 
         .see-demo {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
             margin-bottom: 80px;
-            align-items: center;
-        }
-
-        .see-demo-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            text-align: center;
         }
 
         .see-demo-text {
@@ -303,18 +293,14 @@
             font-weight: 700;
             line-height: 1.3;
             text-align: center;
+            margin-bottom: 30px;
         }
 
         .see-demo-icon {
-            width: 80px;
-            height: 80px;
-        }
-
-        @media (max-width: 768px) {
-            .see-demo {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 60px;
+            display: block;
         }
 
         .demo-link {
@@ -613,23 +599,20 @@
             </div>
 
             <div class="see-demo">
-                <div class="see-demo-column">
-                    <div class="see-demo-text">Claude Code is powerful.</div>
-                    <svg class="see-demo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="45" fill="#7A9E9F" opacity="0.2"/>
-                        <circle cx="50" cy="50" r="30" fill="#7A9E9F"/>
-                    </svg>
-                </div>
-                <div class="see-demo-column">
-                    <div class="see-demo-text">But power without direction = chaos.</div>
-                    <svg class="see-demo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10,50 L30,20 L50,60 L70,30 L90,50" stroke="#D6C6A8" stroke-width="3" fill="none"/>
-                        <path d="M20,70 L40,40 L60,80 L80,60" stroke="#D6C6A8" stroke-width="3" fill="none"/>
-                        <circle cx="25" cy="25" r="5" fill="#F2D6A2"/>
-                        <circle cx="75" cy="75" r="5" fill="#F2D6A2"/>
-                        <circle cx="50" cy="50" r="5" fill="#F2D6A2"/>
-                    </svg>
-                </div>
+                <div class="see-demo-text">Claude Code can build almost anything.</div>
+                <svg class="see-demo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#7A9E9F" opacity="0.2"/>
+                    <circle cx="50" cy="50" r="30" fill="#7A9E9F"/>
+                </svg>
+
+                <div class="see-demo-text">But power without direction = chaos.</div>
+                <svg class="see-demo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,50 L30,20 L50,60 L70,30 L90,50" stroke="#D6C6A8" stroke-width="3" fill="none"/>
+                    <path d="M20,70 L40,40 L60,80 L80,60" stroke="#D6C6A8" stroke-width="3" fill="none"/>
+                    <circle cx="25" cy="25" r="5" fill="#F2D6A2"/>
+                    <circle cx="75" cy="75" r="5" fill="#F2D6A2"/>
+                    <circle cx="50" cy="50" r="5" fill="#F2D6A2"/>
+                </svg>
             </div>
         </div>
 
