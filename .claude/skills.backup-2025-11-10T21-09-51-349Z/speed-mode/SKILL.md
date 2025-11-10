@@ -50,7 +50,7 @@ const path = require('path');
 
 const currentWork = getCurrentWork();
 
-// Check if description has breadcrumbs from feature-planning
+// Check if description has breadcrumbs from feature-discover
 const hasBreadcrumbs = currentWork.description &&
   currentWork.description.includes('Scenario steps addressed:') &&
   currentWork.description.includes('Implementation guidance:') &&
@@ -141,7 +141,7 @@ db.get('SELECT epic_id FROM work_items WHERE id = ?', [currentWork.parent_id], a
 });
 ```
 
-**If breadcrumbs exist (from feature-planning):**
+**If breadcrumbs exist (from feature-discover):**
 - Parse "Files to create/modify" section - these are your target files
 - Parse "Patterns to follow" section - read these reference files first
 - Parse "Key functions/components needed" - these guide your implementation
@@ -376,91 +376,20 @@ Chores created:
 • #[ID]: [Title]
 • #[ID]: [Title]
 • #[ID]: [Title]
-```
 
-#### Phase 4: Auto-Elevate to Stable Mode (If All Speed Chores Done)
-
-**CRITICAL: Check if ALL speed mode chores are complete. If yes, auto-elevate to stable mode.**
-
-```javascript
-// Check if all speed chores for this feature are done
-const { getDb } = require('../../lib/database');
-const { getCurrentWork } = require('../../lib/current-work');
-
-const currentWork = getCurrentWork();
-const featureId = currentWork.parent_id;
-
-const db = getDb();
-db.get(`
-  SELECT COUNT(*) as incomplete_count
-  FROM work_items
-  WHERE parent_id = ?
-    AND type = 'chore'
-    AND mode = 'speed'
-    AND status != 'done'
-`, [featureId], async (err, result) => {
-  if (err) {
-    console.error('Error checking speed chores:', err.message);
-    db.close();
-    return;
-  }
-
-  if (result.incomplete_count === 0) {
-    // All speed chores done - auto-elevate to stable
-    console.log('\n✅ All speed mode chores complete!');
-    console.log('Auto-elevating feature to stable mode...\n');
-
-    // Use Bash tool to execute elevation
-    // DO NOT display as text - EXECUTE IT
-  } else {
-    console.log(`\n📋 ${result.incomplete_count} speed mode chores remaining`);
-  }
-
-  db.close();
-});
-```
-
-**If all speed chores are done, use Bash tool to EXECUTE elevation:**
-
-```javascript
-// Use Bash tool to execute:
-node jettypod.js work elevate [feature-id] stable
-```
-
-**DO NOT display this as example text. EXECUTE IT using the Bash tool.**
-
-After execution, display:
-
-```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 Speed Mode Complete! Feature Elevated to Stable Mode
+🎯 Speed Mode Complete!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 What we accomplished:
 ✅ Happy path scenario passes
-✅ All speed mode chores complete
-✅ Feature elevated to stable mode
-✅ Stable mode chores created and ready
+✅ Stable mode chores ready
 
-**Next step:** Start the first stable mode chore
-  jettypod work start [first-stable-chore-id]
-```
+Next step: Elevate to stable mode
+  jettypod work elevate [feature-id] stable
 
-**If speed chores remain, display:**
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 Speed Mode Chore Complete!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-What we accomplished:
-✅ Happy path scenario passes for this chore
-✅ Stable mode chores created
-
-Remaining speed mode chores: [count]
-
-**Next step:** Continue with next speed mode chore
-  jettypod work start [next-speed-chore-id]
+Then start the first stable mode chore:
+  jettypod work start [chore-id]
 ```
 
 **Mark current chore as done and end skill.**

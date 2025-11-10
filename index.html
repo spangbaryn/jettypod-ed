@@ -456,7 +456,7 @@
 
         .rotating-text {
             transition: opacity 0.3s ease-in-out;
-            color: #F2D6A2;
+            color: #7A9E9F;
         }
 
         .demo-link {
@@ -982,8 +982,18 @@
             padding-left: 40px;
         }
 
+        /* Hide comparison sections */
+        .comparison-section {
+            display: none;
+        }
+
         /* Mobile responsive styles */
         @media (max-width: 768px) {
+            .rotating-text-container {
+                width: 180px;
+                font-size: 0.9em;
+            }
+
             .jetty-way-card,
             .backlog-card {
                 padding: 40px 20px;
@@ -1057,7 +1067,6 @@
                 <img src="logo.png" alt="JettyPod Logo" class="logo">
                 <span class="logo-text">JettyPod</span>
             </a>
-            <a href="methodology.html" class="nav-link">Workflow</a>
         </header>
 
         <div class="hero">
@@ -1351,7 +1360,6 @@
         </div>
 
         <footer style="text-align: center; margin-top: 80px; padding-bottom: 40px;">
-            <a href="methodology.html" class="demo-link">Check out the basic workflow →</a>
         </footer>
     </div>
 

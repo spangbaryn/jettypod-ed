@@ -578,94 +578,12 @@ Implementation complete:
 • Error handling: ✅ Comprehensive
 • Validation: ✅ Complete
 • All scenarios: ✅ Passing
-```
 
-### Step 4: Check for Stable Mode Completion and Auto-Elevate
-
-**CRITICAL: After completing a stable mode chore, check if ALL stable chores are done. If yes, trigger production chore generation or elevate to production mode.**
-
-```javascript
-// Check if all stable chores for this feature are done
-const { getDb } = require('../../lib/database');
-const { getCurrentWork } = require('../../lib/current-work');
-
-const currentWork = getCurrentWork();
-const featureId = currentWork.parent_id;
-
-const db = getDb();
-db.get(`
-  SELECT COUNT(*) as incomplete_count
-  FROM work_items
-  WHERE parent_id = ?
-    AND type = 'chore'
-    AND mode = 'stable'
-    AND status != 'done'
-`, [featureId], async (err, result) => {
-  if (err) {
-    console.error('Error checking stable chores:', err.message);
-    db.close();
-    return;
-  }
-
-  if (result.incomplete_count === 0) {
-    // All stable chores done!
-    console.log('\n✅ ALL STABLE MODE CHORES COMPLETE!');
-    console.log('Checking project state for production chore generation...\n');
-
-    // NOTE: The production chore generation logic is now handled by
-    // features/work-commands/index.js in the stopWork() function
-    // when a stable mode chore is marked as done.
-    //
-    // This will trigger automatically - no action needed here.
-    // The system will:
-    // 1. Analyze implementation files
-    // 2. Propose production chores
-    // 3. Ask for confirmation
-    // 4. Create production chores
-    // 5. Elevate feature to production mode
-  } else {
-    console.log(`\n📋 ${result.incomplete_count} stable mode chores remaining`);
-  }
-
-  db.close();
-});
-```
-
-**Display based on completion status:**
-
-**If all stable chores done:**
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 Stable Mode Complete!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-What we accomplished:
-✅ All BDD scenarios passing (happy path + error handling + edge cases)
-✅ Comprehensive error handling
-✅ Input validation
-✅ All stable mode chores complete
-
-The system will now analyze the implementation and propose production chores.
-This happens automatically via the work tracking system.
-```
-
-**If stable chores remain:**
-
-```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 Stable Mode Chore Complete!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-What we accomplished:
-✅ Scenario passes with proper error handling
-✅ Input validation added
-✅ Edge cases handled
-
-Remaining stable mode chores: [count]
-
-**Next step:** Continue with next stable mode chore
-  jettypod work start [next-stable-chore-id]
+This chore is done. Continue with remaining stable mode chores or elevate to production mode when all are complete.
 ```
 
 **Mark current chore as done and end skill.**

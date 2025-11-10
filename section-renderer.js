@@ -317,33 +317,42 @@ const customRenderers = {
         checklistContainer.dataset.section = container.dataset.sectionId;
         checklistContainer.style.cssText = `
             position: fixed;
-            top: 50%;
+            top: 48%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            margin-top: 400px;
+            transform: translateX(-50%);
             z-index: ${z};
             opacity: 0;
             transition: opacity 0.3s ease-out;
             text-align: center;
             width: 100%;
+            max-width: 90%;
+        `;
+
+        const card = document.createElement('div');
+        card.style.cssText = `
+            background: white;
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: inline-block;
+            max-width: 600px;
         `;
 
         const list = document.createElement('ul');
         list.style.cssText = `
             list-style: none;
             padding: 0;
-            margin: 0 auto;
-            display: inline-block;
+            margin: 0;
             text-align: left;
         `;
 
         (config.items || []).forEach(item => {
             const li = document.createElement('li');
             li.style.cssText = `
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 font-weight: 600;
-                color: white;
-                margin: 20px 0;
+                color: #0B2532;
+                margin: 15px 0;
                 display: flex;
                 align-items: center;
                 gap: 15px;
@@ -353,8 +362,8 @@ const customRenderers = {
             const checkmark = document.createElement('span');
             checkmark.textContent = '✓';
             checkmark.style.cssText = `
-                color: #F2D6A2;
-                font-size: 2rem;
+                color: #7A9E9F;
+                font-size: 1.8rem;
                 font-weight: 700;
                 flex-shrink: 0;
             `;
@@ -367,7 +376,8 @@ const customRenderers = {
             list.appendChild(li);
         });
 
-        checklistContainer.appendChild(list);
+        card.appendChild(list);
+        checklistContainer.appendChild(card);
         return checklistContainer;
     },
 
@@ -384,7 +394,7 @@ const customRenderers = {
         titleContainer.dataset.section = container.dataset.sectionId;
         titleContainer.style.cssText = `
             position: fixed;
-            top: 8%;
+            top: 10%;
             left: 50%;
             transform: translateX(-50%);
             z-index: ${z};
