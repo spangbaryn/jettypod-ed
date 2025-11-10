@@ -317,9 +317,10 @@ const customRenderers = {
         checklistContainer.dataset.section = container.dataset.sectionId;
         checklistContainer.style.cssText = `
             position: fixed;
-            top: 48%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
+            margin-top: 140px;
             z-index: ${z};
             opacity: 0;
             transition: opacity 0.3s ease-out;
@@ -332,10 +333,11 @@ const customRenderers = {
         card.style.cssText = `
             background: white;
             border-radius: 12px;
-            padding: 30px 40px;
+            padding: clamp(20px, 4vw, 30px) clamp(25px, 5vw, 40px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             display: inline-block;
             max-width: 600px;
+            width: 90%;
         `;
 
         const list = document.createElement('ul');
@@ -349,13 +351,13 @@ const customRenderers = {
         (config.items || []).forEach(item => {
             const li = document.createElement('li');
             li.style.cssText = `
-                font-size: 1.3rem;
+                font-size: clamp(1rem, 3vw, 1.3rem);
                 font-weight: 600;
                 color: #0B2532;
-                margin: 15px 0;
+                margin: clamp(10px, 2vh, 15px) 0;
                 display: flex;
                 align-items: center;
-                gap: 15px;
+                gap: clamp(10px, 2vw, 15px);
                 justify-content: flex-start;
             `;
 
@@ -363,7 +365,7 @@ const customRenderers = {
             checkmark.textContent = '✓';
             checkmark.style.cssText = `
                 color: #7A9E9F;
-                font-size: 1.8rem;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
                 font-weight: 700;
                 flex-shrink: 0;
             `;
@@ -394,9 +396,10 @@ const customRenderers = {
         titleContainer.dataset.section = container.dataset.sectionId;
         titleContainer.style.cssText = `
             position: fixed;
-            top: 10%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
+            margin-top: -220px;
             z-index: ${z};
             opacity: 0;
             transition: opacity 0.3s ease-out;
@@ -409,7 +412,7 @@ const customRenderers = {
         title.style.cssText = `
             font-family: 'Caveat', cursive;
             color: white;
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 3rem);
             font-weight: 700;
             margin: 0;
         `;
