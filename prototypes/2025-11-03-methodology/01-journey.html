@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod Methodology - Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #888;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .journey {
+            position: relative;
+            padding: 60px 0;
+        }
+
+        .timeline {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #f59e0b, #27c93f, #61dafb);
+        }
+
+        .phase {
+            position: relative;
+            margin-bottom: 100px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .phase:nth-child(1) { animation-delay: 0.2s; }
+        .phase:nth-child(2) { animation-delay: 0.4s; }
+        .phase:nth-child(3) { animation-delay: 0.6s; }
+        .phase:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .phase-marker {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .phase-marker.speed { background: #f59e0b; }
+        .phase-marker.stable { background: #27c93f; }
+        .phase-marker.production { background: #61dafb; color: #0a0a0a; }
+        .phase-marker.transition { background: #a855f7; }
+
+        .phase-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .phase-card {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #333;
+        }
+
+        .phase-card.left {
+            text-align: right;
+        }
+
+        .phase-card.right {
+            text-align: left;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .phase-title.speed { color: #f59e0b; }
+        .phase-title.stable { color: #27c93f; }
+        .phase-title.production { color: #61dafb; }
+        .phase-title.transition { color: #a855f7; }
+
+        .phase-desc {
+            color: #aaa;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .phase-details {
+            margin-top: 20px;
+        }
+
+        .phase-details li {
+            margin-bottom: 10px;
+            color: #ccc;
+            list-style-position: inside;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #2d2d2d;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            border: 1px solid #444;
+        }
+
+        .project-badge.internal { border-color: #f59e0b; color: #f59e0b; }
+        .project-badge.external { border-color: #61dafb; color: #61dafb; }
+
+        @media (max-width: 900px) {
+            .phase-content {
+                grid-template-columns: 1fr;
+            }
+
+            .phase-card.left {
+                text-align: left;
+            }
+
+            .timeline {
+                left: 20px;
+            }
+
+            .phase-marker {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The JettyPod Journey</h1>
+        <p class="subtitle">From idea to production-ready</p>
+
+        <div class="journey">
+            <div class="timeline"></div>
+
+            <!-- Phase 1: Speed -->
+            <div class="phase">
+                <div class="phase-marker speed">⚡</div>
+                <div class="phase-content">
+                    <div class="phase-card left">
+                        <h2 class="phase-title speed">Speed Mode</h2>
+                        <p class="phase-desc">Prove your approach works</p>
+                        <ul class="phase-details">
+                            <li>Happy path only</li>
+                            <li>Single file, localStorage</li>
+                            <li>Pass through quickly</li>
+                            <li>Verify it works</li>
+                        </ul>
+                        <span class="project-badge internal">Internal Project</span>
+                    </div>
+                    <div class="phase-card right" style="opacity: 0.3;">
+                        <!-- Empty for layout -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Stable -->
+            <div class="phase">
+                <div class="phase-marker stable">✓</div>
+                <div class="phase-content">
+                    <div class="phase-card left" style="opacity: 0.3;">
+                        <!-- Empty for layout -->
+                    </div>
+                    <div class="phase-card right">
+                        <h2 class="phase-title stable">Stable Mode</h2>
+                        <p class="phase-desc">Make it dependable for your team</p>
+                        <ul class="phase-details">
+                            <li>Error handling & edge cases</li>
+                            <li>Input validation</li>
+                            <li>Graceful degradation</li>
+                            <li>Light refactor</li>
+                            <li>Features live here for internal use</li>
+                        </ul>
+                        <span class="project-badge internal">Internal Project</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Transition to External -->
+            <div class="phase">
+                <div class="phase-marker transition">🚀</div>
+                <div class="phase-content">
+                    <div class="phase-card left">
+                        <h2 class="phase-title transition">Go External</h2>
+                        <p class="phase-desc">Infrastructure upgrades</p>
+                        <ul class="phase-details">
+                            <li>Security hardening</li>
+                            <li>SSL/TLS certificates</li>
+                            <li>Rate limiting & DDoS protection</li>
+                            <li>Production monitoring</li>
+                            <li>Compliance setup (GDPR, etc)</li>
+                        </ul>
+                        <span class="project-badge external">Transition → External</span>
+                    </div>
+                    <div class="phase-card right" style="opacity: 0.3;">
+                        <!-- Empty for layout -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Production -->
+            <div class="phase">
+                <div class="phase-marker production">🔒</div>
+                <div class="phase-content">
+                    <div class="phase-card left" style="opacity: 0.3;">
+                        <!-- Empty for layout -->
+                    </div>
+                    <div class="phase-card right">
+                        <h2 class="phase-title production">Production Mode</h2>
+                        <p class="phase-desc">Safe, compliant, scalable for customers</p>
+                        <ul class="phase-details">
+                            <li><strong>Security:</strong> Full hardening, attack protection</li>
+                            <li><strong>Scale:</strong> 100+ concurrent users, &lt;200ms response</li>
+                            <li><strong>Compliance:</strong> GDPR/HIPAA/SOC2 ready</li>
+                            <li>Only for customer-facing features</li>
+                            <li>Internal tools stay in Stable</li>
+                        </ul>
+                        <span class="project-badge external">External Project</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

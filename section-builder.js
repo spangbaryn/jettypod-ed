@@ -130,12 +130,14 @@ function setupScrollBehavior(fadeZone = 0.7) {
             const sectionBg = backgrounds[index];
             const sectionContent = contents[index];
             const sectionImages = document.querySelectorAll(`img[data-section="${sectionId}"]`);
+            const sectionVisuals = document.querySelectorAll(`.visual-container[data-section="${sectionId}"]`);
 
             // Hide completely when out of view
             if (rect.bottom < 0 || rect.top > windowHeight) {
                 if (sectionBg) sectionBg.style.display = 'none';
                 if (sectionContent) sectionContent.style.display = 'none';
                 sectionImages.forEach(img => img.style.display = 'none');
+                sectionVisuals.forEach(vis => vis.style.display = 'none');
                 return;
             }
 
@@ -143,6 +145,7 @@ function setupScrollBehavior(fadeZone = 0.7) {
             if (sectionBg) sectionBg.style.display = 'block';
             if (sectionContent) sectionContent.style.display = 'block';
             sectionImages.forEach(img => img.style.display = 'block');
+            sectionVisuals.forEach(vis => vis.style.display = 'block');
 
             // Calculate center of section relative to viewport center
             const sectionCenter = rect.top + (rect.height / 2);
@@ -172,6 +175,30 @@ function setupScrollBehavior(fadeZone = 0.7) {
             }
             sectionImages.forEach(img => {
                 img.style.opacity = Math.max(0, Math.min(1, opacity));
+            });
+
+            // Special handling for challenge cards - they fade in AFTER section is at full opacity
+            sectionVisuals.forEach(vis => {
+                if (vis.classList.contains('challenge-cards')) {
+                    // Trigger animation sequence when section reaches full opacity
+                    if (opacity >= 1 && !vis.dataset.animationTriggered) {
+                        vis.dataset.animationTriggered = 'true';
+                        vis.classList.add('section-active');
+
+                        // Total animation: cards in (0.4s * 4 = 1.6s) + hold (3s) + cards out (0.3s * 4 = 1.2s) = 5.8s
+                        setTimeout(() => {
+                            vis.classList.add('cards-exit');
+                        }, 4600); // Start exit after cards are in + hold time
+                    }
+                    // Reset if scrolled away
+                    if (opacity < 0.5 && vis.dataset.animationTriggered) {
+                        vis.dataset.animationTriggered = '';
+                        vis.classList.remove('section-active', 'cards-exit');
+                    }
+                } else {
+                    // Other visuals follow normal opacity
+                    vis.style.opacity = Math.max(0, Math.min(1, opacity));
+                }
             });
         });
     }

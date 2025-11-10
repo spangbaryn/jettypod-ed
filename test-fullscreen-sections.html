@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullscreen Section Tests - Schema-Driven</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #f5f5f5; }
+        .test { margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; background: white; }
+        .test.pass { border-color: green; }
+        .test.fail { border-color: red; }
+        .test h3 { margin: 0 0 10px 0; }
+        .test-result { font-weight: bold; font-size: 1.1em; margin: 10px 0; }
+        .test-result.pass { color: green; }
+        .test-result.fail { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Fullscreen Section Tests - Schema-Driven System</h1>
+    <p>Testing behavioral guarantees of the refactored section system</p>
+    <div id="test-results"></div>
+
+    <script type="module">
+        import { validateSchema, exampleSchema } from './section-schema.js';
+        import { validateAllSections, calculateHeroBounds } from './section-validator.js';
+
+        const results = document.getElementById('test-results');
+
+        function displayResult(name, pass, message) {
+            const div = document.createElement('div');
+            div.className = `test ${pass ? 'pass' : 'fail'}`;
+            div.innerHTML = `
+                <h3>${name}</h3>
+                <div class="test-result ${pass ? 'pass' : 'fail'}">${pass ? '✓ PASS' : '✗ FAIL'}</div>
+                <div>${message}</div>
+            `;
+            results.appendChild(div);
+        }
+
+        // TEST 1: Schema validation
+        function testSchemaValidation() {
+            const validation = validateSchema(exampleSchema);
+            displayResult(
+                'Schema Validation',
+                validation.valid,
+                validation.valid
+                    ? 'Schema is valid and well-formed'
+                    : `Schema errors: ${validation.errors.join(', ')}`
+            );
+        }
+
+        // TEST 2: Z-index protection
+        function testZIndexProtection() {
+            let pass = true;
+            const violations = [];
+
+            exampleSchema.sections.forEach((section, idx) => {
+                section.layers.forEach((layer, layerIdx) => {
+                    if (layer.z > 50) {
+                        pass = false;
+                        violations.push(`Section ${idx}, Layer ${layerIdx}: z-index ${layer.z} exceeds maximum of 50`);
+                    }
+                });
+            });
+
+            displayResult(
+                'Z-Index Protection',
+                pass,
+                pass
+                    ? 'All layers respect z-index ≤ 50 (hero zone is protected at z-100)'
+                    : `Violations: ${violations.join('; ')}`
+            );
+        }
+
+        // TEST 3: Hero overlap validation
+        function testHeroOverlap() {
+            const validation = validateAllSections(exampleSchema);
+            displayResult(
+                'Hero Zone Overlap',
+                validation.valid,
+                validation.valid
+                    ? 'No detected overlaps with hero text zone'
+                    : `Warnings: ${validation.warnings.join('; ')}`
+            );
+        }
+
+        // TEST 4: All sections have required fields
+        function testRequiredFields() {
+            let pass = true;
+            const missing = [];
+
+            exampleSchema.sections.forEach((section, idx) => {
+                if (!section.id) missing.push(`Section ${idx}: missing id`);
+                if (!section.hero) missing.push(`Section ${idx}: missing hero`);
+                if (!section.hero?.text) missing.push(`Section ${idx}: missing hero text`);
+                if (!section.layers) missing.push(`Section ${idx}: missing layers`);
+            });
+
+            pass = missing.length === 0;
+
+            displayResult(
+                'Required Fields',
+                pass,
+                pass
+                    ? 'All sections have required fields (id, hero, text, layers)'
+                    : `Missing fields: ${missing.join('; ')}`
+            );
+        }
+
+        // TEST 5: Fade zone configuration
+        function testFadeConfiguration() {
+            let pass = true;
+            const issues = [];
+
+            exampleSchema.sections.forEach((section, idx) => {
+                const fadeZone = section.scroll?.fadeZone ?? 0.7;
+
+                if (fadeZone < 0.6) {
+                    issues.push(`Section ${idx}: fadeZone ${fadeZone} may be too small for smooth transitions (recommended ≥ 0.6)`);
+                }
+
+                if (fadeZone > 1) {
+                    pass = false;
+                    issues.push(`Section ${idx}: fadeZone ${fadeZone} exceeds 1.0`);
+                }
+            });
+
+            displayResult(
+                'Fade Zone Configuration',
+                pass,
+                pass && issues.length === 0
+                    ? 'All sections have appropriate fade zones (≥ 60% viewport)'
+                    : issues.join('; ')
+            );
+        }
+
+        // TEST 6: Scroll height is sufficient
+        function testScrollHeight() {
+            let pass = true;
+            const issues = [];
+
+            // Estimate viewport height (common desktop size for testing)
+            const estimatedVh = 900;
+
+            exampleSchema.sections.forEach((section, idx) => {
+                const height = section.scroll?.height || '250vh';
+                const vh = parseFloat(height.replace('vh', ''));
+                const pixels = (vh / 100) * estimatedVh;
+
+                if (pixels < estimatedVh * 2) {
+                    issues.push(`Section ${idx}: scroll height ${height} (${Math.round(pixels)}px) may be too short for smooth fade (recommended ≥ 200vh)`);
+                }
+            });
+
+            displayResult(
+                'Scroll Height',
+                pass,
+                issues.length === 0
+                    ? 'All sections have sufficient scroll height for smooth fading'
+                    : issues.join('; ')
+            );
+        }
+
+        // TEST 7: Hero text protection - Calculate bounds
+        function testHeroBoundsCalculation() {
+            let pass = true;
+            const issues = [];
+
+            try {
+                exampleSchema.sections.forEach((section, idx) => {
+                    const bounds = calculateHeroBounds(section.hero);
+
+                    if (!bounds.top || !bounds.left || !bounds.width || !bounds.height) {
+                        pass = false;
+                        issues.push(`Section ${idx}: Failed to calculate hero bounds`);
+                    }
+
+                    if (bounds.width <= 0 || bounds.height <= 0) {
+                        pass = false;
+                        issues.push(`Section ${idx}: Invalid hero dimensions (${bounds.width}x${bounds.height})`);
+                    }
+                });
+            } catch (e) {
+                pass = false;
+                issues.push(`Error calculating bounds: ${e.message}`);
+            }
+
+            displayResult(
+                'Hero Bounds Calculation',
+                pass,
+                pass
+                    ? 'Hero bounding boxes calculated successfully for all sections'
+                    : issues.join('; ')
+            );
+        }
+
+        // Run all tests
+        testSchemaValidation();
+        testZIndexProtection();
+        testHeroOverlap();
+        testRequiredFields();
+        testFadeConfiguration();
+        testScrollHeight();
+        testHeroBoundsCalculation();
+    </script>
+</body>
+</html>

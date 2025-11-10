@@ -412,6 +412,41 @@
             }
         }
 
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .challenge-cards.section-active .challenge-card {
+            opacity: 1 !important;
+            transform: scale(1) rotate(0deg) !important;
+        }
+
+        .challenge-cards.cards-exit .challenge-card:nth-child(4) {
+            transition: opacity 0.3s ease-out 0s, transform 0.3s ease-out 0s !important;
+            opacity: 0 !important;
+            transform: scale(0.8) rotate(5deg) !important;
+        }
+
+        .challenge-cards.cards-exit .challenge-card:nth-child(3) {
+            transition: opacity 0.3s ease-out 0.3s, transform 0.3s ease-out 0.3s !important;
+            opacity: 0 !important;
+            transform: scale(0.8) rotate(-5deg) !important;
+        }
+
+        .challenge-cards.cards-exit .challenge-card:nth-child(2) {
+            transition: opacity 0.3s ease-out 0.6s, transform 0.3s ease-out 0.6s !important;
+            opacity: 0 !important;
+            transform: scale(0.8) rotate(5deg) !important;
+        }
+
+        .challenge-cards.cards-exit .challenge-card:nth-child(1) {
+            transition: opacity 0.3s ease-out 0.9s, transform 0.3s ease-out 0.9s !important;
+            opacity: 0 !important;
+            transform: scale(0.8) rotate(-5deg) !important;
+        }
+
         .demo-link {
             display: inline-block;
             color: #0B2532;

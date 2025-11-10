@@ -238,6 +238,137 @@ const customRenderers = {
         visualContainer.appendChild(rightColumn);
 
         return visualContainer;
+    },
+
+    /**
+     * Challenge cards visual - four cards in corners
+     * @param {Object} config
+     * @param {Array} config.cards - Card configurations with text and position
+     * @param {HTMLElement} container
+     * @param {number} z - Z-index
+     * @returns {HTMLElement}
+     */
+    'challenge-cards': (config, container, z) => {
+        const visualContainer = document.createElement('div');
+        visualContainer.className = 'visual-container challenge-cards';
+        visualContainer.dataset.section = container.dataset.sectionId;
+        visualContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 150;
+            pointer-events: none;
+        `;
+
+        // Scattered positions near center, overlapping hero zone intentionally
+        const positionStyles = {
+            'top-left': { top: '25%', left: '35%' },
+            'top-right': { top: '30%', right: '32%' },
+            'bottom-left': { bottom: '30%', left: '30%' },
+            'bottom-right': { bottom: '35%', right: '35%' }
+        };
+
+        (config.cards || []).forEach((card, index) => {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'challenge-card';
+            cardEl.textContent = card.text;
+
+            const pos = positionStyles[card.position] || positionStyles['top-left'];
+
+            cardEl.style.cssText = `
+                position: absolute;
+                ${pos.top ? `top: ${pos.top};` : ''}
+                ${pos.bottom ? `bottom: ${pos.bottom};` : ''}
+                ${pos.left ? `left: ${pos.left};` : ''}
+                ${pos.right ? `right: ${pos.right};` : ''}
+                background: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #0B2532;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                border: 2px solid #F2D6A2;
+                max-width: 200px;
+                opacity: 0;
+                transform: scale(0.8) rotate(${(Math.random() - 0.5) * 10}deg);
+                transition: opacity 0.5s ease-out ${index * 0.4}s, transform 0.5s ease-out ${index * 0.4}s;
+            `;
+
+            visualContainer.appendChild(cardEl);
+        });
+
+        return visualContainer;
+    },
+
+    /**
+     * Checklist renderer - items with checkmarks
+     * @param {Object} config
+     * @param {Array<string>} config.items - List items
+     * @param {HTMLElement} container
+     * @param {number} z - Z-index
+     * @returns {HTMLElement}
+     */
+    'checklist': (config, container, z) => {
+        const checklistContainer = document.createElement('div');
+        checklistContainer.className = 'visual-container checklist';
+        checklistContainer.dataset.section = container.dataset.sectionId;
+        checklistContainer.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: 400px;
+            z-index: ${z};
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            text-align: center;
+            width: 100%;
+        `;
+
+        const list = document.createElement('ul');
+        list.style.cssText = `
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            display: inline-block;
+            text-align: left;
+        `;
+
+        (config.items || []).forEach(item => {
+            const li = document.createElement('li');
+            li.style.cssText = `
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: white;
+                margin: 20px 0;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                justify-content: flex-start;
+            `;
+
+            const checkmark = document.createElement('span');
+            checkmark.textContent = '✓';
+            checkmark.style.cssText = `
+                color: #F2D6A2;
+                font-size: 2rem;
+                font-weight: 700;
+                flex-shrink: 0;
+            `;
+
+            const text = document.createElement('span');
+            text.textContent = item;
+
+            li.appendChild(checkmark);
+            li.appendChild(text);
+            list.appendChild(li);
+        });
+
+        checklistContainer.appendChild(list);
+        return checklistContainer;
     }
 };
 

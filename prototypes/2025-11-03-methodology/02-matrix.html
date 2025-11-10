@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod Methodology - Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #888;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+        }
+
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.internal { background: #f59e0b; }
+        .legend-dot.external { background: #61dafb; }
+
+        .matrix {
+            display: grid;
+            grid-template-columns: 200px repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .matrix-header {
+            background: #2d2d2d;
+            padding: 20px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .matrix-header.empty {
+            background: transparent;
+        }
+
+        .matrix-header.speed { color: #f59e0b; }
+        .matrix-header.stable { color: #27c93f; }
+        .matrix-header.production { color: #61dafb; }
+
+        .matrix-row-label {
+            background: #1e1e1e;
+            padding: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .matrix-row-label.internal { border-left: 4px solid #f59e0b; }
+        .matrix-row-label.external { border-left: 4px solid #61dafb; }
+
+        .matrix-cell {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-cell:hover {
+            border-color: #61dafb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(97, 218, 251, 0.2);
+        }
+
+        .matrix-cell.available {
+            border-color: #27c93f;
+        }
+
+        .matrix-cell.not-available {
+            opacity: 0.4;
+            background: #151515;
+        }
+
+        .cell-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .cell-content {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .cell-content ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .cell-content li {
+            margin-bottom: 6px;
+        }
+
+        .not-available-text {
+            font-style: italic;
+            color: #666;
+        }
+
+        @media (max-width: 1200px) {
+            .matrix {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix-header.empty {
+                display: none;
+            }
+
+            .matrix-row-label {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JettyPod Methodology Matrix</h1>
+        <p class="subtitle">Understanding modes across project states</p>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot internal"></div>
+                <span>Internal Project (team only)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot external"></div>
+                <span>External Project (customers)</span>
+            </div>
+        </div>
+
+        <div class="matrix">
+            <!-- Headers -->
+            <div class="matrix-header empty"></div>
+            <div class="matrix-header speed">⚡ Speed</div>
+            <div class="matrix-header stable">✓ Stable</div>
+            <div class="matrix-header production">🔒 Production</div>
+
+            <!-- Internal Project Row -->
+            <div class="matrix-row-label internal">
+                Internal<br>Project
+            </div>
+
+            <div class="matrix-cell available">
+                <div class="cell-title">Checkpoint</div>
+                <div class="cell-content">
+                    <ul>
+                        <li>Prove it works</li>
+                        <li>Happy path only</li>
+                        <li>Pass through quickly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="matrix-cell available">
+                <div class="cell-title">Features Live Here</div>
+                <div class="cell-content">
+                    <ul>
+                        <li>Error handling</li>
+                        <li>Edge cases covered</li>
+                        <li>Your team uses these</li>
+                        <li>No security needed</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="matrix-cell not-available">
+                <div class="cell-title">Not Available</div>
+                <div class="cell-content">
+                    <p class="not-available-text">Production Mode requires an External Project. Build infrastructure features first to transition.</p>
+                </div>
+            </div>
+
+            <!-- External Project Row -->
+            <div class="matrix-row-label external">
+                External<br>Project
+            </div>
+
+            <div class="matrix-cell available">
+                <div class="cell-title">Still a Checkpoint</div>
+                <div class="cell-content">
+                    <ul>
+                        <li>Same as Internal</li>
+                        <li>Pass through quickly</li>
+                        <li>Move to Stable</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="matrix-cell available">
+                <div class="cell-title">Internal Tools</div>
+                <div class="cell-content">
+                    <ul>
+                        <li>Admin dashboards</li>
+                        <li>Team-only features</li>
+                        <li>Internal APIs</li>
+                        <li>Stay here if not customer-facing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="matrix-cell available">
+                <div class="cell-title">Customer-Facing Only</div>
+                <div class="cell-content">
+                    <ul>
+                        <li>Security hardened</li>
+                        <li>Scales to 100+ users</li>
+                        <li>GDPR/HIPAA compliant</li>
+                        <li>Required for customers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #888; margin-top: 40px;">
+            <p style="font-size: 1.2rem;">💡 Key Insight</p>
+            <p style="margin-top: 10px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Start Internal, build in Stable Mode. When ready for customers, add infrastructure features to go External,
+                then elevate customer-facing features to Production Mode.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -143,8 +143,8 @@ const exampleSchema = {
                 }
             ],
             scroll: {
-                height: '150vh',
-                fadeZone: 0.4
+                height: '200vh',
+                fadeZone: 0.5
             }
         },
         {
@@ -168,8 +168,8 @@ const exampleSchema = {
                 }
             ],
             scroll: {
-                height: '150vh',
-                fadeZone: 0.4
+                height: '200vh',
+                fadeZone: 0.5
             }
         },
         {
@@ -190,24 +190,30 @@ const exampleSchema = {
                     position: { top: '45%', left: '50%' },
                     size: { width: '25vw', height: 'auto' },
                     z: 1
+                },
+                {
+                    type: 'custom',
+                    renderer: 'challenge-cards',
+                    config: {
+                        cards: [
+                            { text: 'Features don\'t fit together', position: 'top-left' },
+                            { text: 'Will user data be safe?', position: 'bottom-left' },
+                            { text: 'Afraid to change anything', position: 'top-right' },
+                            { text: 'Nothing feels consistent', position: 'bottom-right' }
+                        ]
+                    },
+                    z: 2
                 }
-                // Removed challenge boxes for now
-                // Original cards (for reference):
-                // - "Features don't fit together" (left)
-                // - "Will user data be safe?" (left)
-                // - "Nothing feels consistent" (left)
-                // - "Afraid to change anything" (right)
-                // - "Did you pick the wrong stack?" (right)
             ],
             scroll: {
-                height: '150vh',
-                fadeZone: 0.4
+                height: '200vh',
+                fadeZone: 0.5
             }
         },
         {
             id: 'section-03',
             hero: {
-                text: 'JettyPod gives you<br>a captain.',
+                text: 'JettyPod enforces an AI native<br>workflow for smooth sailing.',
                 style: 'center'
             },
             layers: [
@@ -215,11 +221,24 @@ const exampleSchema = {
                     type: 'background',
                     color: '#7A9E9F',
                     z: 0
+                },
+                {
+                    type: 'custom',
+                    renderer: 'checklist',
+                    config: {
+                        items: [
+                            'Always know what to do next',
+                            'Make changes with confidence',
+                            'Ensure security best practices',
+                            'Never give Claude more than it can chew'
+                        ]
+                    },
+                    z: 2
                 }
             ],
             scroll: {
-                height: '150vh',
-                fadeZone: 0.4
+                height: '350vh',
+                fadeZone: 0.7
             }
         }
     ]

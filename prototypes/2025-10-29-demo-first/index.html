@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPod - Build Real Businesses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .terminal {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .terminal-title {
+            margin-left: auto;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            min-height: 500px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .without .terminal-title { color: #ff5f56; }
+        .with .terminal-title { color: #27c93f; }
+
+        .prompt {
+            color: #27c93f;
+            margin-top: 16px;
+        }
+
+        .command {
+            color: #61dafb;
+        }
+
+        .output {
+            color: #888;
+            margin-left: 0;
+        }
+
+        .error {
+            color: #ff5f56;
+        }
+
+        .success {
+            color: #27c93f;
+        }
+
+        .comment {
+            color: #6a737d;
+            font-style: italic;
+        }
+
+        .cta {
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in 15s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background: #27c93f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #22a336;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(39, 201, 63, 0.3);
+        }
+
+        .typing {
+            display: inline-block;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @media (max-width: 968px) {
+            .comparison {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="comparison">
+            <div class="terminal without">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">WITHOUT DEVPOD</span>
+                </div>
+                <div class="terminal-body" id="without-terminal"></div>
+            </div>
+
+            <div class="terminal with">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">WITH DEVPOD</span>
+                </div>
+                <div class="terminal-body" id="with-terminal"></div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="#install" class="cta-button">Ready to build like this?</a>
+        </div>
+    </div>
+
+    <script>
+        const withoutSteps = [
+            { delay: 500, text: '<span class="prompt">$</span> <span class="command">claude "build user auth"</span>' },
+            { delay: 1000, text: '<span class="output">Building authentication...</span>' },
+            { delay: 800, text: '<span class="success">✓ Auth built</span>' },
+            { delay: 600, text: '<span class="prompt">$</span> <span class="command">claude "add password reset"</span>' },
+            { delay: 1000, text: '<span class="output">Adding password reset...</span>' },
+            { delay: 800, text: '<span class="error">✗ Error: No error handling for invalid emails</span>' },
+            { delay: 600, text: '<span class="prompt">$</span> <span class="command">claude "fix the error"</span>' },
+            { delay: 1000, text: '<span class="output">Fixing...</span>' },
+            { delay: 800, text: '<span class="error">✗ Error: Database connection failed</span>' },
+            { delay: 600, text: '<span class="prompt">$</span> <span class="command">claude "wtf is happening"</span>' },
+            { delay: 1000, text: '<span class="comment">// Lost in messy code...</span>' },
+            { delay: 1000, text: '<span class="comment">// No test coverage...</span>' },
+            { delay: 1000, text: '<span class="comment">// Project abandoned...</span>' },
+        ];
+
+        const withSteps = [
+            { delay: 500, text: '<span class="prompt">$</span> <span class="command">devpod work create feature "User Auth"</span>' },
+            { delay: 1000, text: '<span class="success">✓ Feature created in Speed Mode</span>' },
+            { delay: 800, text: '<span class="output">BDD scenarios: ✓ Happy path</span>' },
+            { delay: 600, text: '<span class="prompt">$</span> <span class="command">devpod elevate stable</span>' },
+            { delay: 1200, text: '<span class="output">Elevating to Stable Mode...</span>' },
+            { delay: 800, text: '<span class="output">+ Error handling scenarios</span>' },
+            { delay: 800, text: '<span class="output">+ Edge case coverage</span>' },
+            { delay: 800, text: '<span class="output">+ Input validation</span>' },
+            { delay: 600, text: '<span class="success">✓ All tests passing</span>' },
+            { delay: 600, text: '<span class="prompt">$</span> <span class="command">devpod work create feature "Password Reset"</span>' },
+            { delay: 1000, text: '<span class="success">✓ Feature created in Speed Mode</span>' },
+            { delay: 800, text: '<span class="output">BDD scenarios: ✓ Happy path</span>' },
+            { delay: 600, text: '<span class="prompt">$</span> <span class="command">devpod elevate stable</span>' },
+            { delay: 1000, text: '<span class="success">✓ Feature stable and tested</span>' },
+            { delay: 1000, text: '<span class="comment">// Clean. Tested. Production-ready.</span>' },
+        ];
+
+        async function typeText(elementId, steps) {
+            const terminal = document.getElementById(elementId);
+
+            for (const step of steps) {
+                await new Promise(resolve => setTimeout(resolve, step.delay));
+                const line = document.createElement('div');
+                line.innerHTML = step.text;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        }
+
+        // Start both animations simultaneously
+        typeText('without-terminal', withoutSteps);
+        typeText('with-terminal', withSteps);
+    </script>
+</body>
+</html>

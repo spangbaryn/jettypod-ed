@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPod - Build Real Businesses with Claude Code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .github-header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0 80px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .install-box {
+            background: #1e1e1e;
+            border: 2px solid #27c93f;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .install-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .install-label {
+            font-weight: 600;
+            color: #aaa;
+        }
+
+        .os-selector {
+            display: flex;
+            gap: 4px;
+            background: #2d2d2d;
+            padding: 4px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+            --pill-width: 0px;
+            --pill-left: 4px;
+        }
+
+        .os-selector::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: var(--pill-left);
+            width: var(--pill-width);
+            height: calc(100% - 8px);
+            background: linear-gradient(135deg, #61dafb, #4fc3f7);
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 12px rgba(97, 218, 251, 0.4);
+            z-index: 1;
+        }
+
+        .os-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .os-btn:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .os-btn.active {
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .command-box {
+            background: #0a0a0a;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .command-box:hover {
+            background: #111;
+        }
+
+        .install-command {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            color: #27c93f;
+            user-select: all;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .copy-hint {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .copied {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #27c93f;
+            color: #0a0a0a;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .copied.show {
+            opacity: 1;
+        }
+
+        .floater {
+            position: absolute;
+            top: -25px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-style: italic;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            pointer-events: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .floater::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 30px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #ee5a6f;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #1e1e1e;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #333;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            border-color: #61dafb;
+            background: #2d2d2d;
+            transform: translateY(-2px);
+        }
+
+        .github-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .see-demo {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .demo-link {
+            display: inline-block;
+            color: #61dafb;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .demo-link:hover {
+            border-color: #61dafb;
+        }
+
+        .comparison-section {
+            margin-bottom: 100px;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .comparison-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .comparison-header p {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .terminal {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .terminal-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+
+        .without-title { color: #ff5f56; }
+        .with-title { color: #27c93f; }
+
+        .terminal-line {
+            margin-bottom: 6px;
+            opacity: 0.8;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #222;
+        }
+
+        footer a {
+            color: #888;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #27c93f;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="github-header">
+            <a href="https://github.com/spangbaryn/devpod-dist" target="_blank" rel="noopener noreferrer" class="github-link">
+                <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                View on GitHub
+            </a>
+        </div>
+
+        <div class="hero">
+            <h1>Build Real Businesses<br>with Claude Code</h1>
+            <p class="subtitle">A simple CLI tool that puts Claude Code on rails for anyone with an idea.<br>Structured workflows, efficient development, production-ready features.</p>
+
+            <div class="install-box">
+                <div class="floater">Uh what's this?</div>
+                <div class="install-header">
+                    <span class="install-label">Install DevPod</span>
+                    <div class="os-selector">
+                        <button class="os-btn active" data-os="mac" onclick="selectOS('mac')">macOS / Linux</button>
+                        <button class="os-btn" data-os="windows" onclick="selectOS('windows')">Windows</button>
+                    </div>
+                </div>
+                <div class="command-box" onclick="copyToClipboard()">
+                    <div class="install-command" id="install-command">curl -fsSL https://raw.githubusercontent.com/spangbaryn/devpod-dist/main/install.sh | bash</div>
+                </div>
+                <div class="copy-hint">Click to copy</div>
+                <div class="copied" id="copied">Copied!</div>
+            </div>
+
+            <div class="see-demo">See it in action ↓</div>
+        </div>
+
+        <!-- Tracking Work -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>Tracking Work</h2>
+                <p>Structure beats chaos every time</p>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT DEVPOD</div>
+                    <div class="terminal-line">$ claude "build user dashboard"</div>
+                    <div class="terminal-line" style="color: #888;">Building...</div>
+                    <div class="terminal-line">$ claude "add charts"</div>
+                    <div class="terminal-line" style="color: #888;">Adding charts...</div>
+                    <div class="terminal-line">$ claude "wait, what about auth?"</div>
+                    <div class="terminal-line" style="color: #888;">Adding auth...</div>
+                    <div class="terminal-line" style="color: #666;">// Lost track of what's done</div>
+                    <div class="terminal-line" style="color: #666;">// No idea what's left</div>
+                    <div class="terminal-line" style="color: #666;">// Tasks scattered everywhere</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH DEVPOD</div>
+                    <div class="terminal-line">$ devpod work create epic "User Dashboard"</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Epic created: epic-001</div>
+                    <div class="terminal-line">$ devpod work create feature "Auth" --parent=epic-001</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Feature created: feature-001</div>
+                    <div class="terminal-line">$ devpod work create feature "Charts" --parent=epic-001</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Feature created: feature-002</div>
+                    <div class="terminal-line">$ devpod work list</div>
+                    <div class="terminal-line" style="color: #888;">Epic: User Dashboard</div>
+                    <div class="terminal-line" style="color: #888;">  └─ Auth (Speed Mode)</div>
+                    <div class="terminal-line" style="color: #888;">  └─ Charts (Pending)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Building at the Right Depth -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>Building at the Right Depth</h2>
+                <p>Speed first, then stability, then production</p>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT DEVPOD</div>
+                    <div class="terminal-line">$ claude "build auth with tests, security, monitoring"</div>
+                    <div class="terminal-line" style="color: #888;">Building comprehensive auth system...</div>
+                    <div class="terminal-line" style="color: #666;">// 3 hours later...</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ Over-engineered for MVP</div>
+                    <div class="terminal-line" style="color: #666;">// OR goes the other way:</div>
+                    <div class="terminal-line">$ claude "just make it work"</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ No error handling</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ Breaks in production</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH DEVPOD</div>
+                    <div class="terminal-line">$ devpod work create feature "Auth"</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Starting in Speed Mode</div>
+                    <div class="terminal-line" style="color: #888;">Focus: Happy path only</div>
+                    <div class="terminal-line">$ claude "build login flow"</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Works! Now elevate:</div>
+                    <div class="terminal-line">$ devpod elevate stable</div>
+                    <div class="terminal-line" style="color: #888;">Adding error scenarios...</div>
+                    <div class="terminal-line" style="color: #888;">Adding edge cases...</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Dependable for team use</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Handling Errors -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>When Things Break</h2>
+                <p>Panic patching vs systematic fixing</p>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT DEVPOD</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ User login fails with invalid email</div>
+                    <div class="terminal-line">$ claude "fix the login error"</div>
+                    <div class="terminal-line" style="color: #888;">Patching...</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ Now it breaks with empty password</div>
+                    <div class="terminal-line">$ claude "fix this too"</div>
+                    <div class="terminal-line" style="color: #888;">Patching again...</div>
+                    <div class="terminal-line" style="color: #666;">// Whack-a-mole forever</div>
+                    <div class="terminal-line" style="color: #666;">// No test coverage</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH DEVPOD</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ User login fails with invalid email</div>
+                    <div class="terminal-line">$ devpod elevate stable</div>
+                    <div class="terminal-line" style="color: #888;">Identifying error scenarios:</div>
+                    <div class="terminal-line" style="color: #888;">  - Invalid email format</div>
+                    <div class="terminal-line" style="color: #888;">  - Empty password</div>
+                    <div class="terminal-line" style="color: #888;">  - Network timeout</div>
+                    <div class="terminal-line">$ claude "add error handling for these"</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ All error scenarios covered</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Tests passing</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scaling to Production -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2>Going to Production</h2>
+                <p>Security as an afterthought vs built-in</p>
+            </div>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT DEVPOD</div>
+                    <div class="terminal-line">$ claude "we need to launch tomorrow"</div>
+                    <div class="terminal-line" style="color: #888;">Pushing to production...</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ No rate limiting</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ Passwords in plaintext</div>
+                    <div class="terminal-line" style="color: #ff5f56;">✗ No input sanitization</div>
+                    <div class="terminal-line" style="color: #666;">// Security incident waiting to happen</div>
+                    <div class="terminal-line" style="color: #ff5f56;">💀 Breached in 3 days</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH DEVPOD</div>
+                    <div class="terminal-line">$ devpod project transition external</div>
+                    <div class="terminal-line" style="color: #888;">Customer-facing features need Production Mode</div>
+                    <div class="terminal-line">$ devpod elevate production --feature auth</div>
+                    <div class="terminal-line" style="color: #888;">Running security checklist:</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Input sanitization</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Rate limiting</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Encryption (rest + transit)</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Security audit passed</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Production ready</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <a href="#methodology" class="demo-link">Read the full methodology →</a>
+        </footer>
+    </div>
+
+    <script>
+        const commands = {
+            mac: 'curl -fsSL https://raw.githubusercontent.com/spangbaryn/devpod-dist/main/install.sh | bash',
+            windows: 'iwr -useb https://raw.githubusercontent.com/spangbaryn/devpod-dist/main/install.ps1 | iex'
+        };
+
+        let currentOS = 'mac';
+
+        function selectOS(os) {
+            currentOS = os;
+
+            // Update active button
+            document.querySelectorAll('.os-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`[data-os="${os}"]`);
+            activeBtn.classList.add('active');
+
+            // Update selector background position and width
+            const selector = document.querySelector('.os-selector');
+            const pill = selector.querySelector('::before') || selector;
+            const btnRect = activeBtn.getBoundingClientRect();
+            const selectorRect = selector.getBoundingClientRect();
+
+            const width = btnRect.width;
+            const left = btnRect.left - selectorRect.left;
+
+            selector.style.setProperty('--pill-width', `${width}px`);
+            selector.style.setProperty('--pill-left', `${left}px`);
+
+            // Update command
+            const commandEl = document.getElementById('install-command');
+            commandEl.textContent = commands[os];
+        }
+
+        function copyToClipboard() {
+            const command = commands[currentOS];
+            navigator.clipboard.writeText(command).then(() => {
+                const copiedEl = document.getElementById('copied');
+                copiedEl.classList.add('show');
+                setTimeout(() => {
+                    copiedEl.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Auto-detect OS and set default
+        window.addEventListener('DOMContentLoaded', () => {
+            const platform = navigator.platform.toLowerCase();
+            if (platform.includes('win')) {
+                selectOS('windows');
+            } else {
+                selectOS('mac'); // Initialize pill position
+            }
+        });
+    </script>
+</body>
+</html>

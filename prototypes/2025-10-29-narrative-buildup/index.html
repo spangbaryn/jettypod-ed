@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPod - Stop Building Toys. Build Businesses.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #222;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #888;
+            margin-bottom: 50px;
+        }
+
+        .problem h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 40px;
+            color: #ff5f56;
+        }
+
+        .problem ul {
+            list-style: none;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: #aaa;
+        }
+
+        .problem li {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .problem li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #ff5f56;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .methodology {
+            background: #111;
+        }
+
+        .methodology h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 50px;
+            text-align: center;
+            color: #27c93f;
+        }
+
+        .modes {
+            display: grid;
+            gap: 30px;
+        }
+
+        .mode {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .mode.speed { border-color: #ffbd2e; }
+        .mode.stable { border-color: #61dafb; }
+        .mode.production { border-color: #27c93f; }
+
+        .mode h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .mode.speed h3 { color: #ffbd2e; }
+        .mode.stable h3 { color: #61dafb; }
+        .mode.production h3 { color: #27c93f; }
+
+        .mode p {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        .proof {
+            background: #0a0a0a;
+        }
+
+        .proof h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .terminal {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .terminal-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .without-title { color: #ff5f56; }
+        .with-title { color: #27c93f; }
+
+        .terminal-line {
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            background: #27c93f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+        }
+
+        .cta-button:hover {
+            background: #22a336;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(39, 201, 63, 0.3);
+        }
+
+        .cta-section {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                min-height: auto;
+                padding: 80px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>Everyone claims their tool builds real apps.<br>They lie.</h1>
+            <p class="subtitle">You end up with toy projects, messy code, and abandoned repos.</p>
+            <a href="#problem" class="cta-button">Show me why</a>
+        </div>
+    </section>
+
+    <section class="problem" id="problem">
+        <div class="container">
+            <h2>The Problem</h2>
+            <ul>
+                <li>Claude Code builds fast, but code becomes unmaintainable</li>
+                <li>No methodology means chaos at scale</li>
+                <li>Toy projects work, but real businesses break</li>
+                <li>You're coding without guardrails</li>
+                <li>Production-ready? Not even close.</li>
+            </ul>
+            <div class="cta-section">
+                <a href="#methodology" class="cta-button">There's a better way</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="methodology" id="methodology">
+        <div class="container">
+            <h2>The DevPod Methodology</h2>
+            <div class="modes">
+                <div class="mode speed">
+                    <h3>Speed Mode</h3>
+                    <p>Prove it works. Build the happy path. Move fast, break nothing. Then immediately elevate.</p>
+                </div>
+                <div class="mode stable">
+                    <h3>Stable Mode</h3>
+                    <p>Make it dependable. Add error handling, edge cases, validation. Production-quality for internal use.</p>
+                </div>
+                <div class="mode production">
+                    <h3>Production Mode</h3>
+                    <p>Make it safe. Security hardened, scalable, compliant. Ready for real customers and real money.</p>
+                </div>
+            </div>
+            <div class="cta-section">
+                <a href="#proof" class="cta-button">See it in action</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="proof" id="proof">
+        <div class="container">
+            <h2>Watch the Difference</h2>
+            <div class="comparison">
+                <div class="terminal">
+                    <div class="terminal-title without-title">WITHOUT DEVPOD</div>
+                    <div class="terminal-line">$ claude "build auth"</div>
+                    <div class="terminal-line">✓ Built</div>
+                    <div class="terminal-line">$ claude "add password reset"</div>
+                    <div class="terminal-line">✗ Error: No validation</div>
+                    <div class="terminal-line">$ claude "fix it"</div>
+                    <div class="terminal-line">✗ Error: DB failed</div>
+                    <div class="terminal-line">$ claude "wtf"</div>
+                    <div class="terminal-line" style="color: #666;">// Lost in chaos...</div>
+                    <div class="terminal-line" style="color: #666;">// No tests...</div>
+                    <div class="terminal-line" style="color: #666;">// Project abandoned.</div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-title with-title">WITH DEVPOD</div>
+                    <div class="terminal-line">$ devpod work create feature "Auth"</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Speed Mode: Happy path works</div>
+                    <div class="terminal-line">$ devpod elevate stable</div>
+                    <div class="terminal-line" style="color: #27c93f;">+ Error handling</div>
+                    <div class="terminal-line" style="color: #27c93f;">+ Edge cases</div>
+                    <div class="terminal-line" style="color: #27c93f;">+ Validation</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ All tests passing</div>
+                    <div class="terminal-line">$ devpod elevate production</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Security hardened</div>
+                    <div class="terminal-line" style="color: #27c93f;">✓ Production ready</div>
+                    <div class="terminal-line" style="color: #27c93f;">// Clean. Tested. Business-ready.</div>
+                </div>
+            </div>
+            <div class="cta-section">
+                <a href="#install" class="cta-button">Stop fucking around. Try DevPod.</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="install">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 3rem; margin-bottom: 30px;">Ready to build real businesses?</h2>
+            <div style="background: #1e1e1e; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+                <code style="font-size: 1.3rem; color: #27c93f;">npm install -g devpod</code>
+            </div>
+            <p style="color: #888; font-size: 1.2rem;">Full methodology documentation →</p>
+        </div>
+    </section>
+</body>
+</html>
