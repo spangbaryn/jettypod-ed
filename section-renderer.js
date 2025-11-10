@@ -317,10 +317,9 @@ const customRenderers = {
         checklistContainer.dataset.section = container.dataset.sectionId;
         checklistContainer.style.cssText = `
             position: fixed;
-            top: 50%;
+            top: 55%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            margin-top: 140px;
+            transform: translateX(-50%);
             z-index: ${z};
             opacity: 0;
             transition: opacity 0.3s ease-out;
@@ -396,10 +395,9 @@ const customRenderers = {
         titleContainer.dataset.section = container.dataset.sectionId;
         titleContainer.style.cssText = `
             position: fixed;
-            top: 50%;
+            top: 12%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            margin-top: -220px;
+            transform: translateX(-50%);
             z-index: ${z};
             opacity: 0;
             transition: opacity 0.3s ease-out;

@@ -27,9 +27,10 @@ function buildSection(section) {
     const contentContainer = document.createElement('div');
     contentContainer.className = 'section-content';
     contentContainer.dataset.section = section.id;
+    const heroTop = section.hero.top || '30%';
     contentContainer.style.cssText = `
         position: fixed;
-        top: 30%;
+        top: ${heroTop};
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100%;

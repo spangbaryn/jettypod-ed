@@ -214,7 +214,8 @@ const exampleSchema = {
             id: 'section-03',
             hero: {
                 text: 'JettyPod enforces an AI native<br>workflow for smooth sailing.',
-                style: 'center'
+                style: 'center',
+                top: '35%'
             },
             layers: [
                 {
