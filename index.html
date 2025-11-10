@@ -28,6 +28,11 @@
             margin: 0 auto;
         }
 
+        #comparison-container {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
         .site-header {
             display: flex;
             align-items: center;
@@ -283,47 +288,81 @@
         }
 
         .fullscreen-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
+            height: 250vh;
             position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
         }
 
-        .fullscreen-section.visible {
-            opacity: 1;
+        .section-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            z-index: 0;
+        }
+
+        .section-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            pointer-events: none;
         }
 
         .section-text {
             font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 900;
             text-align: center;
-            z-index: 10;
-            position: relative;
             max-width: 1000px;
+            margin: 0 auto;
             line-height: 1.2;
-        }
-
-        #section1 {
-            background: #E8EBED;
-        }
-
-        #section2 {
-            background: #D6C6A8;
+            position: relative;
+            z-index: 100;
         }
 
         .visual-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            padding: 3vh 3vw;
+        }
+
+        .challenge-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 3vh;
+            max-width: 15vw;
+        }
+
+        .challenge-column-left {
+            align-items: flex-start;
+        }
+
+        .challenge-column-right {
+            align-items: flex-end;
+        }
+
+        .tangled-arrows {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
         /* Starfield Style */
@@ -679,32 +718,9 @@
         </div>
     </div>
 
-    <!-- Section 1: Claude Code can build almost anything -->
-    <div id="section1" class="fullscreen-section">
-        <h1 class="section-text">Claude Code can build<br>almost anything.</h1>
-        <div class="visual-container starfield" id="starfield-visual"></div>
-    </div>
+    <!-- Fullscreen sections will be generated from schema by section-builder.js -->
 
-    <!-- Section 2: But things can get messy fast -->
-    <div id="section2" class="fullscreen-section">
-        <h1 class="section-text">But things can get<br>messy fast.</h1>
-        <div class="visual-container tangled-arrows">
-            <svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100,100 Q200,300 400,200 T700,400" stroke="#F2D6A2" stroke-width="4" fill="none" opacity="0.5"/>
-                <path d="M150,500 Q350,100 500,300 T750,150" stroke="#F2D6A2" stroke-width="4" fill="none" opacity="0.5"/>
-                <path d="M50,300 Q400,500 600,200 T800,450" stroke="#F2D6A2" stroke-width="4" fill="none" opacity="0.5"/>
-                <path d="M200,50 Q450,400 350,500 T100,550" stroke="#F2D6A2" stroke-width="4" fill="none" opacity="0.5"/>
-                <path d="M700,100 Q300,250 450,450 T150,200" stroke="#F2D6A2" stroke-width="4" fill="none" opacity="0.5"/>
-            </svg>
-            <div class="challenge" style="top: 15%; left: 15%; animation-delay: 0.5s;">Features don't fit together</div>
-            <div class="challenge" style="top: 25%; right: 20%; animation-delay: 1s;">Afraid to change anything</div>
-            <div class="challenge" style="top: 45%; left: 10%; animation-delay: 1.5s;">Will user data be safe?</div>
-            <div class="challenge" style="top: 60%; right: 15%; animation-delay: 2s;">Did you pick the wrong stack?</div>
-            <div class="challenge" style="bottom: 15%; left: 25%; animation-delay: 2.5s;">Nothing feels consistent</div>
-        </div>
-    </div>
-
-    <div class="container">
+    <div class="container" id="comparison-container">
         <!-- Starting a New Project -->
         <div class="comparison-section">
             <div class="comparison-header">
@@ -911,40 +927,37 @@
             } else {
                 selectOS('mac'); // Initialize pill position
             }
+        });
+    </script>
 
-            // Generate starfield
-            const starfieldContainer = document.getElementById('starfield-visual');
-            if (starfieldContainer) {
-                for (let i = 0; i < 100; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    star.style.width = `${Math.random() * 4 + 1}px`;
-                    star.style.height = star.style.width;
-                    star.style.animationDelay = `${Math.random() * 3}s`;
-                    starfieldContainer.appendChild(star);
-                }
+    <!-- Section schema and builder -->
+    <script type="module">
+        import { validateSchema, exampleSchema } from './section-schema.js';
+        import { buildAllSections, setupScrollBehavior } from './section-builder.js';
+        import { validateAllSections } from './section-validator.js';
+
+        // Initialize sections on DOMContentLoaded
+        window.addEventListener('DOMContentLoaded', () => {
+            // Validate schema structure
+            const schemaValidation = validateSchema(exampleSchema);
+            if (!schemaValidation.valid) {
+                console.error('Schema validation failed:', schemaValidation.errors);
+                return;
             }
 
-            // Fade in fullscreen sections on scroll
-            const sections = document.querySelectorAll('.fullscreen-section');
-            const observerOptions = {
-                threshold: 0.3,
-                rootMargin: '0px'
-            };
+            // Validate hero zone overlap
+            const overlapValidation = validateAllSections(exampleSchema);
+            if (!overlapValidation.valid) {
+                console.warn('Hero overlap validation warnings:', overlapValidation.warnings);
+                // Don't block - just warn, since custom renderers can't be validated automatically
+            }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
+            // Build sections from schema
+            const comparisonContainer = document.getElementById('comparison-container');
+            buildAllSections(exampleSchema, comparisonContainer);
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            // Setup scroll behavior
+            setupScrollBehavior(0.7);
         });
     </script>
 </body>
