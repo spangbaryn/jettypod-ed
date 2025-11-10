@@ -154,7 +154,7 @@ function setupScrollBehavior(fadeZone = 0.7) {
 
             // Use section-specific fade zone or default
             const sectionFadeZone = windowHeight * fadeZone;
-            const holdZone = windowHeight * 0.15; // Hold at 100% opacity within 15vh of center
+            const holdZone = windowHeight * 0.4; // Hold at 100% opacity within 40vh of center
 
             // Calculate opacity based on distance from center
             let opacity = 0;

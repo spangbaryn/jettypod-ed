@@ -369,6 +369,43 @@ const customRenderers = {
 
         checklistContainer.appendChild(list);
         return checklistContainer;
+    },
+
+    /**
+     * Jetty Method title renderer
+     * @param {Object} config
+     * @param {HTMLElement} container
+     * @param {number} z - Z-index
+     * @returns {HTMLElement}
+     */
+    'jetty-method-title': (config, container, z) => {
+        const titleContainer = document.createElement('div');
+        titleContainer.className = 'visual-container jetty-method-title';
+        titleContainer.dataset.section = container.dataset.sectionId;
+        titleContainer.style.cssText = `
+            position: fixed;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: ${z};
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            text-align: center;
+            width: 100%;
+        `;
+
+        const title = document.createElement('h2');
+        title.textContent = 'The Jetty Method';
+        title.style.cssText = `
+            font-family: 'Caveat', cursive;
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+        `;
+
+        titleContainer.appendChild(title);
+        return titleContainer;
     }
 };
 

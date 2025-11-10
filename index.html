@@ -447,6 +447,18 @@
             transform: scale(0.8) rotate(-5deg) !important;
         }
 
+        .rotating-text-container {
+            display: inline-block;
+            width: 250px;
+            text-align: left;
+            vertical-align: baseline;
+        }
+
+        .rotating-text {
+            transition: opacity 0.3s ease-in-out;
+            color: #F2D6A2;
+        }
+
         .demo-link {
             display: inline-block;
             color: #0B2532;
@@ -707,6 +719,108 @@
                 margin-bottom: 4px;
             }
         }
+
+        /* Build Features The Jetty Way Section */
+        .jetty-way-section {
+            background: #E8EBED;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .jetty-way-card {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .jetty-way-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #0B2532;
+            margin-bottom: 30px;
+        }
+
+        .header-divider {
+            width: 600px;
+            max-width: 80%;
+            height: 4px;
+            background: #0B2532;
+            margin: 0 auto;
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 20px 0 30px;
+        }
+
+        .mode-option {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 20px;
+            border-radius: 12px;
+            background: transparent;
+        }
+
+        .mode-option:hover {
+            transform: translateY(-5px);
+            background: rgba(122, 158, 159, 0.1);
+        }
+
+        .mode-option.active {
+            background: rgba(122, 158, 159, 0.15);
+            border: 3px solid #7A9E9F;
+        }
+
+        .mode-option.active .mode-label {
+            color: #7A9E9F;
+            font-weight: 900;
+        }
+
+        .mode-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 12px;
+        }
+
+        .mode-label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0B2532;
+            margin: 0;
+        }
+
+        .triangle-container {
+            position: relative;
+            width: 500px;
+            max-width: 85%;
+            margin: 0 auto;
+            height: 500px;
+        }
+
+        .triangle-image {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-54%);
+            width: 100%;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .triangle-image.active {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -756,6 +870,38 @@
     <!-- Fullscreen sections will be generated from schema by section-builder.js -->
 
     <div class="container" id="comparison-container">
+        <!-- Build Features The Jetty Way -->
+        <div class="jetty-way-section">
+            <div class="jetty-way-card">
+                <div class="jetty-way-header">
+                    <h2>Build Features in Structured Chunks</h2>
+                </div>
+
+                <!-- Mode Selector -->
+                <div class="mode-selector">
+                    <div class="mode-option active" data-mode="speed">
+                        <img src="boat.png" alt="Speed Mode" class="mode-icon">
+                        <p class="mode-label">1. Make it work ASAP</p>
+                    </div>
+                    <div class="mode-option" data-mode="stable">
+                        <img src="lighthouse.png" alt="Stable Mode" class="mode-icon">
+                        <p class="mode-label">2. Make it stable</p>
+                    </div>
+                    <div class="mode-option" data-mode="production">
+                        <img src="starfish.png" alt="Production Mode" class="mode-icon">
+                        <p class="mode-label">3. Make it secure and scalable</p>
+                    </div>
+                </div>
+
+                <!-- Triangle Image -->
+                <div class="triangle-container">
+                    <img src="speed-mode-tri.png" alt="Speed Mode Triangle" class="triangle-image active" data-triangle="speed">
+                    <img src="stable-mode-tri.png" alt="Stable Mode Triangle" class="triangle-image" data-triangle="stable">
+                    <img src="production-mode-tri.png" alt="Production Mode Triangle" class="triangle-image" data-triangle="production">
+                </div>
+            </div>
+        </div>
+
         <!-- Starting a New Project -->
         <div class="comparison-section">
             <div class="comparison-header">
@@ -962,6 +1108,50 @@
             } else {
                 selectOS('mac'); // Initialize pill position
             }
+        });
+    </script>
+
+    <!-- Mode selector script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modeOptions = document.querySelectorAll('.mode-option');
+            const triangleImages = document.querySelectorAll('.triangle-image');
+
+            modeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const mode = option.dataset.mode;
+
+                    // Update active mode
+                    modeOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+
+                    // Update active triangle
+                    triangleImages.forEach(img => img.classList.remove('active'));
+                    document.querySelector(`[data-triangle="${mode}"]`).classList.add('active');
+                });
+            });
+        });
+    </script>
+
+    <!-- Rotating text script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tools = ['Lovable', 'Bolt', 'Replit', 'Base 44'];
+            let currentIndex = 0;
+
+            setTimeout(() => {
+                const rotatingText = document.querySelector('.rotating-text');
+                if (rotatingText) {
+                    setInterval(() => {
+                        currentIndex = (currentIndex + 1) % tools.length;
+                        rotatingText.style.opacity = '0';
+                        setTimeout(() => {
+                            rotatingText.textContent = tools[currentIndex];
+                            rotatingText.style.opacity = '1';
+                        }, 200);
+                    }, 1500);
+                }
+            }, 100);
         });
     </script>
 

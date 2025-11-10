@@ -125,7 +125,7 @@ const exampleSchema = {
         {
             id: 'section-00',
             hero: {
-                text: 'Prototyping tools<br>are great for simple apps.',
+                text: 'Tools like <span class="rotating-text-container"><span class="rotating-text">Lovable</span></span><br>are great for simple apps.',
                 style: 'center'
             },
             layers: [
@@ -221,6 +221,11 @@ const exampleSchema = {
                     type: 'background',
                     color: '#7A9E9F',
                     z: 0
+                },
+                {
+                    type: 'custom',
+                    renderer: 'jetty-method-title',
+                    z: 50
                 },
                 {
                     type: 'custom',
