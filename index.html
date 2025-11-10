@@ -742,6 +742,12 @@
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             color: #0B2532;
+            margin-bottom: 10px;
+        }
+
+        .jetty-way-subheader {
+            font-size: 1.1rem;
+            color: #7A9E9F;
             margin-bottom: 30px;
         }
 
@@ -756,8 +762,12 @@
         .mode-selector {
             display: flex;
             justify-content: center;
+            align-items: flex-start;
             gap: 60px;
             margin: 20px 0 30px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .mode-option {
@@ -767,6 +777,7 @@
             padding: 20px;
             border-radius: 12px;
             background: transparent;
+            flex: 0 0 auto;
         }
 
         .mode-option:hover {
@@ -803,14 +814,15 @@
             width: 500px;
             max-width: 85%;
             margin: 0 auto;
-            height: 500px;
+            height: 420px;
+            overflow: hidden;
         }
 
         .triangle-image {
             position: absolute;
             top: 0;
             left: 50%;
-            transform: translateX(-54%);
+            transform: translateX(-50%);
             width: 100%;
             height: auto;
             opacity: 0;
@@ -820,6 +832,221 @@
 
         .triangle-image.active {
             opacity: 1;
+        }
+
+        /* Automatically Manage Your Backlog Section */
+        .backlog-section {
+            background: #E8EBED;
+            padding: 40px 20px 80px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .backlog-card {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .backlog-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #0B2532;
+            margin-bottom: 10px;
+        }
+
+        .backlog-subheader {
+            font-size: 1.1rem;
+            color: #7A9E9F;
+            margin-bottom: 30px;
+        }
+
+        .backlog-terminal-demo {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .demo-terminal {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .demo-terminal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .demo-terminal .terminal-header {
+            background: #2d2d2d;
+            padding: 12px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .demo-terminal .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .demo-terminal .terminal-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+        }
+
+        .demo-terminal .terminal-dots span:nth-child(1) {
+            background: #ff5f56;
+        }
+
+        .demo-terminal .terminal-dots span:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .demo-terminal .terminal-dots span:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .demo-terminal .terminal-title-text {
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .demo-terminal .terminal-content {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d4d4d4;
+            text-align: left;
+            min-height: 300px;
+        }
+
+        .demo-terminal .terminal-line {
+            color: #d4d4d4;
+            margin-bottom: 4px;
+        }
+
+        .demo-terminal .claude-line {
+            color: #d4d4d4;
+        }
+
+        .demo-terminal .user-line {
+            color: #7A9E9F;
+        }
+
+        .backlog-view {
+            font-size: 0.9rem;
+        }
+
+        .backlog-section-header {
+            color: #7A9E9F;
+            font-weight: 700;
+            margin: 15px 0 5px;
+        }
+
+        .backlog-divider {
+            border-top: 1px solid #444;
+            margin: 8px 0;
+        }
+
+        .backlog-item {
+            margin: 6px 0;
+            color: #d4d4d4;
+        }
+
+        .backlog-item.highlight {
+            color: #F2D6A2;
+            font-weight: 600;
+        }
+
+        .backlog-item.indent-1 {
+            padding-left: 20px;
+        }
+
+        .backlog-item.indent-2 {
+            padding-left: 40px;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .jetty-way-card,
+            .backlog-card {
+                padding: 40px 20px;
+            }
+
+            .jetty-way-header h2,
+            .backlog-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .jetty-way-subheader,
+            .backlog-subheader {
+                font-size: 0.95rem;
+            }
+
+            .mode-selector {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+
+            .mode-option {
+                width: 100%;
+                max-width: 300px;
+                padding: 15px;
+            }
+
+            .mode-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .mode-label {
+                font-size: 1.2rem;
+            }
+
+            .triangle-container {
+                width: 100%;
+                max-width: 400px;
+                height: 350px;
+            }
+
+            .backlog-terminal-demo {
+                max-width: 100%;
+            }
+
+            .demo-terminal .terminal-content {
+                padding: 15px;
+                font-size: 0.85rem;
+                min-height: 250px;
+            }
+
+            .backlog-view {
+                font-size: 0.8rem;
+            }
+
+            .backlog-item.indent-1 {
+                padding-left: 10px;
+            }
+
+            .backlog-item.indent-2 {
+                padding-left: 20px;
+            }
         }
     </style>
 </head>
@@ -875,6 +1102,7 @@
             <div class="jetty-way-card">
                 <div class="jetty-way-header">
                     <h2>Build Features in Structured Chunks</h2>
+                    <p class="jetty-way-subheader">The Jetty Method helps you check all the boxes and prevent overengineering.</p>
                 </div>
 
                 <!-- Mode Selector -->
@@ -898,6 +1126,86 @@
                     <img src="speed-mode-tri.png" alt="Speed Mode Triangle" class="triangle-image active" data-triangle="speed">
                     <img src="stable-mode-tri.png" alt="Stable Mode Triangle" class="triangle-image" data-triangle="stable">
                     <img src="production-mode-tri.png" alt="Production Mode Triangle" class="triangle-image" data-triangle="production">
+                </div>
+            </div>
+        </div>
+
+        <!-- AI-Generated Backlog -->
+        <div class="backlog-section">
+            <div class="backlog-card">
+                <div class="backlog-header">
+                    <h2>AI-Generated Backlog, Human-Approved Plans</h2>
+                    <p class="backlog-subheader">Kiss long planning docs goodbye with a terminal-based backlog managed by Claude.</p>
+                </div>
+
+                <!-- Animated Terminal Demo -->
+                <div class="backlog-terminal-demo">
+                    <!-- Conversation Phase -->
+                    <div class="demo-terminal conversation-phase active">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="terminal-title-text">Claude Code</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-line claude-line">
+                                <span class="speaker-claude">Claude:</span>
+                            </div>
+                            <div class="terminal-line">"Great! I've generated these chores for the feature.</div>
+                            <div class="terminal-line">Should I add them to your backlog?"</div>
+                            <div class="terminal-line">&nbsp;</div>
+                            <div class="terminal-line user-line">
+                                <span class="speaker-you">You:</span>
+                            </div>
+                            <div class="terminal-line">"Yes, add them to epic #951"</div>
+                            <div class="terminal-line">&nbsp;</div>
+                            <div class="terminal-line claude-line">
+                                <span class="speaker-claude">Claude:</span>
+                            </div>
+                            <div class="terminal-line">"✓ Added 3 chores to epic #951"</div>
+                        </div>
+                    </div>
+
+                    <!-- Backlog View Phase -->
+                    <div class="demo-terminal backlog-phase">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="terminal-title-text">jettypod backlog</div>
+                        </div>
+                        <div class="terminal-content backlog-view">
+                            <div class="backlog-section-header">
+                                🎯  ACTIVE WORK
+                            </div>
+                            <div class="backlog-divider"></div>
+                            <div class="backlog-item active-item">
+                                🎯  [#2] Test Epic
+                            </div>
+                            <div class="backlog-divider"></div>
+
+                            <div class="backlog-section-header">
+                                📋  BACKLOG
+                            </div>
+                            <div class="backlog-divider"></div>
+                            <div class="backlog-item epic-item">
+                                🎯  [#951] User Authentication (6 features) ⊖
+                            </div>
+                            <div class="backlog-item feature-item indent-1">
+                                ├─ ✨ [#952] OAuth Integration [production] (3 chores) ⊕
+                            </div>
+                            <div class="backlog-item chore-item indent-2 highlight">
+                                │  ├─ 🔧 [#953] Add input validation
+                            </div>
+                            <div class="backlog-item chore-item indent-2 highlight">
+                                │  ├─ 🔧 [#954] Handle error cases
+                            </div>
+                            <div class="backlog-item chore-item indent-2 highlight">
+                                │  └─ 🔧 [#955] Add security headers
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1152,6 +1460,41 @@
                     }, 1500);
                 }
             }, 100);
+        });
+    </script>
+
+    <!-- Backlog demo animation script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const conversationPhase = document.querySelector('.conversation-phase');
+            const backlogPhase = document.querySelector('.backlog-phase');
+
+            if (conversationPhase && backlogPhase) {
+                // After 6 seconds, switch from conversation to backlog view
+                setTimeout(() => {
+                    conversationPhase.classList.remove('active');
+                    backlogPhase.classList.add('active');
+
+                    // After 4 seconds on backlog, switch back to conversation
+                    setTimeout(() => {
+                        backlogPhase.classList.remove('active');
+                        conversationPhase.classList.add('active');
+                    }, 4000);
+                }, 6000);
+
+                // Loop the animation every 10 seconds
+                setInterval(() => {
+                    setTimeout(() => {
+                        conversationPhase.classList.remove('active');
+                        backlogPhase.classList.add('active');
+
+                        setTimeout(() => {
+                            backlogPhase.classList.remove('active');
+                            conversationPhase.classList.add('active');
+                        }, 4000);
+                    }, 6000);
+                }, 10000);
+            }
         });
     </script>
 
