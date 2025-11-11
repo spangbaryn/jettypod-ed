@@ -139,7 +139,7 @@ const exampleSchema = {
                     type: 'image',
                     src: 'paper-boat.png',
                     position: { top: '45%', left: '50%' },
-                    size: { width: '35vw', height: 'auto' },
+                    size: { width: '25vw', height: 'auto' },
                     z: 1
                 }
             ],
@@ -164,7 +164,7 @@ const exampleSchema = {
                     type: 'image',
                     src: 'smooth-ship.png',
                     position: { top: '28%', left: '50%' },
-                    size: { width: '35vw', height: 'auto' },
+                    size: { width: '25vw', height: 'auto' },
                     z: 1
                 }
             ],
@@ -189,7 +189,7 @@ const exampleSchema = {
                     type: 'image',
                     src: 'tempest.png',
                     position: { top: '40%', left: '50%' },
-                    size: { width: '35vw', height: 'auto' },
+                    size: { width: '25vw', height: 'auto' },
                     z: 1
                 },
                 {

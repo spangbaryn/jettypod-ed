@@ -581,11 +581,10 @@
                 display: none;
             }
 
-            .install-header::after {
-                content: '';
-                display: block;
-                width: 100%;
-                margin-top: 15px;
+            .install-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
             }
 
             .os-dropdown {
@@ -604,6 +603,8 @@
                 background-repeat: no-repeat;
                 background-position: right 12px center;
                 padding-right: 40px;
+                position: relative;
+                z-index: 10;
             }
 
             .os-dropdown:focus {
@@ -1045,7 +1046,13 @@
                 display: inline-block;
             }
 
-            /* Mobile-only ship positioning adjustments */
+            /* Mobile-only ship positioning and size adjustments */
+            img[src="paper-boat.png"],
+            img[src="smooth-ship.png"],
+            img[src="tempest.png"] {
+                width: 35vw !important;
+            }
+
             img[src="smooth-ship.png"] {
                 top: 40% !important;
             }
@@ -1442,8 +1449,8 @@
 
     <script>
         const commands = {
-            mac: 'curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod/main/install.sh | bash',
-            windows: 'iwr -useb https://raw.githubusercontent.com/spangbaryn/jettypod/main/install.ps1 | iex'
+            mac: 'curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.sh | bash',
+            windows: 'iwr -useb https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.ps1 | iex'
         };
 
         let currentOS = 'mac';
@@ -1484,13 +1491,45 @@
 
         function copyToClipboard() {
             const command = commands[currentOS];
-            navigator.clipboard.writeText(command).then(() => {
-                const copiedEl = document.getElementById('copied');
-                copiedEl.classList.add('show');
-                setTimeout(() => {
-                    copiedEl.classList.remove('show');
-                }, 2000);
-            });
+
+            // Try modern clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(command).then(() => {
+                    showCopiedMessage();
+                }).catch(() => {
+                    // Fallback if clipboard API fails
+                    fallbackCopy(command);
+                });
+            } else {
+                // Fallback for older browsers or insecure contexts
+                fallbackCopy(command);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                showCopiedMessage();
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedMessage() {
+            const copiedEl = document.getElementById('copied');
+            copiedEl.classList.add('show');
+            setTimeout(() => {
+                copiedEl.classList.remove('show');
+            }, 2000);
         }
 
         // Auto-detect OS and set default
