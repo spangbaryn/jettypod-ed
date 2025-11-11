@@ -86,7 +86,7 @@
 
         .hero {
             text-align: center;
-            padding: 20px 0 80px;
+            padding: 0 0 80px;
         }
 
         h1 {
@@ -282,11 +282,6 @@
             fill: currentColor;
         }
 
-        .github-button-wrapper {
-            margin: 40px auto 50px;
-            text-align: center;
-        }
-
         .fullscreen-section {
             height: 250vh;
             position: relative;
@@ -418,33 +413,8 @@
             }
         }
 
-        .challenge-cards.section-active .challenge-card {
-            opacity: 1 !important;
-            transform: scale(1) rotate(0deg) !important;
-        }
-
-        .challenge-cards.cards-exit .challenge-card:nth-child(4) {
-            transition: opacity 0.3s ease-out 0s, transform 0.3s ease-out 0s !important;
-            opacity: 0 !important;
-            transform: scale(0.8) rotate(5deg) !important;
-        }
-
-        .challenge-cards.cards-exit .challenge-card:nth-child(3) {
-            transition: opacity 0.3s ease-out 0.3s, transform 0.3s ease-out 0.3s !important;
-            opacity: 0 !important;
-            transform: scale(0.8) rotate(-5deg) !important;
-        }
-
-        .challenge-cards.cards-exit .challenge-card:nth-child(2) {
-            transition: opacity 0.3s ease-out 0.6s, transform 0.3s ease-out 0.6s !important;
-            opacity: 0 !important;
-            transform: scale(0.8) rotate(5deg) !important;
-        }
-
-        .challenge-cards.cards-exit .challenge-card:nth-child(1) {
-            transition: opacity 0.3s ease-out 0.9s, transform 0.3s ease-out 0.9s !important;
-            opacity: 0 !important;
-            transform: scale(0.8) rotate(-5deg) !important;
+        .challenge-card {
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
 
         .rotating-text-container {
@@ -456,7 +426,7 @@
 
         .rotating-text {
             transition: opacity 0.3s ease-in-out;
-            color: #7A9E9F;
+            color: #ECA36B;
         }
 
         .demo-link {
@@ -587,10 +557,6 @@
 
             .hero {
                 padding: 20px 0 40px;
-            }
-
-            .github-button-wrapper {
-                margin: 30px auto 40px;
             }
 
             .github-link {
@@ -768,13 +734,18 @@
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+        }
+
+        .mode-selector-inner {
+            display: contents;
         }
 
         .mode-option {
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            padding: 20px;
+            padding: 12px 16px;
             border-radius: 12px;
             background: transparent;
             flex: 0 0 auto;
@@ -796,9 +767,9 @@
         }
 
         .mode-icon {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 12px;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 8px;
         }
 
         .mode-label {
@@ -824,6 +795,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
+            max-width: 550px;
             height: auto;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -1010,24 +982,49 @@
             }
 
             .mode-selector {
-                flex-direction: column;
-                gap: 20px;
-                align-items: center;
+                overflow: hidden;
+                width: 100%;
+                max-width: 350px;
+                margin: 20px auto;
+                touch-action: pan-y;
+            }
+
+            .mode-selector-inner {
+                display: flex;
+                transition: transform 0.3s ease;
+                width: 300%;
             }
 
             .mode-option {
-                width: 100%;
-                max-width: 300px;
-                padding: 15px;
+                width: calc(100% / 3);
+                max-width: none;
+                padding: 10px 12px;
+                flex-shrink: 0;
+                opacity: 0.4;
+                transform: scale(0.9);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .mode-option.active {
+                opacity: 1;
+                transform: scale(1);
             }
 
             .mode-icon {
-                width: 80px;
-                height: 80px;
+                width: 50px;
+                height: 50px;
             }
 
             .mode-label {
                 font-size: 1.2rem;
+            }
+
+            .triangle-container {
+                height: 300px;
+            }
+
+            .triangle-image {
+                max-width: 90%;
             }
 
             .triangle-container {
@@ -1067,20 +1064,17 @@
                 <img src="logo.png" alt="JettyPod Logo" class="logo">
                 <span class="logo-text">JettyPod</span>
             </a>
+            <a href="https://github.com/spangbaryn/jettypod-dist" target="_blank" rel="noopener noreferrer" class="github-link">
+                <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                View on GitHub
+            </a>
         </header>
 
         <div class="hero">
-            <div class="github-button-wrapper">
-                <a href="https://github.com/spangbaryn/jettypod-dist" target="_blank" rel="noopener noreferrer" class="github-link">
-                    <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    View on GitHub
-                </a>
-            </div>
-
             <h1>Make Claude Code Your<br>Technical Co-founder</h1>
-            <p class="subtitle">A powerful CLI tool that guides Claude Code and solo founders from idea to customers.</p>
+            <p class="subtitle">A powerful CLI tool that guides Claude Code<br>and solo founders from idea to customers.</p>
 
             <div class="install-box">
                 <div class="install-header">
@@ -1110,23 +1104,25 @@
         <div class="jetty-way-section">
             <div class="jetty-way-card">
                 <div class="jetty-way-header">
-                    <h2>Build Features in Structured Chunks</h2>
-                    <p class="jetty-way-subheader">The Jetty Method helps you check all the boxes and prevent overengineering.</p>
+                    <h2>Every Feature. Every Step. Nothing Missed.</h2>
+                    <p class="jetty-way-subheader">The Jetty Method guides each feature through three essential phases so you check every box before shipping.</p>
                 </div>
 
                 <!-- Mode Selector -->
-                <div class="mode-selector">
-                    <div class="mode-option active" data-mode="speed">
-                        <img src="boat.png" alt="Speed Mode" class="mode-icon">
-                        <p class="mode-label">1. Make it work ASAP</p>
-                    </div>
-                    <div class="mode-option" data-mode="stable">
-                        <img src="lighthouse.png" alt="Stable Mode" class="mode-icon">
-                        <p class="mode-label">2. Make it stable</p>
-                    </div>
-                    <div class="mode-option" data-mode="production">
-                        <img src="starfish.png" alt="Production Mode" class="mode-icon">
-                        <p class="mode-label">3. Make it secure and scalable</p>
+                <div class="mode-selector" id="mode-selector">
+                    <div class="mode-selector-inner">
+                        <div class="mode-option active" data-mode="speed" data-index="0">
+                            <img src="boat.png" alt="Speed Mode" class="mode-icon">
+                            <p class="mode-label">1. Make it work ASAP</p>
+                        </div>
+                        <div class="mode-option" data-mode="stable" data-index="1">
+                            <img src="lighthouse.png" alt="Stable Mode" class="mode-icon">
+                            <p class="mode-label">2. Make it stable</p>
+                        </div>
+                        <div class="mode-option" data-mode="production" data-index="2">
+                            <img src="starfish.png" alt="Production Mode" class="mode-icon">
+                            <p class="mode-label">3. Make it secure and scalable</p>
+                        </div>
                     </div>
                 </div>
 
@@ -1432,19 +1428,90 @@
         document.addEventListener('DOMContentLoaded', () => {
             const modeOptions = document.querySelectorAll('.mode-option');
             const triangleImages = document.querySelectorAll('.triangle-image');
+            const modeSelector = document.getElementById('mode-selector');
+            const modeSelectorInner = document.querySelector('.mode-selector-inner');
 
-            modeOptions.forEach(option => {
+            let currentIndex = 0;
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isDragging = false;
+
+            // Function to update active mode
+            function setActiveMode(index) {
+                currentIndex = Math.max(0, Math.min(2, index));
+
+                // Update active class
+                modeOptions.forEach(opt => opt.classList.remove('active'));
+                modeOptions[currentIndex].classList.add('active');
+
+                // Update triangle
+                const mode = modeOptions[currentIndex].dataset.mode;
+                triangleImages.forEach(img => img.classList.remove('active'));
+                document.querySelector(`[data-triangle="${mode}"]`).classList.add('active');
+
+                // Update transform for mobile carousel
+                if (window.innerWidth <= 768) {
+                    const translateX = -currentIndex * (100 / 3);
+                    modeSelectorInner.style.transform = `translateX(${translateX}%)`;
+                }
+            }
+
+            // Click handlers for desktop
+            modeOptions.forEach((option, index) => {
                 option.addEventListener('click', () => {
-                    const mode = option.dataset.mode;
-
-                    // Update active mode
-                    modeOptions.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-
-                    // Update active triangle
-                    triangleImages.forEach(img => img.classList.remove('active'));
-                    document.querySelector(`[data-triangle="${mode}"]`).classList.add('active');
+                    if (!isDragging) {
+                        setActiveMode(index);
+                    }
                 });
+            });
+
+            // Touch handlers for mobile swipe
+            if (modeSelector) {
+                modeSelector.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                    isDragging = false;
+                }, { passive: true });
+
+                modeSelector.addEventListener('touchmove', (e) => {
+                    touchEndX = e.touches[0].clientX;
+                    const diff = Math.abs(touchStartX - touchEndX);
+                    if (diff > 5) {
+                        isDragging = true;
+                    }
+                }, { passive: true });
+
+                modeSelector.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+
+                    const swipeThreshold = 50;
+                    const diff = touchStartX - touchEndX;
+
+                    if (Math.abs(diff) > swipeThreshold) {
+                        if (diff > 0) {
+                            // Swiped left - go to next
+                            setActiveMode(currentIndex + 1);
+                        } else {
+                            // Swiped right - go to previous
+                            setActiveMode(currentIndex - 1);
+                        }
+                    }
+
+                    isDragging = false;
+                });
+            }
+
+            // Initialize on mobile
+            if (window.innerWidth <= 768) {
+                setActiveMode(0);
+            }
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) {
+                    setActiveMode(currentIndex);
+                } else {
+                    modeSelectorInner.style.transform = '';
+                }
             });
         });
     </script>

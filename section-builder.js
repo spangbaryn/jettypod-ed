@@ -55,6 +55,7 @@ function buildSection(section) {
         line-height: 1.2;
         position: relative;
         z-index: 100;
+        ${section.hero.color ? `color: ${section.hero.color};` : ''}
     `;
 
     contentContainer.appendChild(heroText);
@@ -153,9 +154,9 @@ function setupScrollBehavior(fadeZone = 0.7) {
             const viewportCenter = windowHeight / 2;
             const distance = Math.abs(sectionCenter - viewportCenter);
 
-            // Use section-specific fade zone or default
+            // Use consistent zones for all sections
             const sectionFadeZone = windowHeight * fadeZone;
-            const holdZone = windowHeight * 0.4; // Hold at 100% opacity within 40vh of center
+            const holdZone = windowHeight * 0.4;
 
             // Calculate opacity based on distance from center
             let opacity = 0;
@@ -178,23 +179,56 @@ function setupScrollBehavior(fadeZone = 0.7) {
                 img.style.opacity = Math.max(0, Math.min(1, opacity));
             });
 
-            // Special handling for challenge cards - they fade in AFTER section is at full opacity
+            // Special handling for challenge cards - scroll-controlled appearance
             sectionVisuals.forEach(vis => {
                 if (vis.classList.contains('challenge-cards')) {
-                    // Trigger animation sequence when section reaches full opacity
-                    if (opacity >= 1 && !vis.dataset.animationTriggered) {
-                        vis.dataset.animationTriggered = 'true';
-                        vis.classList.add('section-active');
+                    const cards = vis.querySelectorAll('.challenge-card');
 
-                        // Total animation: cards in (0.4s * 4 = 1.6s) + hold (3s) + cards out (0.3s * 4 = 1.2s) = 5.8s
-                        setTimeout(() => {
-                            vis.classList.add('cards-exit');
-                        }, 4600); // Start exit after cards are in + hold time
-                    }
-                    // Reset if scrolled away
-                    if (opacity < 0.5 && vis.dataset.animationTriggered) {
-                        vis.dataset.animationTriggered = '';
-                        vis.classList.remove('section-active', 'cards-exit');
+                    // Only show cards when section is visible
+                    if (opacity > 0) {
+                        // Calculate distance from center - positive when scrolled past center
+                        const sectionCenter = rect.top + (rect.height / 2);
+                        const viewportCenter = windowHeight / 2;
+                        const distanceFromCenter = viewportCenter - sectionCenter;
+
+                        cards.forEach((card, cardIndex) => {
+                            // Each card appears after scrolling a specific distance past center
+                            // All cards must appear within holdZone (0.4vh = ~240px)
+                            // Card 0: 30px past center
+                            // Card 1: 90px past center
+                            // Card 2: 150px past center
+                            // Card 3: 210px past center
+                            const pixelThreshold = 30 + (cardIndex * 60);
+                            const fadeDistance = 40; // Fade in over 40px
+
+                            let cardOpacity = 0;
+                            let cardScale = 0.8;
+
+                            if (distanceFromCenter >= pixelThreshold + fadeDistance) {
+                                // Fully visible - multiply by section opacity so it fades with section
+                                cardOpacity = 1 * opacity;
+                                cardScale = 1;
+                            } else if (distanceFromCenter >= pixelThreshold) {
+                                // Fading in - also affected by section opacity
+                                const fadeProgress = (distanceFromCenter - pixelThreshold) / fadeDistance;
+                                cardOpacity = fadeProgress * opacity;
+                                cardScale = 0.8 + (0.2 * fadeProgress);
+                            }
+
+                            // Store rotation angle on first run
+                            if (!card.dataset.rotation) {
+                                card.dataset.rotation = (Math.random() - 0.5) * 10;
+                            }
+
+                            card.style.opacity = cardOpacity;
+                            card.style.transform = `scale(${cardScale}) rotate(${card.dataset.rotation}deg)`;
+                        });
+                    } else {
+                        // Hide all cards when section is not visible
+                        cards.forEach(card => {
+                            card.style.opacity = 0;
+                            card.style.transform = 'scale(0.8)';
+                        });
                     }
                 } else {
                     // Other visuals follow normal opacity

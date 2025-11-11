@@ -293,8 +293,8 @@ const customRenderers = {
                 border: 2px solid #F2D6A2;
                 max-width: 200px;
                 opacity: 0;
-                transform: scale(0.8) rotate(${(Math.random() - 0.5) * 10}deg);
-                transition: opacity 0.5s ease-out ${index * 0.4}s, transform 0.5s ease-out ${index * 0.4}s;
+                transform: scale(0.8);
+                text-align: center;
             `;
 
             visualContainer.appendChild(cardEl);
@@ -306,6 +306,7 @@ const customRenderers = {
     /**
      * Checklist renderer - items with checkmarks
      * @param {Object} config
+     * @param {string} [config.title] - Optional title for the checklist
      * @param {Array<string>} config.items - List items
      * @param {HTMLElement} container
      * @param {number} z - Z-index
@@ -317,7 +318,7 @@ const customRenderers = {
         checklistContainer.dataset.section = container.dataset.sectionId;
         checklistContainer.style.cssText = `
             position: fixed;
-            top: 55%;
+            top: 50%;
             left: 50%;
             transform: translateX(-50%);
             z-index: ${z};
@@ -331,13 +332,29 @@ const customRenderers = {
         const card = document.createElement('div');
         card.style.cssText = `
             background: white;
-            border-radius: 12px;
-            padding: clamp(20px, 4vw, 30px) clamp(25px, 5vw, 40px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            padding: clamp(20px, 3vw, 30px) clamp(25px, 4vw, 35px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             display: inline-block;
-            max-width: 600px;
+            max-width: 650px;
             width: 90%;
+            border: 3px solid #F2D6A2;
         `;
+
+        // Add title if provided
+        if (config.title) {
+            const title = document.createElement('h3');
+            title.textContent = config.title;
+            title.style.cssText = `
+                font-family: 'Caveat', cursive;
+                font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+                font-weight: 700;
+                color: #0B2532;
+                margin: 0 0 clamp(15px, 2vh, 20px) 0;
+                text-align: center;
+            `;
+            card.appendChild(title);
+        }
 
         const list = document.createElement('ul');
         list.style.cssText = `
@@ -353,10 +370,10 @@ const customRenderers = {
                 font-size: clamp(1rem, 3vw, 1.3rem);
                 font-weight: 600;
                 color: #0B2532;
-                margin: clamp(10px, 2vh, 15px) 0;
+                margin: clamp(10px, 1.5vh, 12px) 0;
                 display: flex;
                 align-items: center;
-                gap: clamp(10px, 2vw, 15px);
+                gap: clamp(12px, 2vw, 15px);
                 justify-content: flex-start;
             `;
 
@@ -395,7 +412,7 @@ const customRenderers = {
         titleContainer.dataset.section = container.dataset.sectionId;
         titleContainer.style.cssText = `
             position: fixed;
-            top: 12%;
+            top: 8%;
             left: 50%;
             transform: translateX(-50%);
             z-index: ${z};

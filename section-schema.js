@@ -3,6 +3,7 @@
  * @property {string} text - Hero text content (can include <br> tags)
  * @property {'center'|'left'|'right'} [style='center'] - Text alignment
  * @property {string} [fontSize] - Optional CSS font-size override
+ * @property {string} [color] - Optional CSS color override
  */
 
 /**
@@ -125,7 +126,7 @@ const exampleSchema = {
         {
             id: 'section-00',
             hero: {
-                text: 'Tools like <span class="rotating-text-container"><span class="rotating-text">Lovable</span></span><br>are great for simple apps.',
+                text: 'Tools like <span class="rotating-text-container"><span class="rotating-text">Lovable</span></span><br>are great for building simple apps.',
                 style: 'center'
             },
             layers: [
@@ -207,7 +208,7 @@ const exampleSchema = {
             ],
             scroll: {
                 height: '200vh',
-                fadeZone: 0.5
+                fadeZone: 0.7
             }
         },
         {
@@ -215,7 +216,8 @@ const exampleSchema = {
             hero: {
                 text: 'JettyPod enforces an AI native<br>workflow for smooth sailing.',
                 style: 'center',
-                top: '35%'
+                top: '35%',
+                color: 'black'
             },
             layers: [
                 {
@@ -232,11 +234,11 @@ const exampleSchema = {
                     type: 'custom',
                     renderer: 'checklist',
                     config: {
+                        title: 'Onboarding Checklist',
                         items: [
-                            'Always know what to do next',
-                            'Make changes with confidence',
-                            'Ensure security best practices',
-                            'Never give Claude more than it can chew'
+                            'Add JettyPod to project',
+                            'Say "Hey Claude"',
+                            'Yep. That\'s it.'
                         ]
                     },
                     z: 2
