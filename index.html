@@ -1028,6 +1028,17 @@
             display: none;
         }
 
+        /* Desktop-only ship positioning adjustments */
+        @media (min-width: 769px) {
+            img[src="smooth-ship.png"] {
+                top: 35% !important;
+            }
+
+            img[src="tempest.png"] {
+                top: 45% !important;
+            }
+        }
+
         /* Mobile responsive styles */
         @media (max-width: 768px) {
             /* Swap desktop/mobile selectors */
@@ -1067,7 +1078,7 @@
             }
 
             .backlog-card {
-                min-height: 900px;
+                min-height: 650px;
             }
 
             .jetty-way-header h2,
