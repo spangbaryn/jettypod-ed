@@ -139,7 +139,7 @@ const exampleSchema = {
                     type: 'image',
                     src: 'paper-boat.png',
                     position: { top: '45%', left: '50%' },
-                    size: { width: '25vw', height: 'auto' },
+                    size: { width: '35vw', height: 'auto' },
                     z: 1
                 }
             ],
@@ -151,7 +151,7 @@ const exampleSchema = {
         {
             id: 'section-01',
             hero: {
-                text: 'Claude Code can build<br>almost anything.',
+                text: 'Claude Code can build almost anything.',
                 style: 'center'
             },
             layers: [
@@ -163,8 +163,8 @@ const exampleSchema = {
                 {
                     type: 'image',
                     src: 'smooth-ship.png',
-                    position: { top: '35%', left: '50%' },
-                    size: { width: '25vw', height: 'auto' },
+                    position: { top: '28%', left: '50%' },
+                    size: { width: '35vw', height: 'auto' },
                     z: 1
                 }
             ],
@@ -188,8 +188,8 @@ const exampleSchema = {
                 {
                     type: 'image',
                     src: 'tempest.png',
-                    position: { top: '45%', left: '50%' },
-                    size: { width: '25vw', height: 'auto' },
+                    position: { top: '40%', left: '50%' },
+                    size: { width: '35vw', height: 'auto' },
                     z: 1
                 },
                 {
