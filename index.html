@@ -1684,8 +1684,11 @@
 
         // Initialize sections on DOMContentLoaded
         window.addEventListener('DOMContentLoaded', () => {
+            console.log('[INIT] Starting section initialization');
+
             // Validate schema structure
             const schemaValidation = validateSchema(exampleSchema);
+            console.log('[INIT] Schema validation:', schemaValidation.valid ? 'PASSED' : 'FAILED');
             if (!schemaValidation.valid) {
                 console.error('Schema validation failed:', schemaValidation.errors);
                 return;
@@ -1693,6 +1696,7 @@
 
             // Validate hero zone overlap
             const overlapValidation = validateAllSections(exampleSchema);
+            console.log('[INIT] Overlap validation:', overlapValidation.valid ? 'PASSED' : 'HAS WARNINGS');
             if (!overlapValidation.valid) {
                 console.warn('Hero overlap validation warnings:', overlapValidation.warnings);
                 // Don't block - just warn, since custom renderers can't be validated automatically
@@ -1700,10 +1704,14 @@
 
             // Build sections from schema
             const comparisonContainer = document.getElementById('comparison-container');
+            console.log('[INIT] Building sections, comparisonContainer:', comparisonContainer ? 'FOUND' : 'NOT FOUND');
             buildAllSections(exampleSchema, comparisonContainer);
+            console.log('[INIT] Sections built');
 
             // Setup scroll behavior
+            console.log('[INIT] Setting up scroll behavior');
             setupScrollBehavior(0.7);
+            console.log('[INIT] Initialization complete');
         });
     </script>
 </body>

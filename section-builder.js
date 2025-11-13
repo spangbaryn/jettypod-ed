@@ -1,4 +1,5 @@
 import { renderLayer } from './section-renderer.js';
+import { SCROLL_TIMING, calculateCardThreshold, calculateFadeZones } from './scroll-timing-config.js';
 
 /**
  * Builds a complete fullscreen section from schema
@@ -154,9 +155,18 @@ function setupScrollBehavior(fadeZone = 0.7) {
             const viewportCenter = windowHeight / 2;
             const distance = Math.abs(sectionCenter - viewportCenter);
 
-            // Use consistent zones for all sections
-            const sectionFadeZone = windowHeight * fadeZone;
-            const holdZone = windowHeight * 0.4;
+            // Calculate fade zones based on section content
+            // All sections fade over the SAME distance (PANEL_FADE_OUT)
+            // But sections with cards have LARGER holdZones
+            const sectionLayer = Array.from(section.querySelectorAll('.visual-container'))
+                .find(v => v.classList.contains('challenge-cards'));
+            const cardCount = sectionLayer
+                ? sectionLayer.querySelectorAll('.challenge-card').length
+                : 0;
+
+            const zones = calculateFadeZones(windowHeight, cardCount);
+            const holdZone = zones.holdZone;
+            const sectionFadeZone = zones.fadeZone;
 
             // Calculate opacity based on distance from center
             let opacity = 0;
@@ -192,14 +202,10 @@ function setupScrollBehavior(fadeZone = 0.7) {
                         const distanceFromCenter = viewportCenter - sectionCenter;
 
                         cards.forEach((card, cardIndex) => {
-                            // Each card appears after scrolling a specific distance past center
-                            // All cards must appear within holdZone (0.4vh = ~240px)
-                            // Card 0: 30px past center
-                            // Card 1: 90px past center
-                            // Card 2: 150px past center
-                            // Card 3: 210px past center
-                            const pixelThreshold = 30 + (cardIndex * 60);
-                            const fadeDistance = 40; // Fade in over 40px
+                            // Calculate card thresholds from timing config
+                            const cardTiming = calculateCardThreshold(windowHeight, cardIndex);
+                            const pixelThreshold = cardTiming.threshold;
+                            const fadeDistance = cardTiming.fadeDistance;
 
                             let cardOpacity = 0;
                             let cardScale = 0.8;

@@ -1,3 +1,5 @@
+import { calculateSectionHeight } from './scroll-timing-config.js';
+
 /**
  * @typedef {Object} HeroConfig
  * @property {string} text - Hero text content (can include <br> tags)
@@ -137,15 +139,15 @@ const exampleSchema = {
                 },
                 {
                     type: 'image',
-                    src: 'paper-boat.png',
-                    position: { top: '45%', left: '50%' },
+                    src: 'ship-images/paper-ship-square.png',
+                    position: { top: '40%', left: '50%' },
                     size: { width: '25vw', height: 'auto' },
                     z: 1
                 }
             ],
             scroll: {
-                height: '200vh',
-                fadeZone: 0.5
+                height: `${calculateSectionHeight({ cardCount: 0, isLastSection: false, fadeZone: 0.7 })}vh`,
+                fadeZone: 0.7
             }
         },
         {
@@ -162,15 +164,15 @@ const exampleSchema = {
                 },
                 {
                     type: 'image',
-                    src: 'smooth-ship.png',
-                    position: { top: '28%', left: '50%' },
+                    src: 'ship-images/smooth-ship-square.png',
+                    position: { top: '40%', left: '50%' },
                     size: { width: '25vw', height: 'auto' },
                     z: 1
                 }
             ],
             scroll: {
-                height: '200vh',
-                fadeZone: 0.5
+                height: `${calculateSectionHeight({ cardCount: 0, isLastSection: false, fadeZone: 0.7 })}vh`,
+                fadeZone: 0.7
             }
         },
         {
@@ -187,27 +189,14 @@ const exampleSchema = {
                 },
                 {
                     type: 'image',
-                    src: 'tempest.png',
+                    src: 'ship-images/tempest-ship-square.png',
                     position: { top: '40%', left: '50%' },
                     size: { width: '25vw', height: 'auto' },
                     z: 1
-                },
-                {
-                    type: 'custom',
-                    renderer: 'challenge-cards',
-                    config: {
-                        cards: [
-                            { text: 'Features don\'t fit together', position: 'top-left' },
-                            { text: 'Will user data be safe?', position: 'bottom-left' },
-                            { text: 'Afraid to change anything', position: 'top-right' },
-                            { text: 'Nothing feels consistent', position: 'bottom-right' }
-                        ]
-                    },
-                    z: 2
                 }
             ],
             scroll: {
-                height: '200vh',
+                height: `${calculateSectionHeight({ cardCount: 0, isLastSection: false, fadeZone: 0.7 })}vh`,
                 fadeZone: 0.7
             }
         },
@@ -245,7 +234,7 @@ const exampleSchema = {
                 }
             ],
             scroll: {
-                height: '350vh',
+                height: `${calculateSectionHeight({ cardCount: 0, isLastSection: true, fadeZone: 0.7 })}vh`,
                 fadeZone: 0.7
             }
         }
