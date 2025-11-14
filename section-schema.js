@@ -222,7 +222,7 @@ const exampleSchema = {
                 {
                     type: 'image',
                     src: 'tugboat.png',
-                    position: { top: '38%', left: '50%' },
+                    position: { top: '30%', left: '50%' },
                     size: { width: '120px', height: 'auto' },
                     z: 2
                 },
