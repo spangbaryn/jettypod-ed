@@ -1136,6 +1136,203 @@
                 padding-left: 20px;
             }
         }
+
+        /* Test Hygiene Section */
+        .test-section {
+            background: #E8EBED;
+            padding: 40px 20px 80px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .test-section-card {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .test-section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #0B2532;
+            margin-bottom: 10px;
+        }
+
+        .test-section-subheader {
+            font-size: 1.1rem;
+            color: #7A9E9F;
+            margin-bottom: 50px;
+        }
+
+        .test-cards {
+            display: flex;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+
+        .test-card {
+            flex: 1;
+            background: #F8F9FA;
+            border-radius: 16px;
+            padding: 40px 30px;
+            border: 2px solid #E8EBED;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .test-card-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .test-card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+            margin-bottom: 10px;
+        }
+
+        .test-card-subtitle {
+            font-size: 1rem;
+            color: #7A9E9F;
+            font-weight: 500;
+        }
+
+        .boat-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .boat-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .test-points {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .test-point {
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0;
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .test-point:nth-child(1) { animation-delay: 0.2s; }
+        .test-point:nth-child(2) { animation-delay: 0.4s; }
+        .test-point:nth-child(3) { animation-delay: 0.6s; }
+        .test-point:nth-child(4) { animation-delay: 0.8s; }
+
+        .without-tests-card .test-point {
+            background: #FFE5E5;
+            color: #C62828;
+        }
+
+        .with-tests-card .test-point {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+
+        .test-card-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #E8EBED;
+        }
+
+        .test-metric {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .without-tests-card .test-metric {
+            color: #C62828;
+        }
+
+        .with-tests-card .test-metric {
+            color: #2E7D32;
+        }
+
+        .test-metric-label {
+            font-size: 0.9rem;
+            color: #7A9E9F;
+            font-weight: 600;
+        }
+
+        .with-tests-card {
+            border-color: #2E7D32;
+            border-width: 3px;
+            background: #F1F8F4;
+        }
+
+        @media (max-width: 768px) {
+            .test-section-card {
+                padding: 40px 20px;
+            }
+
+            .test-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .test-section-subheader {
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+            }
+
+            .test-cards {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .test-card {
+                padding: 30px 20px;
+            }
+
+            .test-card-title {
+                font-size: 1.4rem;
+            }
+
+            .test-card-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .boat-image {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 20px;
+            }
+
+            .test-point {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1311,6 +1508,54 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Test Hygiene Section -->
+        <div class="test-section">
+            <div class="test-section-card">
+                <h2>Bug whack-a-mole free development</h2>
+                <p class="test-section-subheader">JettyPod enforces test driven development. Move fast without breaking things.</p>
+
+                <div class="test-cards">
+                <!-- Without Tests Card -->
+                <div class="test-card without-tests-card">
+                    <div class="test-card-header">
+                        <h3 class="test-card-title">Without Tests</h3>
+                        <p class="test-card-subtitle">The endless patch cycle</p>
+                    </div>
+
+                    <div class="boat-image">
+                        <img src="leaking-boat.png" alt="Leaking boat">
+                    </div>
+
+                    <ul class="test-points">
+                        <li class="test-point">Fix one bug, create two more</li>
+                        <li class="test-point">Afraid to change anything</li>
+                        <li class="test-point">Regression after regression</li>
+                        <li class="test-point">Debug the same issues weekly</li>
+                    </ul>
+                </div>
+
+                <!-- With Tests Card -->
+                <div class="test-card with-tests-card">
+                    <div class="test-card-header">
+                        <h3 class="test-card-title">With Tests</h3>
+                        <p class="test-card-subtitle">Ship with confidence</p>
+                    </div>
+
+                    <div class="boat-image">
+                        <img src="not-leaking-boat.png" alt="Sturdy boat">
+                    </div>
+
+                    <ul class="test-points">
+                        <li class="test-point">Catch bugs before they ship</li>
+                        <li class="test-point">Ship features fearlessly</li>
+                        <li class="test-point">Zero regressions</li>
+                        <li class="test-point">Move faster over time</li>
+                    </ul>
+                </div>
+            </div>
             </div>
         </div>
 
