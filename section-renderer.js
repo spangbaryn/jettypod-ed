@@ -52,6 +52,7 @@ const renderers = {
             ${needsHorizontalCenter ? 'transform: translateX(-50%);' : ''}
             ${layer.size?.width ? `width: ${layer.size.width};` : ''}
             ${layer.size?.height ? `height: ${layer.size.height};` : ''}
+            min-width: 200px;
             z-index: ${layer.z || 1};
             opacity: 0;
             transition: opacity 0.3s ease-out;
