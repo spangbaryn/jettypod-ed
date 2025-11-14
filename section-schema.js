@@ -220,6 +220,13 @@ const exampleSchema = {
                     z: 50
                 },
                 {
+                    type: 'image',
+                    src: 'tugboat.png',
+                    position: { top: '45%', left: '50%' },
+                    size: { width: '120px', height: 'auto' },
+                    z: 2
+                },
+                {
                     type: 'custom',
                     renderer: 'checklist',
                     config: {
