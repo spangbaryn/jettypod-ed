@@ -709,6 +709,24 @@
             margin: 0 auto;
         }
 
+        .jetty-way-label {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #0B2532;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .jetty-way-label img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
         .jetty-way-header h2 {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
@@ -1081,6 +1099,16 @@
                 min-height: 650px;
             }
 
+            .jetty-way-label {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+
+            .jetty-way-label img {
+                width: 35px;
+                height: 35px;
+            }
+
             .jetty-way-header h2,
             .backlog-header h2 {
                 font-size: 1.5rem;
@@ -1382,6 +1410,10 @@
         <div class="jetty-way-section">
             <div class="jetty-way-card">
                 <div class="jetty-way-header">
+                    <div class="jetty-way-label">
+                        <img src="tugboat.png" alt="Tugboat">
+                        <span>The Jetty Method</span>
+                    </div>
                     <h2>Every Feature. Three Steps. Nothing Missed.</h2>
                     <p class="jetty-way-subheader">The Jetty Method guides each feature through three essential phases so you check every box before shipping.</p>
                 </div>
