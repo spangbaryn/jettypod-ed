@@ -205,7 +205,7 @@ const exampleSchema = {
             hero: {
                 text: 'JettyPod enforces an AI native<br>workflow for smooth sailing.',
                 style: 'center',
-                top: '35%',
+                top: '25%',
                 color: 'black'
             },
             layers: [
@@ -222,7 +222,7 @@ const exampleSchema = {
                 {
                     type: 'image',
                     src: 'tugboat.png',
-                    position: { top: '45%', left: '50%' },
+                    position: { top: '42%', left: '50%' },
                     size: { width: '120px', height: 'auto' },
                     z: 2
                 },
