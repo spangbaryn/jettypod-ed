@@ -29,8 +29,7 @@
         }
 
         #comparison-container {
-            opacity: 0;
-            transition: opacity 0.5s ease-out;
+            opacity: 1;
         }
 
         .site-header {
@@ -100,10 +99,26 @@
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: #7A9E9F;
             line-height: 1.6;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .download-btn {
+            background-color: #0B2532;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #1a3a4a;
         }
 
         .install-box {
@@ -204,6 +219,7 @@
             user-select: all;
             white-space: nowrap;
             overflow-x: auto;
+            pointer-events: none;
         }
 
         .copy-hint {
@@ -1370,40 +1386,14 @@
                 <img src="logo.png" alt="JettyPod Logo" class="logo">
                 <span class="logo-text">JettyPod</span>
             </a>
-            <a href="https://github.com/spangbaryn/jettypod-dist" target="_blank" rel="noopener noreferrer" class="github-link">
-                <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                </svg>
-                View on GitHub
-            </a>
         </header>
 
         <div class="hero">
             <h1>Make Claude Code Your<br>Technical Co-founder</h1>
-            <p class="subtitle">A powerful CLI tool that guides Claude Code<br>and solo founders from idea to customers.</p>
-
-            <div class="install-box">
-                <div class="install-header">
-                    <span class="install-label">Install JettyPod</span>
-                    <div class="os-selector">
-                        <button class="os-btn active" data-os="mac" onclick="selectOS('mac')">macOS / Linux</button>
-                        <button class="os-btn" data-os="windows" onclick="selectOS('windows')">Windows</button>
-                    </div>
-                    <select class="os-dropdown" onchange="selectOS(this.value)">
-                        <option value="mac">macOS / Linux</option>
-                        <option value="windows">Windows</option>
-                    </select>
-                </div>
-                <div class="command-box" onclick="copyToClipboard()">
-                    <div class="install-command" id="install-command">curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.sh | bash</div>
-                </div>
-                <div class="copy-hint">Click to copy</div>
-                <div class="copied" id="copied">Copied!</div>
-            </div>
+            <p class="subtitle">The best way to go from idea to <span style="color: #2D5A5B;">rock-solid code</span> to customers.</p>
+            <button class="download-btn">Download for macOS</button>
         </div>
     </div>
-
-    <!-- Fullscreen sections will be generated from schema by section-builder.js -->
 
     <div class="container" id="comparison-container">
         <!-- Build Features The Jetty Way -->

@@ -6,6 +6,14 @@
         "hooks": [
           {
             "type": "command",
+            "command": ".jettypod/hooks/protect-claude-md.js"
+          },
+          {
+            "type": "command",
+            "command": ".jettypod/hooks/global-guardrails.js"
+          },
+          {
+            "type": "command",
             "command": ".devpod/hooks/protect-claude-md.js"
           }
         ]
@@ -15,7 +23,28 @@
         "hooks": [
           {
             "type": "command",
+            "command": ".jettypod/hooks/protect-claude-md.js"
+          },
+          {
+            "type": "command",
+            "command": ".jettypod/hooks/global-guardrails.js"
+          },
+          {
+            "type": "command",
             "command": ".devpod/hooks/protect-claude-md.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".jettypod/hooks/enforce-skill-activation.js"
+          },
+          {
+            "type": "command",
+            "command": ".jettypod/hooks/global-guardrails.js"
           }
         ]
       }
