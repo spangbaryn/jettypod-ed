@@ -169,6 +169,57 @@
             color: white;
         }
 
+        .request-access-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .email-form {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .email-form.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .email-input {
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #7A9E9F;
+            border-radius: 6px;
+            width: 280px;
+            text-align: center;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #0B2532;
+        }
+
+        .submit-btn {
+            background-color: #7A9E9F;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #5a7e7f;
+        }
+
         .install-box {
             background: #fff;
             border: 2px solid #7A9E9F;
@@ -1444,7 +1495,11 @@
             <p class="subtitle">The best way for solo founders to go from idea → <span style="color: #2D5A5B;">rock-solid code</span> → customers.</p>
             <button class="download-btn">Download for macOS</button>
             <p class="beta-hint">beta code required</p>
-            <button class="request-access-btn">Request Access</button>
+            <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
+            <div class="email-form" id="email-form">
+                <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
+                <button class="submit-btn" onclick="submitEmail()">Submit</button>
+            </div>
         </div>
     </div>
 
@@ -1775,6 +1830,47 @@
     </div>
 
     <script>
+        // Email form functions
+        function showEmailForm() {
+            const btn = document.querySelector('.request-access-btn');
+            const form = document.getElementById('email-form');
+
+            btn.classList.add('hidden');
+            form.classList.add('visible');
+            document.getElementById('email-input').focus();
+        }
+
+        function submitEmail() {
+            const email = document.getElementById('email-input').value;
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // MailerLite API - waitlist group
+            fetch('https://connect.mailerlite.com/api/subscribers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_MAILERLITE_API_KEY'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    groups: ['YOUR_WAITLIST_GROUP_ID']
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">Thanks! We\'ll be in touch soon.</p>';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('Something went wrong. Please try again.');
+            });
+        }
+
         const commands = {
             mac: 'curl -fsSL https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.sh | bash',
             windows: 'iwr -useb https://raw.githubusercontent.com/spangbaryn/jettypod-dist/main/install.ps1 | iex'
