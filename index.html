@@ -1861,10 +1861,29 @@
             })
             .then(response => {
                 if (response.ok) {
-                    let waitlistCount = parseInt(localStorage.getItem('waitlistCount') || '83');
-                    waitlistCount++;
-                    localStorage.setItem('waitlistCount', waitlistCount);
-                    document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">There are ' + waitlistCount + ' people ahead of you. You\'ll hear back soon.</p>';
+                    // Get current count from JSONbin, increment, and update
+                    const binId = '6984e451d0ea881f40a38f56';
+                    const apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
+
+                    fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+                        headers: { 'X-Master-Key': apiKey }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const newCount = data.record.count + 1;
+
+                        // Update the bin with new count
+                        fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Master-Key': apiKey
+                            },
+                            body: JSON.stringify({ count: newCount })
+                        });
+
+                        document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">There are ' + newCount + ' people ahead of you. You\'ll hear back soon.</p>';
+                    });
                 } else {
                     alert('Something went wrong. Please try again.');
                 }
