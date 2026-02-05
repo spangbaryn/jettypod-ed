@@ -1861,7 +1861,10 @@
             })
             .then(response => {
                 if (response.ok) {
-                    document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">Thanks! We\'ll be in touch soon.</p>';
+                    let waitlistCount = parseInt(localStorage.getItem('waitlistCount') || '83');
+                    waitlistCount++;
+                    localStorage.setItem('waitlistCount', waitlistCount);
+                    document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">There are ' + waitlistCount + ' people ahead of you. You\'ll hear back soon.</p>';
                 } else {
                     alert('Something went wrong. Please try again.');
                 }
