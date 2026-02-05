@@ -4,3 +4,4 @@
 .jettypod-trash
 .jettypod-backup
 .jettypod-cache
+.env
