@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 2: Animated Accordion Tabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Prototype Banner */
+        .prototype-banner {
+            background: #f0f0f0;
+            border: 2px solid #333;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-family: monospace;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .prototype-banner strong {
+            font-size: 1.2rem;
+        }
+
+        .jetty-way-section {
+            background: #E8EBED;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .jetty-way-card {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .jetty-way-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0B2532;
+            margin-bottom: 10px;
+        }
+
+        .jetty-way-subheader {
+            font-size: 1.1rem;
+            color: #7A9E9F;
+            margin-bottom: 30px;
+        }
+
+        /* Accordion Layout */
+        .accordion-container {
+            max-width: 900px;
+            margin: 30px auto 0;
+            text-align: left;
+        }
+
+        .accordion-item {
+            border: 2px solid #E8EBED;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: #7A9E9F;
+        }
+
+        .accordion-item.active {
+            border-color: #0B2532;
+        }
+
+        .accordion-header {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-header {
+            background: rgba(122, 158, 159, 0.08);
+        }
+
+        .accordion-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0B2532;
+        }
+
+        .accordion-item:not(.active) .accordion-title {
+            color: #7A9E9F;
+        }
+
+        .accordion-subtitle {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            color: #7A9E9F;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+            color: #0B2532;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: white;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 600px;
+        }
+
+        .accordion-inner {
+            padding: 20px 24px 30px;
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            margin: 10px 0 20px;
+        }
+
+        .mode-option {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: transparent;
+        }
+
+        .mode-option:hover {
+            transform: translateY(-3px);
+            background: rgba(122, 158, 159, 0.1);
+        }
+
+        .mode-option.active {
+            background: rgba(122, 158, 159, 0.15);
+            border: 2px solid #7A9E9F;
+        }
+
+        .mode-option.active .mode-label {
+            color: #7A9E9F;
+            font-weight: 900;
+        }
+
+        .mode-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 6px;
+            background: #E8EBED;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .mode-label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0B2532;
+            margin: 0;
+        }
+
+        .triangle-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            height: 250px;
+            background: linear-gradient(135deg, #E8EBED 0%, #d0d5d8 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7A9E9F;
+            font-size: 0.9rem;
+        }
+
+        /* Placeholder content */
+        .placeholder-content {
+            text-align: center;
+            padding: 40px;
+            color: #7A9E9F;
+        }
+
+        .placeholder-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #0B2532;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>🧪 PROTOTYPE</strong><br>
+        Feature: Tabbed interface for Jetty Method panel<br>
+        Option: 2 - Animated Accordion Tabs<br>
+        Created: 2026-02-06<br>
+        Purpose: Demonstrates accordion-style expand/collapse with smooth animations<br>
+        Decision: [to be filled after testing]
+    </div>
+
+    <div class="jetty-way-section">
+        <div class="jetty-way-card">
+            <div class="jetty-way-header">
+                <h2>The Official Implementation of The Jetty Method</h2>
+                <p class="jetty-way-subheader">JettyPod enables a proven framework for production quality coding with natural language.</p>
+            </div>
+
+            <div class="accordion-container">
+                <!-- Accordion 1: Build Features -->
+                <div class="accordion-item active" data-accordion="features">
+                    <div class="accordion-header">
+                        <div>
+                            <div class="accordion-title">Build robust, comprehensive features.</div>
+                            <div class="accordion-subtitle">Speed → Stable → Production workflow</div>
+                        </div>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <div class="mode-selector">
+                                <div class="mode-option active" data-mode="speed">
+                                    <div class="mode-icon">⚡</div>
+                                    <p class="mode-label">1. Make it work ASAP</p>
+                                </div>
+                                <div class="mode-option" data-mode="stable">
+                                    <div class="mode-icon">🏠</div>
+                                    <p class="mode-label">2. Make it stable</p>
+                                </div>
+                                <div class="mode-option" data-mode="production">
+                                    <div class="mode-icon">⭐</div>
+                                    <p class="mode-label">3. Make it secure and scalable</p>
+                                </div>
+                            </div>
+                            <div class="triangle-container">
+                                [Triangle diagram placeholder]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 2: Backlog -->
+                <div class="accordion-item" data-accordion="backlog">
+                    <div class="accordion-header">
+                        <div>
+                            <div class="accordion-title">AI-managed backlog.</div>
+                            <div class="accordion-subtitle">Epics, features, and chores</div>
+                        </div>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <div class="placeholder-content">
+                                <h3>AI-Generated Backlog</h3>
+                                <p>Future content: Terminal-based backlog visualization</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 3: Testing -->
+                <div class="accordion-item" data-accordion="testing">
+                    <div class="accordion-header">
+                        <div>
+                            <div class="accordion-title">Test-driven by default.</div>
+                            <div class="accordion-subtitle">BDD scenarios guide implementation</div>
+                        </div>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <div class="placeholder-content">
+                                <h3>Test-Driven Development</h3>
+                                <p>Future content: BDD workflow visualization</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Accordion switching
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const wasActive = item.classList.contains('active');
+
+                // Close all
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+
+                // Open clicked (if it wasn't already open)
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Mode selector
+        document.querySelectorAll('.mode-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.mode-option').forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
