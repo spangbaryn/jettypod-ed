@@ -934,6 +934,16 @@
             color: #bbb;
         }
 
+        .slide-tab:focus {
+            outline: 2px solid #7A9E9F;
+            outline-offset: -2px;
+        }
+
+        .slide-tab:focus-visible {
+            outline: 2px solid #7A9E9F;
+            outline-offset: -2px;
+        }
+
         .slide-tabs-content {
             flex: 1;
             position: relative;
@@ -1729,21 +1739,21 @@
                 <div class="slide-tabs-container">
                     <div class="slide-tabs-nav">
                         <div class="slide-indicator" id="slide-indicator"></div>
-                        <div class="slide-tab active" data-tab="features" data-index="0">
+                        <div class="slide-tab active" data-tab="features" data-index="0" tabindex="0">
                             <div class="slide-tab-title">
                                 Build robust, comprehensive features.
                                 <span class="slide-tab-arrow">→</span>
                             </div>
                             <div class="slide-tab-subtitle">Speed → Stable → Production workflow</div>
                         </div>
-                        <div class="slide-tab" data-tab="backlog" data-index="1">
+                        <div class="slide-tab" data-tab="backlog" data-index="1" tabindex="0">
                             <div class="slide-tab-title">
                                 AI-managed backlog.
                                 <span class="slide-tab-arrow">→</span>
                             </div>
                             <div class="slide-tab-subtitle">Epics, features, and chores</div>
                         </div>
-                        <div class="slide-tab" data-tab="testing" data-index="2">
+                        <div class="slide-tab" data-tab="testing" data-index="2" tabindex="0">
                             <div class="slide-tab-title">
                                 Test-driven by default.
                                 <span class="slide-tab-arrow">→</span>
@@ -2306,6 +2316,14 @@
                         newPanel.classList.add('active');
                         currentPanel = newPanel;
                     }, 200);
+                });
+
+                // Keyboard navigation: Enter key activates tab
+                tab.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        tab.click();
+                    }
                 });
             });
         });
