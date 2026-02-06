@@ -141,6 +141,14 @@
             margin-right: auto;
         }
 
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
         .download-btn {
             background-color: transparent;
             color: #7A9E9F;
@@ -151,7 +159,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s ease;
-            margin-top: 12px;
+            margin-top: 0;
         }
 
         .download-btn:hover {
@@ -162,7 +170,7 @@
         .beta-hint {
             font-size: 0.8rem;
             color: #7A9E9F;
-            margin-top: 10px;
+            margin: 0;
         }
 
         .request-access-btn {
@@ -1713,9 +1721,11 @@
         <div class="hero">
             <h1>Make Claude Code Your<br>Technical Co-founder</h1>
             <p class="subtitle">The best way for solo founders to go from idea → <span style="color: #2D5A5B; font-weight: 700;">rock-solid code</span> with Claude.</p>
-            <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
-            <button class="download-btn">Download for macOS</button>
-            <p class="beta-hint">beta code required</p>
+            <div class="hero-buttons">
+                <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
+                <button class="download-btn">Download for macOS</button>
+                <p class="beta-hint">beta code required</p>
+            </div>
             <div class="email-form" id="email-form">
                 <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
                 <div class="newsletter-opt-in">
