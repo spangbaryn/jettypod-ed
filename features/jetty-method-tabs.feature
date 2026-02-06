@@ -37,4 +37,28 @@ Feature: Tabbed interface for Jetty Method panel
     Then each tab shows its corresponding content panel
 
   # SPEED MODE: All success scenarios above
-  # STABLE MODE: Will add error handling, edge cases (e.g., rapid clicking)
+
+  # STABLE MODE SCENARIOS - Edge Cases and Error Handling
+
+  Scenario: Clicking the already active tab does nothing
+    Given I am on the home page
+    And I am viewing the Jetty Method section
+    And the "Build robust, comprehensive features." tab is active
+    When I click the "Build robust, comprehensive features." tab again
+    Then no animation occurs
+    And the content remains unchanged
+
+  Scenario: Rapid tab clicking does not cause visual glitches
+    Given I am on the home page
+    And I am viewing the Jetty Method section
+    When I rapidly click between different tabs
+    Then only one tab is active at any time
+    And only one content panel is visible at any time
+    And no overlapping animations occur
+
+  Scenario: Tab content is accessible via keyboard navigation
+    Given I am on the home page
+    And I am viewing the Jetty Method section
+    When I use keyboard to navigate between tabs
+    Then I can focus on each tab
+    And pressing Enter activates the focused tab
