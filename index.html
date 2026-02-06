@@ -142,7 +142,31 @@
         }
 
         .download-btn {
-            background-color: #0B2532;
+            background-color: transparent;
+            color: #7A9E9F;
+            border: 1px solid #7A9E9F;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+
+        .download-btn:hover {
+            background-color: #7A9E9F;
+            color: white;
+        }
+
+        .beta-hint {
+            font-size: 0.8rem;
+            color: #7A9E9F;
+            margin-top: 10px;
+        }
+
+        .request-access-btn {
+            background-color: #2D5A5B;
             color: white;
             border: none;
             padding: 16px 32px;
@@ -153,32 +177,8 @@
             transition: background-color 0.2s ease;
         }
 
-        .download-btn:hover {
-            background-color: #1a3a4a;
-        }
-
-        .beta-hint {
-            font-size: 0.8rem;
-            color: #7A9E9F;
-            margin-top: 10px;
-        }
-
-        .request-access-btn {
-            background-color: transparent;
-            color: #7A9E9F;
-            border: 1px solid #7A9E9F;
-            padding: 10px 24px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 12px;
-        }
-
         .request-access-btn:hover {
-            background-color: #7A9E9F;
-            color: white;
+            background-color: #3d7a7b;
         }
 
         .request-access-btn.hidden {
@@ -1713,9 +1713,9 @@
         <div class="hero">
             <h1>Make Claude Code Your<br>Technical Co-founder</h1>
             <p class="subtitle">The best way for solo founders to go from idea → <span style="color: #2D5A5B; font-weight: 700;">rock-solid code</span> with Claude.</p>
+            <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
             <button class="download-btn">Download for macOS</button>
             <p class="beta-hint">beta code required</p>
-            <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
             <div class="email-form" id="email-form">
                 <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
                 <div class="newsletter-opt-in">
