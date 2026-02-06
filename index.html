@@ -232,6 +232,27 @@
             background-color: #5a7e7f;
         }
 
+        .newsletter-opt-in {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            max-width: 280px;
+            text-align: left;
+        }
+
+        .newsletter-opt-in input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+            accent-color: #7A9E9F;
+        }
+
+        .newsletter-opt-in label {
+            font-size: 0.8rem;
+            color: #7A9E9F;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
         .install-box {
             background: #fff;
             border: 2px solid #7A9E9F;
@@ -1510,6 +1531,10 @@
             <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
             <div class="email-form" id="email-form">
                 <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
+                <div class="newsletter-opt-in">
+                    <input type="checkbox" id="newsletter-checkbox">
+                    <label for="newsletter-checkbox">Get a weekly email with tips and examples on building with Jetty. That's it. No junk.</label>
+                </div>
                 <button class="submit-btn" onclick="submitEmail()">Submit</button>
             </div>
         </div>
@@ -1860,12 +1885,19 @@
 
         function submitEmail() {
             const email = document.getElementById('email-input').value;
+            const newsletterOptIn = document.getElementById('newsletter-checkbox').checked;
             if (!email || !email.includes('@')) {
                 alert('Please enter a valid email address');
                 return;
             }
 
-            // MailerLite API - waitlist group
+            // Build groups array - always include waitlist, optionally include newsletter
+            const groups = ['177237166380812033']; // waitlist group
+            if (newsletterOptIn) {
+                groups.push('177614963870097498'); // newsletter group
+            }
+
+            // MailerLite API - waitlist group (and optionally newsletter)
             fetch('https://connect.mailerlite.com/api/subscribers', {
                 method: 'POST',
                 headers: {
@@ -1874,7 +1906,7 @@
                 },
                 body: JSON.stringify({
                     email: email,
-                    groups: ['177237166380812033']
+                    groups: groups
                 })
             })
             .then(response => {
