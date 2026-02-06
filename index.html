@@ -1948,7 +1948,31 @@
                 groups.push('177319791881618855'); // newsletter group
             }
 
-            // MailerLite API - waitlist group (and optionally newsletter)
+            // Show confirmation immediately (optimistic UI)
+            const binId = '6984e451d0ea881f40a38f56';
+            const apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
+
+            // Get count and show message immediately
+            fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+                headers: { 'X-Master-Key': apiKey }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const newCount = data.record.count + 1;
+                document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">There are ' + newCount + ' people ahead of you. You\'ll hear back soon.</p>';
+
+                // Update count in background
+                fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': apiKey
+                    },
+                    body: JSON.stringify({ count: newCount })
+                });
+            });
+
+            // Fire MailerLite API call in background (don't wait)
             fetch('https://connect.mailerlite.com/api/subscribers', {
                 method: 'POST',
                 headers: {
@@ -1959,38 +1983,6 @@
                     email: email,
                     groups: groups
                 })
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Get current count from JSONbin, increment, and update
-                    const binId = '6984e451d0ea881f40a38f56';
-                    const apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
-
-                    fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-                        headers: { 'X-Master-Key': apiKey }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        const newCount = data.record.count + 1;
-
-                        // Update the bin with new count
-                        fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': apiKey
-                            },
-                            body: JSON.stringify({ count: newCount })
-                        });
-
-                        document.getElementById('email-form').innerHTML = '<div style="color: #7A9E9F; font-weight: 600; text-align: center;"><p>You\'re near the front.</p><p>There are ' + newCount + ' people ahead of you.</p><p>You\'ll hear back soon.</p></div>';
-                    });
-                } else {
-                    alert('Something went wrong. Please try again.');
-                }
-            })
-            .catch(error => {
-                alert('Something went wrong. Please try again.');
             });
         }
 
