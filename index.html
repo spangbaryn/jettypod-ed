@@ -112,6 +112,18 @@
             padding: 0 0 80px;
         }
 
+        .hero-video-container {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .hero-video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
         h1 {
             font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
@@ -1500,6 +1512,12 @@
                 <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
                 <button class="submit-btn" onclick="submitEmail()">Submit</button>
             </div>
+        </div>
+
+        <div class="hero-video-container">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770385700/JettyPod-demo-2-6_hhqdr9.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
 
