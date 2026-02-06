@@ -2282,6 +2282,9 @@
             // Tab switching with slide animation
             slideTabs.forEach(tab => {
                 tab.addEventListener('click', () => {
+                    // Guard: do nothing if clicking the already-active tab
+                    if (tab.classList.contains('active')) return;
+
                     const tabId = tab.dataset.tab;
                     const newPanel = document.querySelector(`[data-panel="${tabId}"]`);
 
