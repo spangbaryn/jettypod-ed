@@ -1723,16 +1723,16 @@
             <p class="subtitle">The best way for solo founders to go from idea → <span style="color: #2D5A5B; font-weight: 700;">rock-solid code</span> with Claude.</p>
             <div class="hero-buttons">
                 <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
+                <div class="email-form" id="email-form">
+                    <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
+                    <div class="newsletter-opt-in">
+                        <input type="checkbox" id="newsletter-checkbox">
+                        <label for="newsletter-checkbox">Get a weekly email with tips and examples on building with Jetty. That's it. No junk.</label>
+                    </div>
+                    <button class="submit-btn" onclick="submitEmail()">Submit</button>
+                </div>
                 <button class="download-btn">Download for macOS</button>
                 <p class="beta-hint">beta code required</p>
-            </div>
-            <div class="email-form" id="email-form">
-                <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
-                <div class="newsletter-opt-in">
-                    <input type="checkbox" id="newsletter-checkbox">
-                    <label for="newsletter-checkbox">Get a weekly email with tips and examples on building with Jetty. That's it. No junk.</label>
-                </div>
-                <button class="submit-btn" onclick="submitEmail()">Submit</button>
             </div>
         </div>
 
