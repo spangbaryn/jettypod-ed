@@ -173,6 +173,112 @@
             margin: 0;
         }
 
+        .access-code-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 37, 50, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .access-code-overlay.visible {
+            display: flex;
+        }
+
+        .access-code-modal {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.25s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .access-code-modal h3 {
+            font-size: 1.3rem;
+            color: #0B2532;
+            margin: 0 0 8px;
+        }
+
+        .access-code-modal p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0 0 24px;
+        }
+
+        .access-code-input {
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #7A9E9F;
+            border-radius: 6px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            letter-spacing: 0.1em;
+        }
+
+        .access-code-input:focus {
+            outline: none;
+            border-color: #0B2532;
+        }
+
+        .access-code-input.error {
+            border-color: #e74c3c;
+        }
+
+        .access-code-submit {
+            background-color: #2D5A5B;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .access-code-submit:hover {
+            background-color: #3d7a7b;
+        }
+
+        .access-code-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            min-height: 1.2em;
+        }
+
+        .access-code-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .access-code-close:hover {
+            color: #0B2532;
+        }
+
         .request-access-btn {
             background-color: #2D5A5B;
             color: white;
@@ -1781,7 +1887,7 @@
                     </div>
                     <button class="submit-btn" onclick="submitEmail()">Submit</button>
                 </div>
-                <button class="download-btn">Download for macOS</button>
+                <button class="download-btn" onclick="openAccessCodeModal()">Download for macOS</button>
                 <p class="beta-hint">beta code required</p>
             </div>
         </div>
@@ -2467,6 +2573,63 @@
             console.log('[INIT] Setting up scroll behavior');
             setupScrollBehavior(0.7);
             console.log('[INIT] Initialization complete');
+        });
+    </script>
+    <!-- Access Code Modal -->
+    <div class="access-code-overlay" id="access-code-overlay">
+        <div class="access-code-modal" style="position: relative;">
+            <button class="access-code-close" onclick="closeAccessCodeModal()">&times;</button>
+            <h3>Enter Access Code</h3>
+            <p>A beta access code is required to download.</p>
+            <input type="text" class="access-code-input" id="access-code-input" placeholder="Enter code" autocomplete="off">
+            <button class="access-code-submit" onclick="submitAccessCode()">Submit</button>
+            <div class="access-code-error" id="access-code-error"></div>
+        </div>
+    </div>
+
+    <script>
+        function openAccessCodeModal() {
+            const overlay = document.getElementById('access-code-overlay');
+            const input = document.getElementById('access-code-input');
+            const error = document.getElementById('access-code-error');
+            overlay.classList.add('visible');
+            input.value = '';
+            input.classList.remove('error');
+            error.textContent = '';
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closeAccessCodeModal() {
+            document.getElementById('access-code-overlay').classList.remove('visible');
+        }
+
+        function submitAccessCode() {
+            const input = document.getElementById('access-code-input');
+            const error = document.getElementById('access-code-error');
+
+            if (!input.value.trim()) {
+                input.classList.add('error');
+                error.textContent = 'Please enter an access code.';
+                return;
+            }
+
+            input.classList.add('error');
+            error.textContent = 'Invalid access code. Please try again.';
+        }
+
+        // Close modal on overlay click
+        document.getElementById('access-code-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeAccessCodeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeAccessCodeModal();
+        });
+
+        // Submit on Enter key in input
+        document.getElementById('access-code-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitAccessCode();
         });
     </script>
 </body>
