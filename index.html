@@ -189,7 +189,9 @@
             background-color: #3d7a7b;
         }
 
-        .request-access-btn.hidden {
+        .request-access-btn.hidden,
+        .download-btn.hidden,
+        .beta-hint.hidden {
             opacity: 0;
             pointer-events: none;
             position: absolute;
@@ -2123,9 +2125,13 @@
         function showEmailForm() {
             const btn = document.querySelector('.request-access-btn');
             const form = document.getElementById('email-form');
+            const downloadBtn = document.querySelector('.download-btn');
+            const betaHint = document.querySelector('.beta-hint');
 
             btn.classList.add('hidden');
             form.classList.add('visible');
+            downloadBtn.classList.add('hidden');
+            betaHint.classList.add('hidden');
             document.getElementById('email-input').focus();
         }
 
