@@ -1040,7 +1040,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: 60px;
+            gap: 30px;
             margin: 20px 0 30px;
             max-width: 1000px;
             margin-left: auto;
@@ -1059,7 +1059,8 @@
             padding: 10px 14px;
             border-radius: 12px;
             background: transparent;
-            flex: 0 0 auto;
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         .mode-option:hover {
@@ -1089,6 +1090,8 @@
             font-weight: 700;
             color: #0B2532;
             margin: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .mode-name {
