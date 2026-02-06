@@ -1975,7 +1975,7 @@
                             body: JSON.stringify({ count: newCount })
                         });
 
-                        document.getElementById('email-form').innerHTML = '<p style="color: #7A9E9F; font-weight: 600;">You\'re near the front. There are ' + newCount + ' people ahead of you. You\'ll hear back soon.</p>';
+                        document.getElementById('email-form').innerHTML = '<div style="color: #7A9E9F; font-weight: 600; text-align: center;"><p>You\'re near the front.</p><p>There are ' + newCount + ' people ahead of you.</p><p>You\'ll hear back soon.</p></div>';
                     });
                 } else {
                     alert('Something went wrong. Please try again.');
