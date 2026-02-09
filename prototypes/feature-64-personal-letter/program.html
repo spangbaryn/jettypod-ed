@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod - Build Something Real</title>
+    <link rel="icon" type="image/png" href="../../jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 0;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-text-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .back-link {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: #0B2532;
+        }
+
+        /* Letter content */
+        .letter {
+            margin-top: 60px;
+        }
+
+        .letter-headline {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 40px;
+        }
+
+        .letter-headline em {
+            font-style: normal;
+            color: #2D5A5B;
+        }
+
+        .letter-body {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .letter-body p {
+            margin-bottom: 24px;
+        }
+
+        .letter-body strong {
+            color: #0B2532;
+        }
+
+        .letter-separator {
+            width: 60px;
+            height: 3px;
+            background: #7A9E9F;
+            margin: 40px 0;
+        }
+
+        .what-you-get {
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #2D5A5B;
+        }
+
+        .what-you-get h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0B2532;
+        }
+
+        .what-you-get ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .what-you-get li {
+            padding: 8px 0;
+            font-size: 1.05rem;
+            color: #333;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .what-you-get li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: #7A9E9F;
+            border-radius: 50%;
+        }
+
+        .signature {
+            margin-top: 40px;
+        }
+
+        .signature-name {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .signature-title {
+            font-size: 0.9rem;
+            color: #7A9E9F;
+            margin-top: 4px;
+        }
+
+        /* CTA */
+        .cta-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: #0B2532;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .cta-section p {
+            color: #7A9E9F;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-input {
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #7A9E9F;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            background: white;
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: white;
+        }
+
+        .cta-button {
+            background-color: #2D5A5B;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #3d7a7b;
+        }
+
+        .cta-note {
+            font-size: 0.8rem;
+            color: #5a8a8b;
+            margin-top: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        footer a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            color: #0B2532;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+
+            .letter {
+                margin-top: 40px;
+            }
+
+            .letter-headline {
+                font-size: 1.8rem;
+            }
+
+            .letter-body {
+                font-size: 1.05rem;
+            }
+
+            .what-you-get {
+                padding: 20px;
+            }
+
+            .cta-section {
+                padding: 30px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="background: #f0f0f0; border: 2px solid #333; padding: 16px; margin-bottom: 24px; font-family: monospace;">
+        <strong>PROTOTYPE</strong><br>
+        Feature: Coaching program page<br>
+        Option: 1 - Direct, Personal Letter<br>
+        Created: 2026-02-09<br>
+        Purpose: Test whether a personal, letter-style page resonates with the target audience<br>
+        Decision: [to be filled after testing]
+    </div>
+
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="../../jetty-icon.svg" alt="JettyPod Logo" class="logo">
+                <div class="logo-text-wrapper">
+                    <span class="logo-text">JettyPod</span>
+                </div>
+            </a>
+            <a href="/" class="back-link">&larr; Back</a>
+        </header>
+
+        <div class="letter">
+            <h1 class="letter-headline">You don't need another job application.<br>You need to <em>build something real.</em></h1>
+
+            <div class="letter-body">
+                <p>I know where you are right now.</p>
+
+                <p>You finished school. Or maybe you're in your first job and it already feels like a dead end. You're sending out applications, tweaking your resume, and hearing nothing back. Everyone tells you to "network" or "be patient." But you have this thing inside you — this pull toward building, toward making something that's <strong>yours</strong>.</p>
+
+                <p>That's not a side project impulse. That's an entrepreneurial one. And I want to help you act on it.</p>
+
+                <div class="letter-separator"></div>
+
+                <p>I'm putting together a small group — just a handful of people — to work through building a real product together over two weeks. Not a hackathon. Not a course with pre-recorded videos. An actual working group where we meet, we build, and I coach you through the hard parts.</p>
+
+                <p>You'll use JettyPod, which turns Claude Code into your technical co-founder. Even if you're not a developer, you'll ship real software — something with users, something that could support you. And I'll be there the whole time to make sure you don't get stuck.</p>
+
+                <div class="what-you-get">
+                    <h3>Here's what you get:</h3>
+                    <ul>
+                        <li>Full access to JettyPod (normally invite-only beta)</li>
+                        <li>Small group sessions over two weeks — I'll be in every one</li>
+                        <li>Real coaching on what to build, how to scope it, and how to ship it</li>
+                        <li>A cohort of people in your exact situation who are choosing to build instead of wait</li>
+                    </ul>
+                </div>
+
+                <p>If you've been staring at job boards and wondering if there's another way — there is. And this is it.</p>
+
+                <div class="signature">
+                    <div class="signature-name">Erik</div>
+                    <div class="signature-title">Creator of JettyPod & The Jetty Method</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>I'm in. Let's build.</h2>
+            <p>Drop your email and I'll send you the details when the next cohort opens.</p>
+            <div class="cta-form">
+                <input type="email" class="cta-input" placeholder="your@email.com">
+                <button class="cta-button">Count me in</button>
+                <span class="cta-note">Small groups only. Spots are limited.</span>
+            </div>
+        </div>
+
+        <footer>
+            <a href="/">JettyPod</a>
+        </footer>
+    </div>
+</body>
+</html>
