@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod - Build Something Real</title>
+    <link rel="icon" type="image/png" href="../../jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            z-index: 100;
+            background: rgba(232, 235, 237, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .back-link {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: #0B2532;
+        }
+
+        /* Story sections */
+        .story-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        .story-content {
+            max-width: 700px;
+            text-align: center;
+        }
+
+        /* Section 1: The situation */
+        .section-situation {
+            background: #E8EBED;
+        }
+
+        .section-situation .story-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .big-text {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .muted-text {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #7A9E9F;
+            line-height: 1.6;
+        }
+
+        /* Section 2: The grind */
+        .section-grind {
+            background: #0B2532;
+            color: #E8EBED;
+        }
+
+        .grind-list {
+            list-style: none;
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .grind-list li {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(122, 158, 159, 0.2);
+            color: #7A9E9F;
+        }
+
+        .grind-list li:last-child {
+            border-bottom: none;
+        }
+
+        .grind-list li .strikethrough {
+            text-decoration: line-through;
+            opacity: 0.4;
+        }
+
+        /* Section 3: The pull */
+        .section-pull {
+            background: #E8EBED;
+        }
+
+        .accent-text {
+            color: #2D5A5B;
+        }
+
+        .handwritten {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #2D5A5B;
+            margin-top: 20px;
+        }
+
+        /* Section 4: The pivot */
+        .section-pivot {
+            background: #2D5A5B;
+            color: white;
+        }
+
+        .section-pivot .muted-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Section 5: The offer */
+        .section-offer {
+            background: #E8EBED;
+            min-height: auto;
+            padding: 80px 30px;
+        }
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 24px;
+        }
+
+        .offer-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0B2532;
+        }
+
+        .offer-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Section 6: CTA */
+        .section-cta {
+            background: #0B2532;
+            min-height: 80vh;
+            color: white;
+        }
+
+        .cta-headline {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .cta-sub {
+            color: #7A9E9F;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-input {
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #7A9E9F;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            background: white;
+            color: #0B2532;
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: white;
+        }
+
+        .cta-button {
+            background-color: #2D5A5B;
+            color: white;
+            border: none;
+            padding: 16px 44px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #3d7a7b;
+        }
+
+        .cta-note {
+            font-size: 0.8rem;
+            color: #5a8a8b;
+            margin-top: 8px;
+        }
+
+        .cta-signature {
+            margin-top: 40px;
+        }
+
+        .cta-signature-name {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .cta-signature-title {
+            font-size: 0.85rem;
+            color: #7A9E9F;
+        }
+
+        /* Scroll-triggered fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .site-header {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .story-section {
+                padding: 40px 20px;
+            }
+
+            .grind-list li {
+                font-size: 1rem;
+                padding: 12px 0;
+            }
+
+            .offer-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="background: #f0f0f0; border: 2px solid #333; padding: 16px; margin-bottom: 0; font-family: monospace; position: relative; z-index: 200;">
+        <strong>PROTOTYPE</strong><br>
+        Feature: Coaching program page<br>
+        Option: 3 - Story-Driven Scroll<br>
+        Created: 2026-02-09<br>
+        Purpose: Test whether a narrative scroll experience creates emotional resonance with the target audience<br>
+        Decision: [to be filled after testing]
+    </div>
+
+    <header class="site-header">
+        <a href="/" class="logo-link">
+            <img src="../../jetty-icon.svg" alt="JettyPod Logo" class="logo">
+            <span class="logo-text">JettyPod</span>
+        </a>
+        <a href="/" class="back-link">&larr; Back</a>
+    </header>
+
+    <!-- 1. The situation -->
+    <section class="story-section section-situation">
+        <div class="story-content">
+            <p class="big-text">You graduated.<br>You applied everywhere.<br>Nothing clicked.</p>
+            <p class="muted-text">Sound familiar?</p>
+        </div>
+    </section>
+
+    <!-- 2. The grind -->
+    <section class="story-section section-grind">
+        <div class="story-content fade-in">
+            <p class="big-text" style="color: #E8EBED; margin-bottom: 40px;">The playbook everyone handed you:</p>
+            <ul class="grind-list">
+                <li><span class="strikethrough">Update your resume</span></li>
+                <li><span class="strikethrough">Apply to 50 jobs a week</span></li>
+                <li><span class="strikethrough">"Network" on LinkedIn</span></li>
+                <li><span class="strikethrough">Be patient</span></li>
+                <li><span class="strikethrough">Lower your expectations</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 3. The pull -->
+    <section class="story-section section-pull">
+        <div class="story-content fade-in">
+            <p class="big-text">But there's this thing inside you that <span class="accent-text">won't go away.</span></p>
+            <p class="muted-text">A pull toward building. Toward making something that's <strong style="color: #0B2532;">yours</strong>. Not a side project. Not a homework assignment. Something <strong style="color: #0B2532;">real</strong> that could actually support you.</p>
+            <p class="handwritten">That's not naive. That's entrepreneurial.</p>
+        </div>
+    </section>
+
+    <!-- 4. The pivot -->
+    <section class="story-section section-pivot">
+        <div class="story-content fade-in">
+            <p class="big-text" style="margin-bottom: 20px;">What if you stopped applying<br>and started building?</p>
+            <p class="muted-text">Two weeks. A small group of people in your exact situation. A coach who's been there. And a tool that turns your ideas into real software.</p>
+        </div>
+    </section>
+
+    <!-- 5. The offer -->
+    <section class="story-section section-offer">
+        <div class="story-content fade-in">
+            <p class="big-text">Here's what you get.</p>
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <h3>JettyPod Access</h3>
+                    <p>Your AI-powered technical co-founder. Build production software even if you've never written code.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>Small Group Cohort</h3>
+                    <p>A handful of people choosing to build instead of wait. Meet regularly. Share progress. Stay accountable.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>Direct Coaching</h3>
+                    <p>Erik is in every session. Scope your idea, push past blockers, and ship something real.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>Two Weeks to Launch</h3>
+                    <p>Not a course. Not a hackathon. A real sprint to build and deploy something with actual users.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA -->
+    <section class="story-section section-cta">
+        <div class="story-content fade-in">
+            <p class="cta-headline">Stop waiting.<br>Start building.</p>
+            <p class="cta-sub">Drop your email and I'll send you details when the next cohort opens.</p>
+            <div class="cta-form">
+                <input type="email" class="cta-input" placeholder="your@email.com">
+                <button class="cta-button">I'm in</button>
+                <span class="cta-note">Small groups only. Spots are limited.</span>
+            </div>
+            <div class="cta-signature">
+                <div class="cta-signature-name">Erik</div>
+                <div class="cta-signature-title">Creator of JettyPod & The Jetty Method</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll-triggered fade-in
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
