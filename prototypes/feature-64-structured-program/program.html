@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod - Builder's Cohort</title>
+    <link rel="icon" type="image/png" href="../../jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-text-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .back-link {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: #0B2532;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #2D5A5B;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #7A9E9F;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-cta {
+            background-color: #2D5A5B;
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .hero-cta:hover {
+            background-color: #3d7a7b;
+        }
+
+        /* Who this is for */
+        .audience-section {
+            padding: 60px 0;
+        }
+
+        .section-label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            color: #7A9E9F;
+            margin-bottom: 8px;
+        }
+
+        .audience-section h2 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .audience-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 24px;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .audience-card:hover {
+            border-color: #7A9E9F;
+        }
+
+        .audience-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .audience-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* What you get */
+        .program-section {
+            padding: 60px 0;
+        }
+
+        .program-section h2 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 28px;
+        }
+
+        .program-card-icon {
+            width: 48px;
+            height: 48px;
+            background: #E8EBED;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+
+        .program-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .program-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* How it works */
+        .timeline-section {
+            padding: 60px 0;
+        }
+
+        .timeline-section h2 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 24px;
+            bottom: 24px;
+            width: 3px;
+            background: #7A9E9F;
+            border-radius: 2px;
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            padding: 20px 0;
+        }
+
+        .timeline-marker {
+            width: 48px;
+            height: 48px;
+            background: #2D5A5B;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Coach section */
+        .coach-section {
+            padding: 60px 0;
+        }
+
+        .coach-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .coach-avatar {
+            width: 120px;
+            height: 120px;
+            background: #2D5A5B;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coach-avatar-text {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .coach-info h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .coach-info .coach-title {
+            color: #7A9E9F;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .coach-info p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta-section {
+            margin: 60px 0;
+            padding: 50px 40px;
+            background: #0B2532;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .cta-section p {
+            color: #7A9E9F;
+            font-size: 1rem;
+            margin-bottom: 28px;
+        }
+
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-input {
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #7A9E9F;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            background: white;
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: white;
+        }
+
+        .cta-button {
+            background-color: #2D5A5B;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #3d7a7b;
+        }
+
+        .cta-note {
+            font-size: 0.8rem;
+            color: #5a8a8b;
+            margin-top: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        footer a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            color: #0B2532;
+        }
+
+        @media (max-width: 768px) {
+            .audience-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coach-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+
+            .hero {
+                padding: 40px 0 30px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .audience-section,
+            .program-section,
+            .timeline-section,
+            .coach-section {
+                padding: 40px 0;
+            }
+
+            .cta-section {
+                padding: 30px 20px;
+                margin: 40px 0;
+            }
+
+            .cta-section h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="background: #f0f0f0; border: 2px solid #333; padding: 16px; margin-bottom: 24px; font-family: monospace;">
+        <strong>PROTOTYPE</strong><br>
+        Feature: Coaching program page<br>
+        Option: 2 - Structured Program Page<br>
+        Created: 2026-02-09<br>
+        Purpose: Test whether a structured, section-based layout communicates the program clearly<br>
+        Decision: [to be filled after testing]
+    </div>
+
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="../../jetty-icon.svg" alt="JettyPod Logo" class="logo">
+                <div class="logo-text-wrapper">
+                    <span class="logo-text">JettyPod</span>
+                </div>
+            </a>
+            <a href="/" class="back-link">&larr; Back</a>
+        </header>
+
+        <!-- Hero -->
+        <div class="hero">
+            <span class="hero-tag">Small Group Cohort</span>
+            <h1>Build a Real Business<br>in Two Weeks</h1>
+            <p class="hero-sub">A hands-on program for aspiring founders. Get JettyPod, a small group, and a coach who's been there. Ship something real.</p>
+            <button class="hero-cta" onclick="document.querySelector('.cta-section').scrollIntoView({behavior: 'smooth'})">Join the Next Cohort</button>
+        </div>
+
+        <!-- Who this is for -->
+        <div class="audience-section">
+            <div class="section-label">Who this is for</div>
+            <h2>You're not looking for another resume tip.</h2>
+            <div class="audience-cards">
+                <div class="audience-card">
+                    <h3>Just graduated</h3>
+                    <p>You have a degree but no clear path. The job market feels like a lottery you keep losing.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>Early career & restless</h3>
+                    <p>You're in a job that pays the bills but doesn't feel like yours. You know you want to build something.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>Entrepreneurial but stuck</h3>
+                    <p>You have ideas but no technical co-founder, no funding, and no clue where to start.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What you get -->
+        <div class="program-section">
+            <div class="section-label">What you get</div>
+            <h2>Everything you need to go from idea to shipped product.</h2>
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-card-icon">&#9881;</div>
+                    <h3>Full JettyPod Access</h3>
+                    <p>JettyPod turns Claude Code into your technical co-founder. Build production-quality software even if you've never coded.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-card-icon">&#128101;</div>
+                    <h3>Small Group Sessions</h3>
+                    <p>Meet regularly over two weeks with a tight-knit cohort. Share progress, get feedback, stay accountable.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-card-icon">&#127919;</div>
+                    <h3>Direct Coaching from Erik</h3>
+                    <p>I'll be in every session. I'll help you scope your idea, push past blockers, and make sure you ship.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-card-icon">&#128640;</div>
+                    <h3>Something You Actually Ship</h3>
+                    <p>This isn't a course. By the end, you'll have a real product — something with users, not a toy project.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="timeline-section">
+            <div class="section-label">How it works</div>
+            <h2>Two weeks. Real progress.</h2>
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Kickoff: Scope your idea</h3>
+                        <p>We meet as a group. You'll share what you want to build and I'll help you turn a vague idea into a scoped, buildable product.</p>
+                    </div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Build: Ship features every day</h3>
+                        <p>Using JettyPod's speed/stable/production workflow, you'll build real features. We meet throughout to unblock, review, and push forward.</p>
+                    </div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>Launch: Put it in front of people</h3>
+                        <p>By the end of two weeks, you'll deploy your product and get your first real users. Not hypothetical. Real.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your coach -->
+        <div class="coach-section">
+            <div class="section-label">Your coach</div>
+            <div class="coach-card">
+                <div class="coach-avatar">
+                    <span class="coach-avatar-text">E</span>
+                </div>
+                <div class="coach-info">
+                    <h3>Erik Spangenberg</h3>
+                    <div class="coach-title">Creator of JettyPod & The Jetty Method</div>
+                    <p>I built JettyPod because I believe anyone with a good idea should be able to turn it into real software. I've been building products for years and I've seen what works — and what wastes your time. In this cohort, I'll work with you directly to make sure you build something that matters.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Ready to build something real?</h2>
+            <p>Drop your email and I'll send you details when the next cohort opens.</p>
+            <div class="cta-form">
+                <input type="email" class="cta-input" placeholder="your@email.com">
+                <button class="cta-button">Join the Waitlist</button>
+                <span class="cta-note">Small groups only. Spots are limited.</span>
+            </div>
+        </div>
+
+        <footer>
+            <a href="/">JettyPod</a>
+        </footer>
+    </div>
+</body>
+</html>
