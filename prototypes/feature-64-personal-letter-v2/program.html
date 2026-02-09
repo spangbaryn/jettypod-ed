@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod - Build Something Real</title>
+    <link rel="icon" type="image/png" href="../../jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 0;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-text-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .back-link {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: #0B2532;
+        }
+
+        /* Letter content */
+        .letter {
+            margin-top: 60px;
+        }
+
+        .letter-headline {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 40px;
+        }
+
+        .letter-headline em {
+            font-style: normal;
+            color: #2D5A5B;
+        }
+
+        .letter-body {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .letter-body p {
+            margin-bottom: 24px;
+        }
+
+        .letter-body strong {
+            color: #0B2532;
+        }
+
+        .letter-separator {
+            width: 60px;
+            height: 3px;
+            background: #7A9E9F;
+            margin: 40px 0;
+        }
+
+        .what-you-get {
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #2D5A5B;
+        }
+
+        .what-you-get h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0B2532;
+        }
+
+        .what-you-get ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .what-you-get li {
+            padding: 8px 0;
+            font-size: 1.05rem;
+            color: #333;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .what-you-get li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: #7A9E9F;
+            border-radius: 50%;
+        }
+
+        .signature {
+            margin-top: 40px;
+        }
+
+        .signature-name {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .signature-title {
+            font-size: 0.9rem;
+            color: #7A9E9F;
+            margin-top: 4px;
+        }
+
+        /* Audience cards */
+        .audience-section {
+            margin: 60px 0;
+        }
+
+        .section-label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #7A9E9F;
+            margin-bottom: 6px;
+        }
+
+        .audience-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0B2532;
+        }
+
+        .audience-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 20px;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .audience-card:hover {
+            border-color: #7A9E9F;
+        }
+
+        .audience-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            margin: 60px 0;
+        }
+
+        .timeline-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #0B2532;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 18px;
+            bottom: 18px;
+            width: 3px;
+            background: #7A9E9F;
+            border-radius: 2px;
+        }
+
+        .timeline-step {
+            position: relative;
+            padding: 0 0 32px;
+        }
+
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -48px;
+            width: 36px;
+            height: 36px;
+            background: #2D5A5B;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            z-index: 1;
+        }
+
+        .timeline-step h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-step p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Coach */
+        .coach-section {
+            margin: 60px 0;
+        }
+
+        .coach-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .coach-avatar {
+            width: 100px;
+            height: 100px;
+            background: #2D5A5B;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coach-avatar-text {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .coach-info h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .coach-info .coach-title {
+            color: #7A9E9F;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .coach-info p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: #0B2532;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .cta-section p {
+            color: #7A9E9F;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-input {
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #7A9E9F;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            background: white;
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: white;
+        }
+
+        .cta-button {
+            background-color: #2D5A5B;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #3d7a7b;
+        }
+
+        .cta-note {
+            font-size: 0.8rem;
+            color: #5a8a8b;
+            margin-top: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        footer a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            color: #0B2532;
+        }
+
+        @media (max-width: 768px) {
+            .audience-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .coach-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+
+            .letter {
+                margin-top: 40px;
+            }
+
+            .letter-headline {
+                font-size: 1.8rem;
+            }
+
+            .letter-body {
+                font-size: 1.05rem;
+            }
+
+            .what-you-get {
+                padding: 20px;
+            }
+
+            .cta-section {
+                padding: 30px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .audience-section,
+            .timeline-section,
+            .coach-section {
+                margin: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="background: #f0f0f0; border: 2px solid #333; padding: 16px; margin-bottom: 24px; font-family: monospace;">
+        <strong>PROTOTYPE</strong><br>
+        Feature: Coaching program page<br>
+        Option: 1+2 Hybrid - Personal Letter with Structured Elements<br>
+        Created: 2026-02-09<br>
+        Purpose: Combine the personal letter tone with structured audience cards, timeline, and coach section<br>
+        Decision: [to be filled after testing]
+    </div>
+
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="../../jetty-icon.svg" alt="JettyPod Logo" class="logo">
+                <div class="logo-text-wrapper">
+                    <span class="logo-text">JettyPod</span>
+                </div>
+            </a>
+            <a href="/" class="back-link">&larr; Back</a>
+        </header>
+
+        <div class="letter">
+            <h1 class="letter-headline">You don't need another job application.<br>You need to <em>build something real.</em></h1>
+
+            <div class="letter-body">
+                <p>I know where you are right now.</p>
+
+                <p>You finished school. Or maybe you're in your first job and it already feels like a dead end. You're sending out applications, tweaking your resume, and hearing nothing back. Everyone tells you to "network" or "be patient." But you have this thing inside you — this pull toward building, toward making something that's <strong>yours</strong>.</p>
+
+                <p>That's not a side project impulse. That's an entrepreneurial one. And I want to help you act on it.</p>
+            </div>
+        </div>
+
+        <!-- Who this is for -->
+        <div class="audience-section">
+            <div class="section-label">Sound like you?</div>
+            <div class="audience-cards">
+                <div class="audience-card">
+                    <h4>Just graduated</h4>
+                    <p>You have a degree but no clear path. The job market feels like a lottery you keep losing.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Early career & restless</h4>
+                    <p>You're in a job that pays the bills but doesn't feel like yours. You know you want to build something.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Entrepreneurial but stuck</h4>
+                    <p>You have ideas but no technical co-founder, no funding, and no clue where to start.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Letter continues -->
+        <div class="letter">
+            <div class="letter-body">
+                <div class="letter-separator"></div>
+
+                <p>I'm putting together a small group — just a handful of people — to work through building a real product together over two weeks. Not a hackathon. Not a course with pre-recorded videos. An actual working group where we meet, we build, and I coach you through the hard parts.</p>
+
+                <p>You'll use JettyPod, which turns Claude Code into your technical co-founder. Even if you're not a developer, you'll ship real software — something with users, something that could support you. And I'll be there the whole time to make sure you don't get stuck.</p>
+
+                <div class="what-you-get">
+                    <h3>Here's what you get:</h3>
+                    <ul>
+                        <li>Full access to JettyPod (normally invite-only beta)</li>
+                        <li>Small group sessions over two weeks — I'll be in every one</li>
+                        <li>Real coaching on what to build, how to scope it, and how to ship it</li>
+                        <li>A cohort of people in your exact situation who are choosing to build instead of wait</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="timeline-section">
+            <div class="section-label">How it works</div>
+            <h3>Two weeks. Real progress.</h3>
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-marker">1</div>
+                    <h4>Kickoff: Scope your idea</h4>
+                    <p>We meet as a group. You'll share what you want to build and I'll help you turn a vague idea into a scoped, buildable product.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-marker">2</div>
+                    <h4>Build: Ship features every day</h4>
+                    <p>Using JettyPod's speed/stable/production workflow, you'll build real features. We meet throughout to unblock, review, and push forward.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-marker">3</div>
+                    <h4>Launch: Put it in front of people</h4>
+                    <p>By the end of two weeks, you'll deploy your product and get your first real users. Not hypothetical. Real.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your coach -->
+        <div class="coach-section">
+            <div class="section-label">Your coach</div>
+            <div class="coach-card">
+                <div class="coach-avatar">
+                    <span class="coach-avatar-text">E</span>
+                </div>
+                <div class="coach-info">
+                    <h4>Erik Spangenberg</h4>
+                    <div class="coach-title">Creator of JettyPod & The Jetty Method</div>
+                    <p>I built JettyPod because I believe anyone with a good idea should be able to turn it into real software. I've been building products for years and I've seen what works — and what wastes your time. In this cohort, I'll work with you directly to make sure you build something that matters.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Letter closing -->
+        <div class="letter">
+            <div class="letter-body">
+                <p>If you've been staring at job boards and wondering if there's another way — there is. And this is it.</p>
+
+                <div class="signature">
+                    <div class="signature-name">Erik</div>
+                    <div class="signature-title">Creator of JettyPod & The Jetty Method</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>I'm in. Let's build.</h2>
+            <p>Drop your email and I'll send you the details when the next cohort opens.</p>
+            <div class="cta-form">
+                <input type="email" class="cta-input" placeholder="your@email.com">
+                <button class="cta-button">Count me in</button>
+                <span class="cta-note">Small groups only. Spots are limited.</span>
+            </div>
+        </div>
+
+        <footer>
+            <a href="/">JettyPod</a>
+        </footer>
+    </div>
+</body>
+</html>
