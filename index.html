@@ -798,7 +798,7 @@
 
         @media (max-width: 640px) {
             body {
-                padding: 10px;
+                padding: 16px;
             }
 
             .site-header {
@@ -819,11 +819,20 @@
 
             .subtitle {
                 font-size: 1rem;
-                margin-bottom: 40px;
+                margin-bottom: 20px;
             }
 
             .hero {
-                padding: 20px 0 40px;
+                padding: 10px 0 30px;
+            }
+
+            .hero-video-container {
+                margin-bottom: 30px;
+            }
+
+            .download-btn,
+            .beta-hint {
+                display: none;
             }
 
             .github-link {
@@ -958,7 +967,8 @@
         .site-footer {
             background: #E8EBED;
             padding: 40px 20px;
-            margin-top: 80px;
+            margin-top: 0;
+            border-top: 1px solid #ddd;
         }
 
         .footer-content {
@@ -1023,26 +1033,32 @@
 
         .mobile-feature-block {
             text-align: left;
-            margin-bottom: 30px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .mobile-feature-block .mobile-feature-text {
+            padding: 20px 20px 16px;
         }
 
         .mobile-feature-block h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #0B2532;
             margin: 0 0 4px;
         }
 
         .mobile-feature-block p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #7A9E9F;
-            margin: 0 0 12px;
+            margin: 0;
         }
 
         .mobile-feature-block video {
             width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -1053,7 +1069,24 @@
             .mobile-stacked {
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 20px;
+            }
+
+            .jetty-way-section {
+                padding: 50px 0;
+            }
+
+            .jetty-way-header {
+                text-align: left;
+                margin-bottom: 24px;
+            }
+
+            .jetty-way-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .jetty-way-subheader {
+                font-size: 0.95rem;
             }
         }
 
@@ -2079,22 +2112,28 @@
             <!-- Mobile stacked layout -->
             <div class="mobile-stacked">
                 <div class="mobile-feature-block">
-                    <h3>Build features solidly.</h3>
-                    <p>Speed &rarr; Stable &rarr; Production workflow</p>
+                    <div class="mobile-feature-text">
+                        <h3>Build features solidly.</h3>
+                        <p>Speed &rarr; Stable &rarr; Production workflow</p>
+                    </div>
                     <video autoplay loop muted playsinline>
                         <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770676393/speedmode_wrkpzy.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="mobile-feature-block">
-                    <h3>Know when something breaks.</h3>
-                    <p>Test-driven by default.</p>
+                    <div class="mobile-feature-text">
+                        <h3>Know when something breaks.</h3>
+                        <p>Test-driven by default.</p>
+                    </div>
                     <video autoplay loop muted playsinline>
                         <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770758355/test-suite_poeanr.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="mobile-feature-block">
-                    <h3>Easily generate options.</h3>
-                    <p>Delightful prototyping.</p>
+                    <div class="mobile-feature-text">
+                        <h3>Easily generate options.</h3>
+                        <p>Delightful prototyping.</p>
+                    </div>
                     <video autoplay loop muted playsinline>
                         <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770760472/prototyping_cuhwth.mp4" type="video/mp4">
                     </video>
