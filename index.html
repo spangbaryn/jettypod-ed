@@ -1016,6 +1016,47 @@
             }
         }
 
+        /* Mobile stacked layout */
+        .mobile-stacked {
+            display: none;
+        }
+
+        .mobile-feature-block {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .mobile-feature-block h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0B2532;
+            margin: 0 0 4px;
+        }
+
+        .mobile-feature-block p {
+            font-size: 0.9rem;
+            color: #7A9E9F;
+            margin: 0 0 12px;
+        }
+
+        .mobile-feature-block video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .desktop-tabs {
+                display: none;
+            }
+
+            .mobile-stacked {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
         /* Build Features The Jetty Way Section */
         .jetty-way-section {
             background: #E8EBED;
@@ -1982,7 +2023,7 @@
                 <p class="jetty-way-subheader">A proven framework for production quality coding with natural language.</p>
             </div>
 
-            <div class="jetty-way-card">
+            <div class="jetty-way-card desktop-tabs">
                 <!-- Slide Panel Tabs -->
                 <div class="slide-tabs-container">
                     <div class="slide-tabs-nav">
@@ -2032,6 +2073,31 @@
                             </video>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Mobile stacked layout -->
+            <div class="mobile-stacked">
+                <div class="mobile-feature-block">
+                    <h3>Build features solidly.</h3>
+                    <p>Speed &rarr; Stable &rarr; Production workflow</p>
+                    <video autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770676393/speedmode_wrkpzy.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="mobile-feature-block">
+                    <h3>Know when something breaks.</h3>
+                    <p>Test-driven by default.</p>
+                    <video autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770758355/test-suite_poeanr.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="mobile-feature-block">
+                    <h3>Easily generate options.</h3>
+                    <p>Delightful prototyping.</p>
+                    <video autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770760472/prototyping_cuhwth.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </div>
