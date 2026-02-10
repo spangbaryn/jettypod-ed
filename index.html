@@ -2368,6 +2368,13 @@
                         currentPanel.classList.remove('exiting');
                         newPanel.classList.add('active');
                         currentPanel = newPanel;
+
+                        // Reset and play the new panel's video
+                        const video = newPanel.querySelector('video');
+                        if (video) {
+                            video.currentTime = 0;
+                            video.play();
+                        }
                     }, 200);
                 });
 
