@@ -954,6 +954,68 @@
             }
         }
 
+        /* Footer */
+        .site-footer {
+            background: #E8EBED;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-name {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #0B2532;
+        }
+
+        .footer-copyright {
+            color: #5a7a7b;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
         /* Build Features The Jetty Way Section */
         .jetty-way-section {
             background: #E8EBED;
@@ -1014,7 +1076,7 @@
         .jetty-way-card {
             background: white;
             border-radius: 16px;
-            padding: 60px 40px;
+            padding: 0;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             max-width: 1200px;
             margin: 0 auto;
@@ -1025,19 +1087,20 @@
         .slide-tabs-container {
             display: flex;
             gap: 0;
-            margin-top: 30px;
             text-align: left;
-            min-height: 600px;
+            min-height: 500px;
         }
 
         .slide-tabs-nav {
             display: flex;
             flex-direction: column;
-            min-width: 300px;
-            border-right: 1px solid #E8EBED;
+            min-width: 340px;
+            max-width: 340px;
             position: relative;
             z-index: 2;
             background: white;
+            padding: 40px 0;
+            justify-content: center;
         }
 
         .slide-tab {
@@ -1111,6 +1174,7 @@
             flex: 1;
             position: relative;
             overflow: hidden;
+            background: #f5f5f5;
         }
 
         .slide-tab-panel {
@@ -1119,7 +1183,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 20px 40px;
+            padding: 0;
             opacity: 0;
             transform: translateX(30px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1176,6 +1240,10 @@
             width: 50px;
             height: 50px;
             object-fit: contain;
+        }
+
+        .jetty-way-header {
+            text-align: left;
         }
 
         .jetty-way-header h2 {
@@ -1909,103 +1977,59 @@
     <div class="container" id="comparison-container">
         <!-- The Official Tool of The Jetty Method -->
         <div class="jetty-way-section">
-            <div class="official-badge">
-                <span class="text">The Official Tool of <a href="https://www.jettymethod.com" target="_blank" class="jetty-method-link">The Jetty Method</a></span>
+            <div class="jetty-way-header">
+                <h2>The Official Tool of <a href="https://www.jettymethod.com" target="_blank" class="jetty-method-link">The Jetty Method</a></h2>
+                <p class="jetty-way-subheader">A proven framework for production quality coding with natural language.</p>
             </div>
 
             <div class="jetty-way-card">
-                <div class="jetty-way-header">
-                    <p class="jetty-way-subheader">A proven framework for production quality coding with natural language.</p>
-                </div>
-
                 <!-- Slide Panel Tabs -->
                 <div class="slide-tabs-container">
                     <div class="slide-tabs-nav">
                         <div class="slide-indicator" id="slide-indicator"></div>
                         <div class="slide-tab active" data-tab="features" data-index="0">
                             <div class="slide-tab-title">
-                                Build robust, comprehensive features.
+                                Build features solidly.
                                 <span class="slide-tab-arrow">&rarr;</span>
                             </div>
                             <div class="slide-tab-subtitle">Speed &rarr; Stable &rarr; Production workflow</div>
                         </div>
-                        <div class="slide-tab" data-tab="backlog" data-index="1">
+                        <div class="slide-tab" data-tab="testing" data-index="1">
                             <div class="slide-tab-title">
-                                AI-managed backlog.
+                                Know when something breaks.
                                 <span class="slide-tab-arrow">&rarr;</span>
                             </div>
-                            <div class="slide-tab-subtitle">Epics, features, and chores</div>
+                            <div class="slide-tab-subtitle">Test-driven by default.</div>
                         </div>
-                        <div class="slide-tab" data-tab="testing" data-index="2">
+                        <div class="slide-tab" data-tab="prototyping" data-index="2">
                             <div class="slide-tab-title">
-                                Test-driven by default.
+                                Easily generate options.
                                 <span class="slide-tab-arrow">&rarr;</span>
                             </div>
-                            <div class="slide-tab-subtitle">BDD scenarios guide implementation</div>
+                            <div class="slide-tab-subtitle">Delightful prototyping.</div>
                         </div>
                     </div>
 
                     <div class="slide-tabs-content">
                         <!-- Tab 1: Build Features -->
                         <div class="slide-tab-panel active" data-panel="features">
-                            <!-- Desktop Mode Selector -->
-                            <div class="mode-selector desktop-only" id="mode-selector-desktop">
-                                <div class="mode-option active" data-mode="speed" data-index="0">
-                                    <img src="boat.png" alt="Speed Mode" class="mode-icon">
-                                    <p class="mode-label">1. Make it work ASAP</p>
-                                </div>
-                                <div class="mode-option" data-mode="stable" data-index="1">
-                                    <img src="lighthouse.png" alt="Stable Mode" class="mode-icon">
-                                    <p class="mode-label">2. Make it stable</p>
-                                </div>
-                                <div class="mode-option" data-mode="production" data-index="2">
-                                    <img src="starfish.png" alt="Production Mode" class="mode-icon">
-                                    <p class="mode-label">3. Make it secure and scalable</p>
-                                </div>
-                            </div>
-
-                            <!-- Mobile Mode Selector -->
-                            <div class="mobile-mode-selector mobile-only">
-                                <button class="mobile-nav-btn mobile-nav-prev" id="mobile-prev">&lsaquo;</button>
-                                <div class="mobile-mode-display">
-                                    <div class="mobile-mode-content active" data-mode="speed" data-index="0">
-                                        <img src="boat.png" alt="Speed Mode" class="mode-icon">
-                                        <p class="mode-label">1. Make it work ASAP</p>
-                                    </div>
-                                    <div class="mobile-mode-content" data-mode="stable" data-index="1">
-                                        <img src="lighthouse.png" alt="Stable Mode" class="mode-icon">
-                                        <p class="mode-label">2. Make it stable</p>
-                                    </div>
-                                    <div class="mobile-mode-content" data-mode="production" data-index="2">
-                                        <img src="starfish.png" alt="Production Mode" class="mode-icon">
-                                        <p class="mode-label">3. Make it secure and scalable</p>
-                                    </div>
-                                </div>
-                                <button class="mobile-nav-btn mobile-nav-next" id="mobile-next">&rsaquo;</button>
-                            </div>
-
-                            <!-- Triangle Image -->
-                            <div class="triangle-container">
-                                <img src="speed-mode-tri.png" alt="Speed Mode Triangle" class="triangle-image active" data-triangle="speed">
-                                <img src="stable-mode-tri.png" alt="Stable Mode Triangle" class="triangle-image" data-triangle="stable">
-                                <img src="production-mode-tri.png" alt="Production Mode Triangle" class="triangle-image" data-triangle="production">
-                            </div>
+                            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770676393/speedmode_wrkpzy.mp4" type="video/mp4">
+                            </video>
                         </div>
 
-                        <!-- Tab 2: Backlog -->
-                        <div class="slide-tab-panel" data-panel="backlog">
-                            <div class="placeholder-content">
-                                <h3>AI-Generated Backlog</h3>
-                                <p>Future content: Terminal-based backlog visualization</p>
-                            </div>
-                        </div>
-
-                        <!-- Tab 3: Testing -->
+                        <!-- Tab 2: Testing -->
                         <div class="slide-tab-panel" data-panel="testing">
-                            <div class="placeholder-content">
-                                <h3>Test-Driven Development</h3>
-                                <p>Future content: BDD workflow visualization</p>
-                            </div>
+                            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770758355/test-suite_poeanr.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <!-- Tab 3: Prototyping -->
+                        <div class="slide-tab-panel" data-panel="prototyping">
+                            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="https://res.cloudinary.com/djzbbnujo/video/upload/v1770760472/prototyping_cuhwth.mp4" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                 </div>
@@ -2013,7 +2037,19 @@
         </div>
 
 
-        <footer style="text-align: center; margin-top: 80px; padding-bottom: 40px;">
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="jetty-icon.svg" alt="JettyPod" class="footer-logo">
+                    <span class="footer-name">JettyPod</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.jettymethod.com" target="_blank">The Jetty Method</a>
+                </div>
+                <div class="footer-copyright">
+                    &copy; 2026 JettyPod. All rights reserved.
+                </div>
+            </div>
         </footer>
     </div>
 
