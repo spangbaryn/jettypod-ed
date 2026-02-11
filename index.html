@@ -169,19 +169,25 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             margin-top: 20px;
+        }
+
+        .download-btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .download-btn {
             background-color: transparent;
             color: #7A9E9F;
             border: 1px solid #7A9E9F;
-            padding: 12px 24px;
-            font-size: 0.95rem;
+            padding: 16px 32px;
+            font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             margin-top: 0;
@@ -195,7 +201,7 @@
         .beta-hint {
             font-size: 0.8rem;
             color: #7A9E9F;
-            margin: 0;
+            margin: 4px 0 0;
         }
 
         .access-code-overlay {
@@ -2053,8 +2059,10 @@
                     </div>
                     <button class="submit-btn" onclick="submitEmail()">Submit</button>
                 </div>
-                <button class="download-btn" onclick="openAccessCodeModal()">Download for macOS</button>
-                <p class="beta-hint">beta code required</p>
+                <div class="download-btn-wrapper">
+                    <button class="download-btn" onclick="openAccessCodeModal()">Download for macOS</button>
+                    <p class="beta-hint">beta code required</p>
+                </div>
             </div>
         </div>
 
