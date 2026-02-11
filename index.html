@@ -21,6 +21,7 @@
             color: #0B2532;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .container {
@@ -122,6 +123,28 @@
             width: 100%;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-bg-wrapper {
+            position: relative;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-bg-wrapper .hero-video-container {
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -2033,18 +2056,21 @@
             </div>
         </div>
 
-        <div class="hero-video-container">
-            <video
-                class="hero-video"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="auto"
-                poster="https://res.cloudinary.com/djzbbnujo/video/upload/so_0,f_auto,q_auto/v1770385700/JettyPod-demo-2-6_hhqdr9.jpg"
-            >
-                <source src="https://res.cloudinary.com/djzbbnujo/video/upload/q_auto,f_auto,vc_auto/v1770385700/JettyPod-demo-2-6_hhqdr9.mp4" type="video/mp4">
-            </video>
+        <div class="hero-bg-wrapper">
+            <img src="background-beach.png" alt="" class="hero-bg-image">
+            <div class="hero-video-container">
+                <video
+                    class="hero-video"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    poster="https://res.cloudinary.com/djzbbnujo/video/upload/so_0,f_auto,q_auto/v1770385700/JettyPod-demo-2-6_hhqdr9.jpg"
+                >
+                    <source src="https://res.cloudinary.com/djzbbnujo/video/upload/q_auto,f_auto,vc_auto/v1770385700/JettyPod-demo-2-6_hhqdr9.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
     </div>
 
