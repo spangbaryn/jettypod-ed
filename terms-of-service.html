@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - JettyPod</title>
+    <link rel="icon" type="image/png" href="jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            margin-bottom: 32px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-text-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .beta-tag {
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            background-color: #7A9E9F;
+            color: white;
+            font-size: 0.5rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 0;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-link {
+            color: #0B2532;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(122, 158, 159, 0.1);
+        }
+
+        .policy-content {
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid #D6C6A8;
+            padding: 60px;
+            margin-bottom: 64px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .policy-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .effective-date {
+            text-align: center;
+            color: #7A9E9F;
+            font-size: 1rem;
+            margin-bottom: 48px;
+        }
+
+        .policy-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #0B2532;
+        }
+
+        .policy-content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: #0B2532;
+        }
+
+        .policy-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #0B2532;
+            margin-bottom: 16px;
+        }
+
+        .policy-content p.legal-caps {
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1.9;
+        }
+
+        .policy-content ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .policy-content li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #0B2532;
+            margin-bottom: 8px;
+        }
+
+        .policy-content a {
+            color: #2D5A5B;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .policy-content a:hover {
+            text-decoration: underline;
+        }
+
+        .last-updated {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #D6C6A8;
+            color: #7A9E9F;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #E8EBED;
+            padding: 48px 24px;
+            margin-top: 0;
+            border-top: 1px solid #ddd;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-name {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #0B2532;
+        }
+
+        .footer-copyright {
+            color: #5a7a7b;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            .site-header {
+                padding: 16px 0;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .policy-content {
+                padding: 30px 20px;
+            }
+
+            .policy-content h1 {
+                font-size: 1.75rem;
+            }
+
+            .policy-content h2 {
+                font-size: 1.25rem;
+                margin-top: 32px;
+            }
+
+            .policy-content h3 {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .policy-content {
+                padding: 24px 16px;
+            }
+
+            .policy-content h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="jetty-icon.svg" alt="JettyPod Logo" class="logo">
+                <div class="logo-text-wrapper">
+                    <span class="logo-text">JettyPod</span>
+                    <span class="beta-tag">Beta</span>
+                </div>
+            </a>
+            <a href="/" class="nav-link">Home</a>
+        </header>
+
+        <div class="policy-content">
+            <h1>Terms of Service</h1>
+            <p class="effective-date">Effective Date: February 13, 2026</p>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>These Terms of Service ("Terms") govern your access to and use of the JettyPod desktop application and command-line interface (CLI) (collectively, the "Service"), provided by JettyPod ("we," "us," or "our"). By downloading, installing, or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.</p>
+            <p>If you are using the Service on behalf of an organization, you represent and warrant that you have the authority to bind that organization to these Terms, and "you" refers to both you individually and the organization.</p>
+
+            <h2>2. Description of Service</h2>
+            <p>JettyPod is a natural language coding methodology platform that helps developers and solo founders achieve team-level development output through AI-guided structured cycles. The Service includes a desktop application and CLI that provide workflow management, requirements extraction, checkpoint systems, and AI-assisted development guidance.</p>
+            <p>The Service integrates with third-party AI providers to deliver its core functionality. The availability, quality, and capabilities of AI-powered features may vary and are partially dependent on these third-party services.</p>
+
+            <h2>3. Account Registration</h2>
+            <p>You may be required to create an account to access certain features of the Service. You agree to provide accurate, current, and complete information during registration and to keep your account information updated. You are responsible for safeguarding your account credentials and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your account.</p>
+
+            <h2>4. Subscription and Payment</h2>
+
+            <h3>4.1 Plans and Pricing</h3>
+            <p>The Service may be offered under various subscription plans, including free and paid tiers. Details of available plans, features, and pricing are published on our website and within the application. We reserve the right to modify pricing with reasonable advance notice.</p>
+
+            <h3>4.2 Billing</h3>
+            <p>If you subscribe to a paid plan, you agree to pay all fees associated with your selected plan. Fees are billed in advance on a recurring basis (monthly or annually, depending on your selection). Payment is processed through our third-party payment provider, and you authorize us to charge your designated payment method.</p>
+
+            <h3>4.3 Cancellation and Refunds</h3>
+            <p>You may cancel your subscription at any time through the application or by contacting us. Cancellation takes effect at the end of the current billing period, and you will retain access to paid features until that date. Refunds are handled on a case-by-case basis at our discretion, except where required by applicable law.</p>
+
+            <h2>5. Acceptable Use</h2>
+            <p>You agree to use the Service only for lawful purposes and in accordance with these Terms. You shall not:</p>
+            <ul>
+                <li>Use the Service to develop, generate, or distribute malicious software, malware, or code intended to cause harm.</li>
+                <li>Attempt to reverse-engineer, decompile, or disassemble the Service, except to the extent expressly permitted by applicable law.</li>
+                <li>Use the Service to infringe on the intellectual property rights of any third party.</li>
+                <li>Share, resell, or redistribute your account access or the Service itself without our written permission.</li>
+                <li>Interfere with or disrupt the integrity or performance of the Service or its infrastructure.</li>
+                <li>Use automated means to access the Service in a manner that exceeds reasonable use or places an undue burden on our systems.</li>
+            </ul>
+
+            <h2>6. Intellectual Property</h2>
+
+            <h3>6.1 Our Intellectual Property</h3>
+            <p>The Service, including its design, features, methodology, documentation, and all associated intellectual property, is owned by JettyPod and protected by copyright, trademark, and other intellectual property laws. These Terms do not grant you any ownership interest in the Service. Your right to use the Service is limited to the license granted in these Terms.</p>
+
+            <h3>6.2 Your Code and Content</h3>
+            <p>You retain all ownership rights to the code, projects, and content you create using the Service. JettyPod does not claim any ownership interest in your code or project files. By using the Service, you grant us a limited, non-exclusive license to process your project data solely as necessary to provide the Service's functionality, including transmitting relevant context to AI providers for generating responses.</p>
+
+            <h3>6.3 AI-Generated Output</h3>
+            <p>Output generated by AI features within the Service (such as code suggestions, workflow recommendations, and development guidance) is provided for your use within your projects. Ownership of AI-generated output is governed by the terms of the underlying AI providers. We make no claim of ownership over AI-generated content provided to you through the Service, but we also make no warranty regarding your right to use such output in any particular context.</p>
+
+            <h2>7. Third-Party Services</h2>
+            <p>The Service relies on third-party AI providers and may integrate with other third-party tools and services. Your use of these third-party services is subject to their respective terms of service and privacy policies. We are not responsible for the availability, accuracy, or reliability of third-party services. Changes to third-party services may affect the functionality of JettyPod, and we will make reasonable efforts to adapt to such changes but cannot guarantee uninterrupted service.</p>
+
+            <h2>8. Disclaimers</h2>
+
+            <h3>8.1 "As Is" Provision</h3>
+            <p class="legal-caps">The Service is provided "as is" and "as available" without warranties of any kind, whether express, implied, or statutory. To the fullest extent permitted by law, we disclaim all warranties, including implied warranties of merchantability, fitness for a particular purpose, non-infringement, and any warranties arising from course of dealing or usage of trade.</p>
+
+            <h3>8.2 AI Output Disclaimer</h3>
+            <p>AI-powered features are provided as development assistance tools and are not a substitute for professional judgment. AI-generated code, suggestions, and guidance may contain errors, may not be suitable for your specific use case, and should be reviewed and tested before use in production environments. We do not guarantee the accuracy, completeness, security, or fitness for purpose of any AI-generated output.</p>
+
+            <h3>8.3 No Guarantee of Results</h3>
+            <p>While JettyPod is designed to improve development productivity, we do not guarantee any specific outcomes, time savings, or results from using the Service. Your results may vary based on factors including project complexity, your skill level, and the capabilities of integrated AI providers.</p>
+
+            <h2>9. Limitation of Liability</h2>
+            <p class="legal-caps">To the maximum extent permitted by applicable law, in no event shall JettyPod, its officers, directors, employees, or agents be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, use, or goodwill, arising out of or in connection with your use of the Service, whether based on warranty, contract, tort (including negligence), or any other legal theory, even if we have been advised of the possibility of such damages.</p>
+            <p class="legal-caps">Our total aggregate liability for all claims arising out of or related to these Terms or the Service shall not exceed the amount you paid us in the twelve (12) months preceding the event giving rise to the claim, or one hundred dollars ($100), whichever is greater.</p>
+
+            <h2>10. Indemnification</h2>
+            <p>You agree to indemnify, defend, and hold harmless JettyPod and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or related to your use of the Service, your violation of these Terms, your violation of any applicable law or regulation, or any code or content you create, deploy, or distribute using the Service.</p>
+
+            <h2>11. Termination</h2>
+            <p>You may stop using the Service and close your account at any time. We may suspend or terminate your access to the Service at any time, with or without cause, and with or without notice. Grounds for termination include, but are not limited to, violation of these Terms, non-payment of fees, or conduct that we reasonably believe is harmful to other users or our business interests.</p>
+            <p>Upon termination, your right to use the Service ceases immediately. Sections of these Terms that by their nature should survive termination will remain in effect, including Sections 6, 8, 9, 10, and 13.</p>
+
+            <h2>12. Changes to These Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. We will provide notice of material changes by posting the updated Terms within the application, on our website, or by sending you an email notification at least 30 days before the changes take effect. Your continued use of the Service after the effective date of any changes constitutes acceptance of the updated Terms. If you do not agree with the changes, you must stop using the Service before the changes take effect.</p>
+
+            <h2>13. Governing Law and Dispute Resolution</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to its conflict of laws provisions. Any dispute arising out of or relating to these Terms or the Service shall first be attempted to be resolved through good-faith negotiation between the parties. If negotiation is unsuccessful, the dispute shall be resolved through binding arbitration in Hamilton County, Tennessee, in accordance with the rules of the American Arbitration Association. Each party shall bear its own costs of arbitration, except as otherwise required by law.</p>
+
+            <h2>14. General Provisions</h2>
+            <p><strong>Entire Agreement.</strong> These Terms, together with our <a href="privacy-policy.html">Privacy Policy</a>, constitute the entire agreement between you and JettyPod regarding the Service and supersede all prior agreements and understandings.</p>
+            <p><strong>Severability.</strong> If any provision of these Terms is found to be unenforceable, that provision will be modified to the minimum extent necessary to make it enforceable, and the remaining provisions will continue in full force and effect.</p>
+            <p><strong>Waiver.</strong> Our failure to enforce any right or provision of these Terms shall not constitute a waiver of that right or provision.</p>
+            <p><strong>Assignment.</strong> You may not assign or transfer your rights under these Terms without our prior written consent. We may assign our rights and obligations under these Terms without restriction.</p>
+            <p><strong>Notices.</strong> We may send notices to you via email, through the application, or by posting on our website. You may send notices to us at the contact information provided below.</p>
+
+            <h2>15. Contact Us</h2>
+            <p>If you have any questions about these Terms, please contact us at:</p>
+            <p>
+                JettyPod<br>
+                Email: <a href="mailto:support@jettypod.com">support@jettypod.com</a><br>
+                Website: <a href="https://jettypod.com">https://jettypod.com</a>
+            </p>
+
+            <p class="last-updated">Last updated: February 13, 2026</p>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="jetty-icon.svg" alt="JettyPod" class="footer-logo">
+                    <span class="footer-name">JettyPod</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.jettymethod.com" target="_blank">The Jetty Method</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                </div>
+                <div class="footer-copyright">
+                    &copy; 2026 JettyPod. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
