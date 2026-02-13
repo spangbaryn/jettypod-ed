@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - JettyPod</title>
+    <link rel="icon" type="image/png" href="jettypod-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #E8EBED;
+            color: #0B2532;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            margin-bottom: 32px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-text-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .beta-tag {
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            background-color: #7A9E9F;
+            color: white;
+            font-size: 0.5rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 0;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0B2532;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-link {
+            color: #0B2532;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(122, 158, 159, 0.1);
+        }
+
+        .policy-content {
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid #D6C6A8;
+            padding: 60px;
+            margin-bottom: 64px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .policy-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .effective-date {
+            text-align: center;
+            color: #7A9E9F;
+            font-size: 1rem;
+            margin-bottom: 48px;
+        }
+
+        .policy-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #0B2532;
+        }
+
+        .policy-content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: #0B2532;
+        }
+
+        .policy-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #0B2532;
+            margin-bottom: 16px;
+        }
+
+        .policy-content ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .policy-content li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #0B2532;
+            margin-bottom: 8px;
+        }
+
+        .policy-content a {
+            color: #2D5A5B;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .policy-content a:hover {
+            text-decoration: underline;
+        }
+
+        .last-updated {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #D6C6A8;
+            color: #7A9E9F;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #E8EBED;
+            padding: 48px 24px;
+            margin-top: 0;
+            border-top: 1px solid #ddd;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-name {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #0B2532;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: #7A9E9F;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #0B2532;
+        }
+
+        .footer-copyright {
+            color: #5a7a7b;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            .site-header {
+                padding: 16px 0;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .policy-content {
+                padding: 30px 20px;
+            }
+
+            .policy-content h1 {
+                font-size: 1.75rem;
+            }
+
+            .policy-content h2 {
+                font-size: 1.25rem;
+                margin-top: 32px;
+            }
+
+            .policy-content h3 {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .policy-content {
+                padding: 24px 16px;
+            }
+
+            .policy-content h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="jetty-icon.svg" alt="JettyPod Logo" class="logo">
+                <div class="logo-text-wrapper">
+                    <span class="logo-text">JettyPod</span>
+                    <span class="beta-tag">Beta</span>
+                </div>
+            </a>
+            <a href="/" class="nav-link">Home</a>
+        </header>
+
+        <div class="policy-content">
+            <h1>Privacy Policy</h1>
+            <p class="effective-date">Effective Date: February 13, 2026</p>
+
+            <h2>1. Introduction</h2>
+            <p>This Privacy Policy describes how JettyPod ("we," "us," or "our") collects, uses, and protects information when you use the JettyPod desktop application and command-line interface (CLI) (collectively, the "Service"). JettyPod is a natural language coding methodology platform designed to help solo founders achieve team-level development output through AI-guided structured cycles.</p>
+            <p>By using the Service, you agree to the collection and use of information as described in this policy. If you do not agree with this policy, please do not use the Service.</p>
+
+            <h2>2. Information We Collect</h2>
+
+            <h3>2.1 Information You Provide</h3>
+            <p>When you create an account or use JettyPod, you may provide us with personal information including your name, email address, and account credentials. You may also provide project-related information such as project descriptions, development goals, and workflow preferences as part of the onboarding and discovery process.</p>
+
+            <h3>2.2 Usage Data</h3>
+            <p>We automatically collect certain information about how you interact with the Service, including session duration, features used, workflow completion rates, and general usage patterns. This data helps us improve the product and your experience.</p>
+
+            <h3>2.3 Technical Data</h3>
+            <p>We may collect technical information about your system, including your operating system type and version, application version, error logs and crash reports, and device identifiers necessary for licensing and support.</p>
+
+            <h3>2.4 Your Code and Project Data</h3>
+            <p>JettyPod interacts with your local codebase and project files to provide AI-guided development assistance. We want to be transparent about how this data is handled:</p>
+            <ul>
+                <li><strong>Local processing:</strong> Your source code and project files are processed locally on your device whenever possible.</li>
+                <li><strong>AI interactions:</strong> When you use AI-powered features, relevant context from your project may be sent to third-party AI providers (such as Anthropic or OpenAI) to generate responses. Only the context necessary to fulfill your request is transmitted.</li>
+                <li><strong>No code storage:</strong> We do not store your source code on our servers. Code snippets sent to AI providers are subject to those providers' data handling policies.</li>
+            </ul>
+
+            <h2>3. How We Use Your Information</h2>
+            <p>We use the information we collect to provide, maintain, and improve the Service, including delivering AI-guided development workflows, structured cycle management, and onboarding experiences. We also use your information to communicate with you about updates, support requests, and service-related announcements. Additionally, we may use aggregated and anonymized usage data to analyze trends, improve our methodology, and develop new features.</p>
+
+            <h2>4. Information Sharing and Disclosure</h2>
+            <p>We do not sell your personal information to third parties. We may share information in the following circumstances:</p>
+            <ul>
+                <li><strong>AI Service Providers:</strong> Project context necessary for AI-powered features is sent to third-party AI providers. These providers process your data according to their own privacy policies and data processing agreements.</li>
+                <li><strong>Service Providers:</strong> We may share information with trusted service providers who assist us in operating the Service, such as hosting, analytics, and payment processing providers, under strict confidentiality obligations.</li>
+                <li><strong>Legal Requirements:</strong> We may disclose information if required to do so by law or in response to valid legal process, such as a subpoena, court order, or government request.</li>
+                <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change.</li>
+            </ul>
+
+            <h2>5. Data Security</h2>
+            <p>We implement reasonable technical and organizational measures to protect your information from unauthorized access, loss, misuse, or alteration. These measures include encryption of data in transit, secure authentication mechanisms, and regular security reviews. However, no method of electronic transmission or storage is completely secure, and we cannot guarantee absolute security.</p>
+
+            <h2>6. Data Retention</h2>
+            <p>We retain your personal information for as long as your account is active or as needed to provide the Service. If you delete your account, we will delete or anonymize your personal information within 30 days, except where we are required to retain it for legal or regulatory purposes. Aggregated, anonymized data that cannot be used to identify you may be retained indefinitely for analytical purposes.</p>
+
+            <h2>7. Your Rights and Choices</h2>
+            <p>Depending on your location, you may have certain rights regarding your personal information. These may include:</p>
+            <ul>
+                <li>The right to access, correct, or delete your personal information</li>
+                <li>The right to withdraw consent for data processing</li>
+                <li>The right to request a copy of your data in a portable format</li>
+                <li>The right to object to or restrict certain processing activities</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us using the information provided in Section 11. We will respond to your request within the timeframe required by applicable law.</p>
+
+            <h2>8. Children's Privacy</h2>
+            <p>The Service is not intended for use by individuals under the age of 16. We do not knowingly collect personal information from children under 16. If we learn that we have collected personal information from a child under 16, we will take steps to delete that information promptly.</p>
+
+            <h2>9. Third-Party Services and Links</h2>
+            <p>The Service may integrate with or link to third-party services, including AI providers, code repositories, and development tools. This Privacy Policy applies only to JettyPod. We encourage you to review the privacy policies of any third-party services you use in connection with JettyPod.</p>
+
+            <h2>10. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. We will notify you of material changes by posting the updated policy within the application or by sending you an email notification. Your continued use of the Service after any changes constitutes acceptance of the updated policy.</p>
+
+            <h2>11. Contact Us</h2>
+            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at:</p>
+            <p>
+                JettyPod<br>
+                Email: <a href="mailto:support@jettypod.com">support@jettypod.com</a><br>
+                Website: <a href="https://jettypod.com">https://jettypod.com</a>
+            </p>
+
+            <p class="last-updated">Last updated: February 13, 2026</p>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="jetty-icon.svg" alt="JettyPod" class="footer-logo">
+                    <span class="footer-name">JettyPod</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.jettymethod.com" target="_blank">The Jetty Method</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-copyright">
+                    &copy; 2026 JettyPod. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
