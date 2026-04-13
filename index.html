@@ -95,26 +95,26 @@
             z-index: 1;
         }
 
-        .hero-bg-wrapper {
+        .hero-section {
             position: relative;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            padding: 32px 0;
+            width: 100%;
+            overflow: hidden;
         }
 
-        .hero-bg-image {
+        .hero-section-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.5;
+            object-position: center top;
         }
 
-        .hero-bg-wrapper .hero-video-container {
+        .hero-section-content {
             position: relative;
             z-index: 1;
+            padding-bottom: 32px;
         }
 
         h1 {
@@ -1996,35 +1996,35 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="site-header">
-            <a href="/" class="logo-link">
-                <img src="jettypod-lockup.svg" alt="JettyPod" class="logo-lockup">
-            </a>
-        </header>
+    <div class="hero-section">
+        <img src="a-website-hero-section-with-a-full-illustrated-bac 1.svg" alt="" class="hero-section-bg">
+        <div class="container hero-section-content">
+            <header class="site-header">
+                <a href="/" class="logo-link">
+                    <img src="jettypod-lockup.svg" alt="JettyPod" class="logo-lockup">
+                </a>
+            </header>
 
-        <div class="hero">
-            <h1>Make Claude Code Your Technical Co-founder</h1>
-            <p class="subtitle">The best way for solo founders to go from idea → <span style="color: #2D5A5B; font-weight: 700;">rock-solid code</span> with Claude.</p>
-            <div class="hero-buttons">
-                <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
-                <div class="email-form" id="email-form">
-                    <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
-                    <div class="newsletter-opt-in">
-                        <input type="checkbox" id="newsletter-checkbox">
-                        <label for="newsletter-checkbox">Get a weekly email with tips and perspectives on coding with natural language. That's it. No junk.</label>
+            <div class="hero">
+                <h1>Make Claude Code Your Technical Co-founder</h1>
+                <p class="subtitle">The best way for solo founders to go from idea → <span style="color: #2D5A5B; font-weight: 700;">rock-solid code</span> with Claude.</p>
+                <div class="hero-buttons">
+                    <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
+                    <div class="email-form" id="email-form">
+                        <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
+                        <div class="newsletter-opt-in">
+                            <input type="checkbox" id="newsletter-checkbox">
+                            <label for="newsletter-checkbox">Get a weekly email with tips and perspectives on coding with natural language. That's it. No junk.</label>
+                        </div>
+                        <button class="submit-btn" onclick="submitEmail()">Submit</button>
                     </div>
-                    <button class="submit-btn" onclick="submitEmail()">Submit</button>
-                </div>
-                <div class="download-btn-wrapper">
-                    <button class="download-btn" onclick="openAccessCodeModal()">Download for macOS</button>
-                    <p class="beta-hint">beta code required</p>
+                    <div class="download-btn-wrapper">
+                        <button class="download-btn" onclick="openAccessCodeModal()">Download for macOS</button>
+                        <p class="beta-hint">beta code required</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="hero-bg-wrapper">
-            <img src="background-beach.png" alt="" class="hero-bg-image">
             <div class="hero-video-container">
                 <video
                     class="hero-video"
