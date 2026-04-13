@@ -45,48 +45,16 @@
             display: flex;
             align-items: center;
             text-decoration: none;
-            gap: 12px;
         }
 
-        .logo-text-wrapper {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .beta-tag {
-            position: absolute;
-            bottom: -10px;
-            right: 0;
-            background-color: #7A9E9F;
-            color: white;
-            font-size: 0.5rem;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 0;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
+        .logo-lockup {
+            height: 40px;
+            width: auto;
             transition: transform 0.3s ease;
         }
 
-        .logo:hover {
+        .logo-lockup:hover {
             transform: scale(1.05);
-        }
-
-        .logo-text {
-            font-family: 'Caveat', cursive;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #0B2532;
-            position: relative;
-            z-index: 1;
         }
 
         .nav-link {
@@ -959,13 +927,8 @@
                 font-size: 1.5rem;
             }
 
-            .logo {
-                width: 40px;
-                height: 40px;
-            }
-
-            .logo-text {
-                font-size: 1.5rem;
+            .logo-lockup {
+                height: 32px;
             }
 
             .install-box {
@@ -2036,11 +1999,7 @@
     <div class="container">
         <header class="site-header">
             <a href="/" class="logo-link">
-                <img src="jetty-icon.svg" alt="JettyPod Logo" class="logo">
-                <div class="logo-text-wrapper">
-                    <span class="logo-text">JettyPod</span>
-                    <span class="beta-tag">Beta</span>
-                </div>
+                <img src="jettypod-lockup.svg" alt="JettyPod" class="logo-lockup">
             </a>
         </header>
 
