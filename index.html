@@ -97,7 +97,9 @@
 
         .hero-section {
             position: relative;
-            width: 100%;
+            width: 100vw;
+            margin-left: -20px;
+            margin-top: -20px;
             overflow: hidden;
         }
 
@@ -799,6 +801,11 @@
         @media (max-width: 640px) {
             body {
                 padding: 16px;
+            }
+
+            .hero-section {
+                margin-left: -16px;
+                margin-top: -16px;
             }
 
             .site-header {
