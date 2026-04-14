@@ -50,11 +50,9 @@
         }
 
         .floating-nav-wrapper {
-            position: sticky;
-            top: 1vw;
-            z-index: 100;
-            padding: 0 20px;
-            margin-top: -12px;
+            position: relative;
+            z-index: 10;
+            padding: 16px 24px 0;
         }
 
         .floating-nav {
@@ -178,7 +176,7 @@
             position: relative;
             width: 100vw;
             margin-left: -20px;
-            margin-top: -24px;
+            margin-top: 0;
         }
 
         .hero-border-svg {
@@ -2117,24 +2115,24 @@
         </defs>
     </svg>
 
-    <div class="floating-nav-wrapper">
-        <nav class="floating-nav">
-            <a href="/" class="logo-link">
-                <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
-            </a>
-            <div class="nav-links">
-                <a href="#">Product</a>
-                <a href="#">Community</a>
-                <a href="#">Pricing</a>
-            </div>
-            <div class="nav-cta">
-                <a href="#">Log in</a>
-                <button class="nav-cta-btn">Get Started</button>
-            </div>
-        </nav>
-    </div>
     <div class="hero-clip-border">
     <div class="hero-section">
+        <div class="floating-nav-wrapper">
+            <nav class="floating-nav">
+                <a href="/" class="logo-link">
+                    <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
+                </a>
+                <div class="nav-links">
+                    <a href="#">Product</a>
+                    <a href="#">Community</a>
+                    <a href="#">Pricing</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="#">Log in</a>
+                    <button class="nav-cta-btn">Get Started</button>
+                </div>
+            </nav>
+        </div>
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
         <div class="container hero-section-content">
             <div class="hero">
