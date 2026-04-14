@@ -111,14 +111,17 @@
             z-index: 1;
         }
 
-        .hero-section {
-            position: relative;
+        .hero-clip-border {
+            filter: drop-shadow(1px 0 0 #DCD0BE) drop-shadow(-1px 0 0 #DCD0BE) drop-shadow(0 1px 0 #DCD0BE) drop-shadow(0 -1px 0 #DCD0BE);
             width: 100vw;
             margin-left: -20px;
             margin-top: -20px;
+        }
+
+        .hero-section {
+            position: relative;
             overflow: visible;
             clip-path: url(#hero-clip);
-            filter: drop-shadow(0 0 0 #DCD0BE) drop-shadow(1px 0 0 #DCD0BE) drop-shadow(-1px 0 0 #DCD0BE) drop-shadow(0 1px 0 #DCD0BE) drop-shadow(0 -1px 0 #DCD0BE);
         }
 
         .hero-section-bg {
@@ -2048,6 +2051,7 @@
         </defs>
     </svg>
 
+    <div class="hero-clip-border">
     <div class="hero-section">
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
         <div class="container hero-section-content">
@@ -2090,6 +2094,7 @@
                 </video>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="container" id="comparison-container">
