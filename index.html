@@ -49,10 +49,14 @@
             opacity: 1;
         }
 
-        .floating-nav {
+        .floating-nav-wrapper {
             position: sticky;
             top: 12px;
             z-index: 100;
+            padding: 0 20px;
+        }
+
+        .floating-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -65,7 +69,6 @@
             border-radius: 999px;
             border: 1px solid rgba(220, 208, 190, 0.5);
             box-shadow: 0 2px 12px rgba(44, 36, 24, 0.08);
-            transform: translateY(-50%);
         }
 
         .floating-nav .nav-links {
@@ -174,7 +177,7 @@
             position: relative;
             width: 100vw;
             margin-left: -20px;
-            margin-top: 12px;
+            margin-top: -24px;
         }
 
         .hero-border-svg {
@@ -2113,21 +2116,23 @@
         </defs>
     </svg>
 
+    <div class="floating-nav-wrapper">
+        <nav class="floating-nav">
+            <a href="/" class="logo-link">
+                <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
+            </a>
+            <div class="nav-links">
+                <a href="#">Product</a>
+                <a href="#">Community</a>
+                <a href="#">Pricing</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#">Log in</a>
+                <button class="nav-cta-btn">Get Started</button>
+            </div>
+        </nav>
+    </div>
     <div class="hero-clip-border">
-    <nav class="floating-nav">
-        <a href="/" class="logo-link">
-            <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
-        </a>
-        <div class="nav-links">
-            <a href="#">Product</a>
-            <a href="#">Community</a>
-            <a href="#">Pricing</a>
-        </div>
-        <div class="nav-cta">
-            <a href="#">Log in</a>
-            <button class="nav-cta-btn">Get Started</button>
-        </div>
-    </nav>
     <div class="hero-section">
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
         <div class="container hero-section-content">
