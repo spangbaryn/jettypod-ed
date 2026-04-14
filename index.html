@@ -116,7 +116,8 @@
             width: 100vw;
             margin-left: -20px;
             margin-top: -20px;
-            overflow: hidden;
+            overflow: visible;
+            clip-path: url(#hero-clip);
         }
 
         .hero-section-bg {
@@ -2019,6 +2020,33 @@
     </style>
 </head>
 <body>
+    <!-- Hero section clip-path shape: notched top for nav, rounded corners -->
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <clipPath id="hero-clip" clipPathUnits="objectBoundingBox">
+                <path d="
+                    M 0.01 0.06
+                    Q 0.01 0.04, 0.02 0.04
+                    L 0.18 0.04
+                    Q 0.19 0.04, 0.19 0.03
+                    L 0.19 0.015
+                    Q 0.19 0, 0.21 0
+                    L 0.79 0
+                    Q 0.81 0, 0.81 0.015
+                    L 0.81 0.03
+                    Q 0.81 0.04, 0.82 0.04
+                    L 0.98 0.04
+                    Q 0.99 0.04, 0.99 0.06
+                    L 0.99 0.985
+                    Q 0.99 1, 0.98 1
+                    L 0.02 1
+                    Q 0.01 1, 0.01 0.985
+                    Z
+                " />
+            </clipPath>
+        </defs>
+    </svg>
+
     <div class="hero-section">
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
         <div class="container hero-section-content">
