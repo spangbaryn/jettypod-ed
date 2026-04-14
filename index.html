@@ -49,13 +49,71 @@
             opacity: 1;
         }
 
-        .site-header {
+        .floating-nav {
+            position: sticky;
+            top: 12px;
+            z-index: 100;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 0;
-            margin: 0;
-            z-index: 3;
+            justify-content: space-between;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 8px 8px 8px 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 999px;
+            border: 1px solid rgba(220, 208, 190, 0.5);
+            box-shadow: 0 2px 12px rgba(44, 36, 24, 0.08);
+            transform: translateY(-50%);
+        }
+
+        .floating-nav .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .floating-nav .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .floating-nav .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .floating-nav .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .floating-nav .nav-cta a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            opacity: 0.7;
+        }
+
+        .floating-nav .nav-cta-btn {
+            background: var(--text-primary);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .site-header {
+            display: none;
         }
 
         .logo-link {
@@ -65,10 +123,9 @@
         }
 
         .logo-lockup {
-            height: 32px;
+            height: 28px;
             width: auto;
             transition: transform 0.3s ease;
-            margin-bottom: 4px;
         }
 
         .logo-lockup:hover {
@@ -2042,34 +2099,35 @@
         <defs>
             <clipPath id="hero-clip" clipPathUnits="objectBoundingBox">
                 <path d="
-                    M 0.01 0.015
+                    M 0.01 0.01
                     Q 0.01 0, 0.02 0
-                    L 0.18 0
-                    Q 0.19 0, 0.19 0.015
-                    L 0.19 0.03
-                    Q 0.19 0.045, 0.21 0.045
-                    L 0.79 0.045
-                    Q 0.81 0.045, 0.81 0.03
-                    L 0.81 0.015
-                    Q 0.81 0, 0.82 0
                     L 0.98 0
-                    Q 0.99 0, 0.99 0.015
-                    L 0.99 0.985
+                    Q 0.99 0, 0.99 0.01
+                    L 0.99 0.99
                     Q 0.99 1, 0.98 1
                     L 0.02 1
-                    Q 0.01 1, 0.01 0.985
+                    Q 0.01 1, 0.01 0.99
                     Z
                 " />
             </clipPath>
         </defs>
     </svg>
 
-    <header class="site-header">
+    <div class="hero-clip-border">
+    <nav class="floating-nav">
         <a href="/" class="logo-link">
             <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
         </a>
-    </header>
-    <div class="hero-clip-border">
+        <div class="nav-links">
+            <a href="#">Product</a>
+            <a href="#">Community</a>
+            <a href="#">Pricing</a>
+        </div>
+        <div class="nav-cta">
+            <a href="#">Log in</a>
+            <button class="nav-cta-btn">Get Started</button>
+        </div>
+    </nav>
     <div class="hero-section">
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
         <div class="container hero-section-content">
@@ -2109,22 +2167,14 @@
     </div>
     <svg class="hero-border-svg" viewBox="0 0 1 1" preserveAspectRatio="none">
         <path d="
-            M 0.01 0.015
+            M 0.01 0.01
             Q 0.01 0, 0.02 0
-            L 0.18 0
-            Q 0.19 0, 0.19 0.015
-            L 0.19 0.03
-            Q 0.19 0.045, 0.21 0.045
-            L 0.79 0.045
-            Q 0.81 0.045, 0.81 0.03
-            L 0.81 0.015
-            Q 0.81 0, 0.82 0
             L 0.98 0
-            Q 0.99 0, 0.99 0.015
-            L 0.99 0.985
+            Q 0.99 0, 0.99 0.01
+            L 0.99 0.99
             Q 0.99 1, 0.98 1
             L 0.02 1
-            Q 0.01 1, 0.01 0.985
+            Q 0.01 1, 0.01 0.99
             Z
         " fill="none" stroke="#DCD0BE" vector-effect="non-scaling-stroke" stroke-width="1" />
     </svg>
