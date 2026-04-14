@@ -118,20 +118,7 @@
             margin-top: -20px;
             overflow: visible;
             clip-path: url(#hero-clip);
-        }
-
-        .hero-wrapper {
-            position: relative;
-        }
-
-        .hero-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
+            filter: drop-shadow(0 0 0 #DCD0BE) drop-shadow(1px 0 0 #DCD0BE) drop-shadow(-1px 0 0 #DCD0BE) drop-shadow(0 1px 0 #DCD0BE) drop-shadow(0 -1px 0 #DCD0BE);
         }
 
         .hero-section-bg {
@@ -2061,30 +2048,6 @@
         </defs>
     </svg>
 
-    <div class="hero-wrapper">
-    <!-- Border outline matching the clip-path shape -->
-    <svg class="hero-border" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
-        <path d="
-            M 0.01 0.06
-            Q 0.01 0.04, 0.02 0.04
-            L 0.18 0.04
-            Q 0.19 0.04, 0.19 0.03
-            L 0.19 0.015
-            Q 0.19 0, 0.21 0
-            L 0.79 0
-            Q 0.81 0, 0.81 0.015
-            L 0.81 0.03
-            Q 0.81 0.04, 0.82 0.04
-            L 0.98 0.04
-            Q 0.99 0.04, 0.99 0.06
-            L 0.99 0.985
-            Q 0.99 1, 0.98 1
-            L 0.02 1
-            Q 0.01 1, 0.01 0.985
-            Z
-        " fill="none" stroke="#DCD0BE" vector-effect="non-scaling-stroke" stroke-width="1" />
-    </svg>
-
     <div class="hero-section">
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
         <div class="container hero-section-content">
@@ -2128,7 +2091,6 @@
             </div>
         </div>
     </div>
-    </div><!-- /.hero-wrapper -->
 
     <div class="container" id="comparison-container">
         <!-- The Official Tool of The Jetty Method (commented out)
