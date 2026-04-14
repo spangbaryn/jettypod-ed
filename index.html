@@ -50,11 +50,17 @@
         }
 
         .site-header {
+            position: absolute;
+            top: 0;
+            left: 1%;
+            width: 18%;
+            height: 4.5%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 8px 0;
-            margin-bottom: 32px;
+            justify-content: center;
+            z-index: 2;
+            padding: 0;
+            margin: 0;
         }
 
         .logo-link {
@@ -64,7 +70,7 @@
         }
 
         .logo-lockup {
-            height: 40px;
+            height: 24px;
             width: auto;
             transition: transform 0.3s ease;
         }
@@ -115,7 +121,7 @@
             position: relative;
             width: 100vw;
             margin-left: -20px;
-            margin-top: -20px;
+            margin-top: 12px;
         }
 
         .hero-border-svg {
@@ -147,6 +153,7 @@
         .hero-section-content {
             position: relative;
             z-index: 1;
+            padding-top: 5%;
             padding-bottom: 32px;
         }
 
@@ -2064,13 +2071,12 @@
     <div class="hero-clip-border">
     <div class="hero-section">
         <img src="recreate-this-without-the-green-lantern.png" alt="" class="hero-section-bg">
+        <header class="site-header">
+            <a href="/" class="logo-link">
+                <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
+            </a>
+        </header>
         <div class="container hero-section-content">
-            <header class="site-header">
-                <a href="/" class="logo-link">
-                    <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
-                </a>
-            </header>
-
             <div class="hero">
                 <h1>Vibe Code a Business</h1>
                 <p class="subtitle">JettyPod provides the platform, peer group, and repeatable process to help non-technical founders <strong>build alternative income</strong>.</p>
