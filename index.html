@@ -112,10 +112,20 @@
         }
 
         .hero-clip-border {
-            filter: drop-shadow(1px 0 0 #DCD0BE) drop-shadow(-1px 0 0 #DCD0BE) drop-shadow(0 1px 0 #DCD0BE) drop-shadow(0 -1px 0 #DCD0BE);
+            position: relative;
             width: 100vw;
             margin-left: -20px;
             margin-top: -20px;
+        }
+
+        .hero-border-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
         }
 
         .hero-section {
@@ -2095,6 +2105,27 @@
             </div>
         </div>
     </div>
+    <svg class="hero-border-svg" viewBox="0 0 1 1" preserveAspectRatio="none">
+        <path d="
+            M 0.01 0.015
+            Q 0.01 0, 0.02 0
+            L 0.18 0
+            Q 0.19 0, 0.19 0.015
+            L 0.19 0.03
+            Q 0.19 0.045, 0.21 0.045
+            L 0.79 0.045
+            Q 0.81 0.045, 0.81 0.03
+            L 0.81 0.015
+            Q 0.81 0, 0.82 0
+            L 0.98 0
+            Q 0.99 0, 0.99 0.015
+            L 0.99 0.985
+            Q 0.99 1, 0.98 1
+            L 0.02 1
+            Q 0.01 1, 0.01 0.985
+            Z
+        " fill="none" stroke="#DCD0BE" vector-effect="non-scaling-stroke" stroke-width="1" />
+    </svg>
     </div>
 
     <div class="container" id="comparison-container">
