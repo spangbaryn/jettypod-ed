@@ -165,102 +165,26 @@
         body.grid-only::after { opacity: 0; }
 
         /* ============================================
-           CARD STYLES (matching production)
+           CARD COMPARISON LAYOUT
            ============================================ */
 
-        /* Hero card — full viewport, grid already present */
-        .hero-card {
-            position: relative;
-            border-radius: 24px;
-            overflow: clip;
-            border: 1.5px solid var(--border);
-            box-shadow: 0 1px 4px rgba(44, 36, 24, 0.08), 0 0 1px rgba(44, 36, 24, 0.06);
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--card);
-            margin-bottom: 80px;
-        }
-
-        .hero-card h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        .section-label {
+            font-size: 1.5rem;
             font-weight: 700;
-            text-align: center;
-            max-width: 700px;
-            line-height: 1.15;
+            margin-bottom: 8px;
         }
 
-        .hero-card p {
-            font-size: 1.125rem;
+        .section-sub {
+            font-size: 1rem;
             color: var(--muted-foreground);
-            margin-top: 16px;
-            text-align: center;
+            margin-bottom: 32px;
+            line-height: 1.5;
         }
 
-        /* Statement section — full bleed */
-        .statement-section {
-            padding: 140px 24px 180px;
-            text-align: center;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            background: transparent;
-        }
-
-        .statement-headline {
-            font-size: 2.75rem;
-            font-weight: 500;
-            line-height: 1.2;
-            max-width: 700px;
-            margin: 0 auto 100px;
-        }
-
-        .statement-icons {
-            display: flex;
-            justify-content: center;
-            gap: 64px;
-        }
-
-        .statement-icon-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .icon-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--brand-accent-tint);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .statement-icon-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        /* Content cards section */
         .cards-section {
             max-width: 1200px;
-            margin: 0 auto 80px;
+            margin: 0 auto 100px;
             padding: 0 24px;
-        }
-
-        .cards-section h2 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .cards-section-sub {
-            font-size: 1.125rem;
-            color: var(--brand-primary);
-            margin-bottom: 48px;
         }
 
         .card-grid {
@@ -269,67 +193,203 @@
             gap: 24px;
         }
 
-        /* Floating card — lifted off surface */
-        .content-card {
+        .card-label {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--brand-primary);
+            margin-bottom: 12px;
+        }
+
+        /* Shared card base */
+        .demo-card {
             background: var(--card);
             border-radius: 12px;
             padding: 40px 30px;
+        }
+
+        .demo-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .demo-card p {
+            font-size: 0.95rem;
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           A. CURRENT — Diffuse float shadow (what we have now)
+           ============================================ */
+        .card-float {
             box-shadow: 0 4px 12px rgba(44, 36, 24, 0.08), 0 12px 28px rgba(44, 36, 24, 0.06);
             border: 1px solid var(--border);
         }
 
-        .content-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .content-card p {
-            font-size: 0.95rem;
-            color: var(--muted-foreground);
-            line-height: 1.6;
-        }
-
-        /* Grounded card — resting on surface (contact shadow) */
-        .grounded-card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 40px 30px;
-            box-shadow: 0 1px 4px rgba(44, 36, 24, 0.08), 0 0 1px rgba(44, 36, 24, 0.06);
+        /* ============================================
+           B. CONTACT — Tight bottom shadow, no lift
+           Object is touching the surface
+           ============================================ */
+        .card-contact {
             border: 1.5px solid var(--border);
+            box-shadow:
+                0 1px 2px rgba(44, 36, 24, 0.12),
+                0 0 0 0.5px rgba(44, 36, 24, 0.04);
         }
 
-        .grounded-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 12px;
+        /* ============================================
+           C. BLOCK — Solid offset shadow (craft.do style)
+           Like a physical block casting onto the surface
+           ============================================ */
+        .card-block {
+            border: 1.5px solid oklch(0.82 0.025 75);
+            box-shadow:
+                3px 3px 0 0 oklch(0.86 0.022 75),
+                3px 3px 0 1.5px oklch(0.82 0.025 75);
         }
 
-        .grounded-card p {
-            font-size: 0.95rem;
-            color: var(--muted-foreground);
-            line-height: 1.6;
+        /* ============================================
+           D. INSET — Card sits IN the surface
+           Background has a subtle depression/cutout
+           ============================================ */
+        .card-inset-wrapper {
+            background: oklch(0.975 0.008 75);
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow:
+                inset 0 1px 3px rgba(44, 36, 24, 0.06),
+                inset 0 0 1px rgba(44, 36, 24, 0.08);
         }
 
-        /* Wide card wrapper */
+        .card-inset-wrapper .demo-card {
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        /* ============================================
+           E. THICK EDGE — Card has visible bottom/right
+           edge suggesting physical thickness (like paper)
+           ============================================ */
+        .card-thick {
+            border: 1.5px solid var(--border);
+            border-bottom: 3px solid oklch(0.82 0.025 75);
+            box-shadow:
+                0 1px 2px rgba(44, 36, 24, 0.06);
+        }
+
+        /* ============================================
+           F. COMBINATION — Contact shadow + thick edge +
+           subtle inner highlight (our recommendation)
+           ============================================ */
+        .card-placed {
+            border: 1.5px solid oklch(0.86 0.025 75);
+            border-bottom: 2.5px solid oklch(0.80 0.028 75);
+            box-shadow:
+                0 1px 2px rgba(44, 36, 24, 0.10),
+                0 0 0 0.5px rgba(44, 36, 24, 0.03);
+            background:
+                linear-gradient(180deg, oklch(0.997 0.006 75) 0%, oklch(0.992 0.009 75) 100%);
+        }
+
+        /* ============================================
+           G. BRASS BORDER — Brand accent as border
+           Uses #A67B4A (aged brass) at varying opacity
+           ============================================ */
+        .card-brass {
+            border: 1.5px solid rgba(166, 123, 74, 0.25);
+            box-shadow:
+                0 1px 2px rgba(44, 36, 24, 0.10),
+                0 0 0 0.5px rgba(166, 123, 74, 0.08);
+        }
+
+        /* ============================================
+           H. BRASS + THICK BOTTOM — Brand brass border
+           with heavier bottom edge for gravity
+           ============================================ */
+        .card-brass-placed {
+            border: 1.5px solid rgba(166, 123, 74, 0.20);
+            border-bottom: 3px solid rgba(166, 123, 74, 0.30);
+            box-shadow:
+                0 1px 2px rgba(166, 123, 74, 0.10),
+                0 0 0 0.5px rgba(166, 123, 74, 0.05);
+            background:
+                linear-gradient(180deg, oklch(0.997 0.006 75) 0%, oklch(0.992 0.009 75) 100%);
+        }
+
+        /* ============================================
+           I. BRASS BLOCK — Solid offset in brass tone
+           Craft.do block shadow but in your brand color
+           ============================================ */
+        .card-brass-block {
+            border: 1.5px solid rgba(166, 123, 74, 0.30);
+            box-shadow:
+                3px 3px 0 0 rgba(166, 123, 74, 0.12),
+                3px 3px 0 1.5px rgba(166, 123, 74, 0.20);
+        }
+
+        /* ============================================
+           WIDE CARD COMPARISON
+           ============================================ */
+        .wide-demo {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 24px;
+        }
+
         .wide-card {
             background: var(--card);
             border-radius: 16px;
-            padding: 64px 40px;
-            box-shadow: 0 8px 32px rgba(44, 36, 24, 0.08);
-            max-width: 1200px;
-            margin: 0 auto 80px;
+            padding: 48px 40px;
         }
 
-        .wide-card h2 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+        .wide-card h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .wide-card p {
-            font-size: 1.125rem;
+            font-size: 1rem;
             color: var(--brand-primary);
+        }
+
+        .wide-float {
+            box-shadow: 0 8px 32px rgba(44, 36, 24, 0.08);
+        }
+
+        .wide-placed {
+            border: 1.5px solid oklch(0.86 0.025 75);
+            border-bottom: 3px solid oklch(0.80 0.028 75);
+            box-shadow:
+                0 1px 3px rgba(44, 36, 24, 0.10),
+                0 0 0 0.5px rgba(44, 36, 24, 0.03);
+            background:
+                linear-gradient(180deg, oklch(0.997 0.006 75) 0%, oklch(0.992 0.009 75) 100%);
+        }
+
+        .wide-block {
+            border: 1.5px solid oklch(0.82 0.025 75);
+            box-shadow:
+                4px 4px 0 0 oklch(0.86 0.022 75),
+                4px 4px 0 1.5px oklch(0.82 0.025 75);
+        }
+
+        .wide-inset-wrapper {
+            background: oklch(0.975 0.008 75);
+            border-radius: 20px;
+            padding: 5px;
+            box-shadow:
+                inset 0 2px 4px rgba(44, 36, 24, 0.06),
+                inset 0 0 1px rgba(44, 36, 24, 0.08);
+        }
+
+        .wide-inset-wrapper .wide-card {
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
         /* Footer */
@@ -393,10 +453,15 @@
             text-align: right;
         }
 
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 8px 0 12px;
+        }
+
         @media (max-width: 768px) {
             .tuning-panel { display: none; }
             .card-grid { grid-template-columns: 1fr; }
-            .statement-icons { gap: 36px; }
         }
     </style>
 </head>
@@ -406,95 +471,150 @@
 
     <div class="page-content">
         <div class="proto-banner">
-            <strong>PROTOTYPE</strong><br>
-            Feature: Background texture for grounded card placement<br>
-            Option: 2 — Layered Texture Stack (gradient + noise + grid)<br>
+            <strong>PROTOTYPE v2 — Card Placement Comparison</strong><br>
+            Feature: Background texture + card treatment for grounded placement<br>
             Created: 2026-04-15<br>
-            Purpose: Demonstrate how layered background texture makes cards feel "placed"
+            Purpose: Compare shadow/border techniques that make cards feel physically "placed"<br>
+            Note: Background layers still active (toggle at bottom). Focus is now on the cards themselves.
         </div>
 
         <div style="max-width: 1200px; margin: 0 auto;">
 
-            <!-- Hero card -->
-            <div class="hero-card">
-                <h1>Build Real Businesses<br>with Claude Code</h1>
-                <p>The structured workflow that turns AI prompts into production software.</p>
-            </div>
-
-            <!-- Cards section — floating cards -->
+            <!-- ==========================================
+                 SECTION 1: Current vs Basic Techniques
+                 ========================================== -->
             <div class="cards-section">
-                <h2>How it works</h2>
-                <p class="cards-section-sub">Three modes. One workflow. Production-grade output.</p>
+                <h2 class="section-label">Shadow Techniques</h2>
+                <p class="section-sub">Same card content, different shadow/border treatment. Which feels most "on the surface"?</p>
                 <div class="card-grid">
-                    <div class="content-card">
-                        <h3>Speed Mode</h3>
-                        <p>Get the happy path working fast. Claude implements core functionality with clean, readable code. No edge cases, no over-engineering — just make it work.</p>
+                    <div>
+                        <div class="card-label">A. Current (diffuse float)</div>
+                        <div class="demo-card card-float">
+                            <h3>Speed Mode</h3>
+                            <p>Get the happy path working fast. Claude implements core functionality — just make it work.</p>
+                        </div>
                     </div>
-                    <div class="content-card">
-                        <h3>Stable Mode</h3>
-                        <p>Add error handling, validation, and edge cases. Claude reviews the speed implementation and hardens it with proper error boundaries and recovery paths.</p>
+                    <div>
+                        <div class="card-label">B. Contact shadow</div>
+                        <div class="demo-card card-contact">
+                            <h3>Speed Mode</h3>
+                            <p>Get the happy path working fast. Claude implements core functionality — just make it work.</p>
+                        </div>
                     </div>
-                    <div class="content-card">
-                        <h3>Production Mode</h3>
-                        <p>Security audit, performance optimization, and compliance checks. The final pass ensures your code meets production standards before deployment.</p>
+                    <div>
+                        <div class="card-label">C. Block shadow (craft.do)</div>
+                        <div class="demo-card card-block">
+                            <h3>Speed Mode</h3>
+                            <p>Get the happy path working fast. Claude implements core functionality — just make it work.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Wide card — like test section -->
-            <div class="wide-card">
-                <h2>Test-Driven by Default</h2>
-                <p>Every feature starts with BDD scenarios before a line of code is written.</p>
-            </div>
-
-            <!-- Grounded cards — contact shadow style -->
             <div class="cards-section">
-                <h2>Grounded cards (contact shadow)</h2>
-                <p class="cards-section-sub">These use the surface-grounded shadow — feel heavier, more "resting".</p>
                 <div class="card-grid">
-                    <div class="grounded-card">
-                        <h3>Feature Planning</h3>
-                        <p>Explore UX approaches, prototype options, and define BDD scenarios before implementation begins. No code until the plan is solid.</p>
+                    <div>
+                        <div class="card-label">D. Inset / Cutout</div>
+                        <div class="card-inset-wrapper">
+                            <div class="demo-card">
+                                <h3>Speed Mode</h3>
+                                <p>Get the happy path working fast. Claude implements core functionality — just make it work.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="grounded-card">
-                        <h3>Epic Breakdown</h3>
-                        <p>Large initiatives get decomposed into features with clear boundaries. Each feature follows the full speed → stable → production pipeline.</p>
+                    <div>
+                        <div class="card-label">E. Thick bottom edge</div>
+                        <div class="demo-card card-thick">
+                            <h3>Speed Mode</h3>
+                            <p>Get the happy path working fast. Claude implements core functionality — just make it work.</p>
+                        </div>
                     </div>
-                    <div class="grounded-card">
-                        <h3>Bug Investigation</h3>
-                        <p>Structured hypothesis testing narrows root causes systematically. Fixes include regression tests that prove the bug is dead.</p>
+                    <div>
+                        <div class="card-label">F. Combined (contact + edge + gradient)</div>
+                        <div class="demo-card card-placed">
+                            <h3>Speed Mode</h3>
+                            <p>Get the happy path working fast. Claude implements core functionality — just make it work.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Statement section -->
-            <div class="statement-section">
-                <h2 class="statement-headline">Software that works.<br>Built by AI.<br>Guided by you.</h2>
-                <div class="statement-icons">
-                    <div class="statement-icon-item">
-                        <div class="icon-circle">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <!-- ==========================================
+                 SECTION 2: Brass Border Variations
+                 ========================================== -->
+            <div class="cards-section">
+                <h2 class="section-label">Brass Border Variations</h2>
+                <p class="section-sub">Using your brand brass (#A67B4A) instead of the near-invisible tan border. Does stronger definition = more "placed"?</p>
+                <div class="card-grid">
+                    <div>
+                        <div class="card-label">G. Brass border</div>
+                        <div class="demo-card card-brass">
+                            <h3>Stable Mode</h3>
+                            <p>Add error handling, validation, and edge cases. Harden with proper error boundaries.</p>
                         </div>
-                        <span class="statement-icon-label">Structured</span>
                     </div>
-                    <div class="statement-icon-item">
-                        <div class="icon-circle">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <div>
+                        <div class="card-label">H. Brass + thick bottom</div>
+                        <div class="demo-card card-brass-placed">
+                            <h3>Stable Mode</h3>
+                            <p>Add error handling, validation, and edge cases. Harden with proper error boundaries.</p>
                         </div>
-                        <span class="statement-icon-label">Tested</span>
                     </div>
-                    <div class="statement-icon-item">
-                        <div class="icon-circle">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <div>
+                        <div class="card-label">I. Brass block shadow</div>
+                        <div class="demo-card card-brass-block">
+                            <h3>Stable Mode</h3>
+                            <p>Add error handling, validation, and edge cases. Harden with proper error boundaries.</p>
                         </div>
-                        <span class="statement-icon-label">Production</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SECTION 3: Wide Card Comparison
+                 ========================================== -->
+            <div class="cards-section">
+                <h2 class="section-label">Wide Card at Scale</h2>
+                <p class="section-sub">How each treatment looks on a larger container (like the test section card).</p>
+            </div>
+
+            <div class="wide-demo">
+                <div class="card-label">Current (diffuse float)</div>
+                <div class="wide-card wide-float">
+                    <h3>Test-Driven by Default</h3>
+                    <p>Every feature starts with BDD scenarios before a line of code is written.</p>
+                </div>
+            </div>
+
+            <div class="wide-demo">
+                <div class="card-label">Brass + thick bottom + gradient</div>
+                <div class="wide-card wide-placed" style="border: 1.5px solid rgba(166,123,74,0.20); border-bottom: 3px solid rgba(166,123,74,0.30); box-shadow: 0 1px 2px rgba(166,123,74,0.10), 0 0 0 0.5px rgba(166,123,74,0.05); background: linear-gradient(180deg, oklch(0.997 0.006 75) 0%, oklch(0.992 0.009 75) 100%);">
+                    <h3>Test-Driven by Default</h3>
+                    <p>Every feature starts with BDD scenarios before a line of code is written.</p>
+                </div>
+            </div>
+
+            <div class="wide-demo">
+                <div class="card-label">Brass block shadow</div>
+                <div class="wide-card" style="border: 1.5px solid rgba(166,123,74,0.30); box-shadow: 4px 4px 0 0 rgba(166,123,74,0.12), 4px 4px 0 1.5px rgba(166,123,74,0.20);">
+                    <h3>Test-Driven by Default</h3>
+                    <p>Every feature starts with BDD scenarios before a line of code is written.</p>
+                </div>
+            </div>
+
+            <div class="wide-demo">
+                <div class="card-label">Inset / Cutout</div>
+                <div class="wide-inset-wrapper">
+                    <div class="wide-card">
+                        <h3>Test-Driven by Default</h3>
+                        <p>Every feature starts with BDD scenarios before a line of code is written.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
             <div class="site-footer">
-                JettyPod &copy; 2026
+                JettyPod &copy; 2026 — Card placement prototype
             </div>
 
         </div>
