@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Placement Prototype</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: oklch(0.985 0.005 75);
+            --foreground: #2C2418;
+            --card: oklch(0.995 0.008 75);
+            --border: oklch(0.88 0.025 75);
+            --brand-primary: #4F7363;
+            --brand-accent: #A67B4A;
+            --brand-accent-tint: #F2EBE0;
+            --muted-foreground: #6F6155;
+            --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            padding: 20px 20px 140px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background texture layers */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(166,123,74,0.018) 50%, rgba(166,123,74,0.035) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.05;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 300px 300px;
+        }
+        .grid-texture {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(to right, rgba(44,36,24,0.008) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(44,36,24,0.008) 1px, transparent 1px),
+                linear-gradient(to right, rgba(44,36,24,0.018) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(44,36,24,0.018) 1px, transparent 1px);
+            background-size: 16px 16px, 16px 16px, 64px 64px, 64px 64px;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           PAGE LAYOUT
+           ============================================ */
+        .hero-card {
+            border-radius: 24px;
+            overflow: clip;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--card);
+            margin-bottom: 80px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hero-card h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.15;
+        }
+        .hero-card p {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            margin-top: 16px;
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+            padding: 0 24px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+        .card p { font-size: 0.95rem; color: var(--muted-foreground); line-height: 1.6; }
+
+        .wide-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 64px 40px;
+            margin-bottom: 80px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        .wide-card h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 12px; }
+        .wide-card p { font-size: 1.125rem; color: var(--brand-primary); }
+
+        /* ============================================
+           CARD STYLES — Composed from border + shadow
+           All borders are 1px. JS sets data-border and data-shadow.
+           ============================================ */
+
+        /* Border: tan (current) */
+        [data-border="tan"] .hero-card,
+        [data-border="tan"] .card,
+        [data-border="tan"] .wide-card {
+            border: 1px solid var(--border);
+        }
+
+        /* Border: brass */
+        [data-border="brass"] .hero-card,
+        [data-border="brass"] .card,
+        [data-border="brass"] .wide-card {
+            border: 1px solid #A67B4A;
+        }
+
+        /* Shadow: float (current — diffuse, lifted) */
+        [data-shadow="float"] .hero-card,
+        [data-shadow="float"] .card,
+        [data-shadow="float"] .wide-card {
+            box-shadow: 0 4px 12px rgba(44,36,24,0.08), 0 12px 28px rgba(44,36,24,0.06);
+        }
+
+        /* Shadow: contact (tight, touching surface) */
+        [data-shadow="contact"] .hero-card,
+        [data-shadow="contact"] .card,
+        [data-shadow="contact"] .wide-card {
+            box-shadow: 0 1px 2px rgba(44,36,24,0.12);
+        }
+
+        /* Shadow: none */
+        [data-shadow="none"] .hero-card,
+        [data-shadow="none"] .card,
+        [data-shadow="none"] .wide-card {
+            box-shadow: none;
+        }
+
+        /* ============================================
+           SWITCHER BAR — Two rows
+           ============================================ */
+        .switcher {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .switcher-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(44,36,24,0.9);
+            backdrop-filter: blur(12px);
+            padding: 5px 10px;
+            border-radius: 999px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .switcher-row-label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0 8px 0 4px;
+        }
+
+        .switch-btn {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 7px 14px;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: rgba(255,255,255,0.5);
+            background: transparent;
+            white-space: nowrap;
+        }
+        .switch-btn.active {
+            background: white;
+            color: var(--foreground);
+        }
+        .switch-btn:hover:not(.active) {
+            color: rgba(255,255,255,0.85);
+        }
+
+        @media (max-width: 768px) {
+            .card-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body data-border="tan" data-shadow="float">
+    <div class="grid-texture"></div>
+
+    <div class="page-content">
+        <div class="hero-card">
+            <h1>Build Real Businesses<br>with Claude Code</h1>
+            <p>The structured workflow that turns AI prompts into production software.</p>
+        </div>
+
+        <div class="card-row">
+            <div class="card">
+                <h3>Speed Mode</h3>
+                <p>Get the happy path working fast. Claude implements core functionality with clean, readable code.</p>
+            </div>
+            <div class="card">
+                <h3>Stable Mode</h3>
+                <p>Add error handling, validation, and edge cases. Harden with proper error boundaries and recovery.</p>
+            </div>
+            <div class="card">
+                <h3>Production Mode</h3>
+                <p>Security audit, performance optimization, and compliance. Meet production standards before deploy.</p>
+            </div>
+        </div>
+
+        <div class="wide-card">
+            <h2>Test-Driven by Default</h2>
+            <p>Every feature starts with BDD scenarios before a line of code is written.</p>
+        </div>
+
+        <div class="card-row">
+            <div class="card">
+                <h3>Feature Planning</h3>
+                <p>Explore UX approaches, prototype options, and define BDD scenarios before implementation begins.</p>
+            </div>
+            <div class="card">
+                <h3>Epic Breakdown</h3>
+                <p>Large initiatives decomposed into features with clear boundaries and the full pipeline.</p>
+            </div>
+            <div class="card">
+                <h3>Bug Investigation</h3>
+                <p>Structured hypothesis testing narrows root causes. Fixes include regression tests.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Switcher -->
+    <div class="switcher">
+        <div class="switcher-row" id="border-row">
+            <span class="switcher-row-label">Border</span>
+            <button class="switch-btn active" data-border="tan">Tan</button>
+            <button class="switch-btn" data-border="brass">Brass</button>
+        </div>
+        <div class="switcher-row" id="shadow-row">
+            <span class="switcher-row-label">Shadow</span>
+            <button class="switch-btn active" data-shadow="float">Float</button>
+            <button class="switch-btn" data-shadow="contact">Contact</button>
+            <button class="switch-btn" data-shadow="none">None</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('#border-row .switch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#border-row .switch-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.body.dataset.border = btn.dataset.border;
+            });
+        });
+
+        document.querySelectorAll('#shadow-row .switch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#shadow-row .switch-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.body.dataset.shadow = btn.dataset.shadow;
+            });
+        });
+    </script>
+</body>
+</html>
