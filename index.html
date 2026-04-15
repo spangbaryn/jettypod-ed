@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JettyPod - Build Real Businesses with Claude Code</title>
+    <meta name="description" content="JettyPod is the platform for building profitable software projects in the age of AI. No engineering background required. Vibe code a business with Claude Code.">
     <link rel="icon" type="image/svg+xml" href="jettypod-favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1079,11 +1080,26 @@
 
             .hero-video-container {
                 margin-bottom: 0;
+                padding: 0 16px;
+            }
+
+            .hero-section-content {
+                padding-top: 12px;
+                padding-bottom: 8px;
+            }
+
+            .hero-buttons {
+                margin-top: 16px;
             }
 
             .download-btn,
-            .beta-hint {
-                display: none;
+            .request-access-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+
+            .hero-card {
+                border-radius: 16px;
             }
 
             .github-link {
@@ -1178,6 +1194,13 @@
             }
         }
 
+        @media (max-width: 480px) {
+            .download-btn,
+            .beta-hint {
+                display: none;
+            }
+        }
+
         @media (max-width: 375px) {
             h1 {
                 font-size: 1.5rem;
@@ -1185,6 +1208,10 @@
 
             .logo-lockup {
                 height: 24px;
+            }
+
+            .hero-card {
+                border-radius: 12px;
             }
 
             .install-box {
@@ -1206,6 +1233,50 @@
 
             .terminal-line {
                 margin-bottom: 4px;
+            }
+        }
+
+        /* Landscape mobile: short viewports */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .hero-card {
+                height: auto;
+                min-height: calc(100vh - 32px);
+            }
+
+            .hero-section-content {
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+
+            .hero {
+                padding: 8px 0 12px;
+            }
+
+            h1 {
+                font-size: clamp(1.4rem, 3vw, 2rem);
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .hero-buttons {
+                margin-top: 12px;
+            }
+
+            .hero-video-container {
+                max-width: 500px;
+            }
+
+            .statement-section {
+                padding: 80px 24px 60px;
+            }
+
+            .statement-headline {
+                font-size: 2rem;
+                margin-bottom: 32px;
             }
         }
 
@@ -1282,6 +1353,32 @@
             }
         }
 
+        @media (max-width: 400px) {
+            .statement-icons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px 24px;
+            }
+
+            .statement-icon-item svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .statement-icon-label {
+                font-size: 0.8rem;
+            }
+
+            .statement-headline {
+                font-size: 1.75rem;
+                margin-bottom: 40px;
+            }
+
+            .statement-section {
+                padding: 80px 20px 100px;
+            }
+        }
+
         /* Footer */
         .site-footer {
             background: var(--background);
@@ -1337,6 +1434,16 @@
                 flex-direction: column;
                 gap: 20px;
                 text-align: center;
+            }
+
+            .footer-links {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-copyright {
+                font-size: 0.8rem;
             }
         }
 
@@ -2324,7 +2431,7 @@
 <body>
     <div class="grid-texture"></div>
     <div class="hero-card">
-    <img src="hero-bg.jpg" alt="" class="hero-section-bg">
+    <img src="hero-bg.jpg" alt="" class="hero-section-bg" fetchpriority="high" decoding="async">
     <div class="hero-section">
         <!-- Nav pill (commented out for now)
         <div class="floating-nav-wrapper">
@@ -2610,14 +2717,16 @@
 
                 // Update selector background position and width
                 const selector = document.querySelector('.os-selector');
-                const btnRect = activeBtn.getBoundingClientRect();
-                const selectorRect = selector.getBoundingClientRect();
+                if (selector) {
+                    const btnRect = activeBtn.getBoundingClientRect();
+                    const selectorRect = selector.getBoundingClientRect();
 
-                const width = btnRect.width;
-                const left = btnRect.left - selectorRect.left;
+                    const width = btnRect.width;
+                    const left = btnRect.left - selectorRect.left;
 
-                selector.style.setProperty('--pill-width', `${width}px`);
-                selector.style.setProperty('--pill-left', `${left}px`);
+                    selector.style.setProperty('--pill-width', `${width}px`);
+                    selector.style.setProperty('--pill-left', `${left}px`);
+                }
             }
 
             // Update dropdown
@@ -2628,7 +2737,7 @@
 
             // Update command
             const commandEl = document.getElementById('install-command');
-            commandEl.textContent = commands[os];
+            if (commandEl) commandEl.textContent = commands[os];
         }
 
         function copyToClipboard() {
