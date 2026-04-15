@@ -25,7 +25,7 @@
             background: var(--background);
             color: var(--foreground);
             min-height: 100vh;
-            padding: 20px 20px 100px;
+            padding: 20px 20px 140px;
             overflow-x: hidden;
             position: relative;
         }
@@ -70,7 +70,7 @@
         }
 
         /* ============================================
-           PAGE LAYOUT — Mimics actual site structure
+           PAGE LAYOUT
            ============================================ */
         .hero-card {
             border-radius: 24px;
@@ -82,7 +82,7 @@
             align-items: center;
             background-color: var(--card);
             margin-bottom: 80px;
-            transition: all 0.3s ease;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
         }
         .hero-card h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
@@ -109,83 +109,63 @@
             background: var(--card);
             border-radius: 12px;
             padding: 40px 30px;
-            transition: all 0.3s ease;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
         }
-        .card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .card p {
-            font-size: 0.95rem;
-            color: var(--muted-foreground);
-            line-height: 1.6;
-        }
+        .card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+        .card p { font-size: 0.95rem; color: var(--muted-foreground); line-height: 1.6; }
 
         .wide-card {
             background: var(--card);
             border-radius: 16px;
             padding: 64px 40px;
             margin-bottom: 80px;
-            transition: all 0.3s ease;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
         }
-        .wide-card h2 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .wide-card p {
-            font-size: 1.125rem;
-            color: var(--brand-primary);
-        }
+        .wide-card h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 12px; }
+        .wide-card p { font-size: 1.125rem; color: var(--brand-primary); }
 
         /* ============================================
-           CARD STYLES — Switched by data attribute
-           All use 1px border. Only shadow + border color vary.
+           CARD STYLES — Composed from border + shadow
+           All borders are 1px. JS sets data-border and data-shadow.
            ============================================ */
 
-        /* Current: diffuse float shadow, light tan border */
-        [data-style="current"] .hero-card,
-        [data-style="current"] .card,
-        [data-style="current"] .wide-card {
+        /* Border: tan (current) */
+        [data-border="tan"] .hero-card,
+        [data-border="tan"] .card,
+        [data-border="tan"] .wide-card {
             border: 1px solid var(--border);
+        }
+
+        /* Border: brass */
+        [data-border="brass"] .hero-card,
+        [data-border="brass"] .card,
+        [data-border="brass"] .wide-card {
+            border: 1px solid #A67B4A;
+        }
+
+        /* Shadow: float (current — diffuse, lifted) */
+        [data-shadow="float"] .hero-card,
+        [data-shadow="float"] .card,
+        [data-shadow="float"] .wide-card {
             box-shadow: 0 4px 12px rgba(44,36,24,0.08), 0 12px 28px rgba(44,36,24,0.06);
         }
 
-        /* Contact: tight shadow at base, card touching surface */
-        [data-style="contact"] .hero-card,
-        [data-style="contact"] .card,
-        [data-style="contact"] .wide-card {
-            border: 1px solid var(--border);
+        /* Shadow: contact (tight, touching surface) */
+        [data-shadow="contact"] .hero-card,
+        [data-shadow="contact"] .card,
+        [data-shadow="contact"] .wide-card {
             box-shadow: 0 1px 2px rgba(44,36,24,0.12);
         }
 
-        /* Block: solid offset shadow (craft.do style) */
-        [data-style="block"] .hero-card,
-        [data-style="block"] .card,
-        [data-style="block"] .wide-card {
-            border: 1px solid oklch(0.82 0.025 75);
-            box-shadow: 3px 3px 0 0 oklch(0.88 0.022 75);
-        }
-
-        /* Brass: brand accent #A67B4A border, contact shadow */
-        [data-style="brass"] .hero-card,
-        [data-style="brass"] .card,
-        [data-style="brass"] .wide-card {
-            border: 1px solid #A67B4A;
-            box-shadow: 0 1px 2px rgba(44,36,24,0.10);
-        }
-
-        /* Brass block: brand accent #A67B4A border + block shadow */
-        [data-style="brass-block"] .hero-card,
-        [data-style="brass-block"] .card,
-        [data-style="brass-block"] .wide-card {
-            border: 1px solid #A67B4A;
-            box-shadow: 3px 3px 0 0 rgba(166,123,74,0.35);
+        /* Shadow: none */
+        [data-shadow="none"] .hero-card,
+        [data-shadow="none"] .card,
+        [data-shadow="none"] .wide-card {
+            box-shadow: none;
         }
 
         /* ============================================
-           SWITCHER BAR
+           SWITCHER BAR — Two rows
            ============================================ */
         .switcher {
             position: fixed;
@@ -196,35 +176,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .switcher-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            background: rgba(44,36,24,0.85);
-            padding: 6px 16px;
-            border-radius: 999px;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-        }
-
-        .switcher-buttons {
+        .switcher-row {
             display: flex;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
             background: rgba(44,36,24,0.9);
             backdrop-filter: blur(12px);
-            padding: 6px 8px;
+            padding: 5px 10px;
             border-radius: 999px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .switcher-row-label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0 8px 0 4px;
         }
 
         .switch-btn {
             font-family: var(--font-sans);
             font-size: 12px;
             font-weight: 600;
-            padding: 8px 14px;
+            padding: 7px 14px;
             border: none;
             border-radius: 999px;
             cursor: pointer;
@@ -243,16 +223,13 @@
 
         @media (max-width: 768px) {
             .card-row { grid-template-columns: 1fr; }
-            .switcher-buttons { flex-wrap: wrap; justify-content: center; max-width: 90vw; }
         }
     </style>
 </head>
-<body data-style="current">
+<body data-border="tan" data-shadow="float">
     <div class="grid-texture"></div>
 
     <div class="page-content">
-
-        <!-- Realistic page layout -->
         <div class="hero-card">
             <h1>Build Real Businesses<br>with Claude Code</h1>
             <p>The structured workflow that turns AI prompts into production software.</p>
@@ -292,36 +269,37 @@
                 <p>Structured hypothesis testing narrows root causes. Fixes include regression tests.</p>
             </div>
         </div>
-
     </div>
 
     <!-- Switcher -->
     <div class="switcher">
-        <div class="switcher-label" id="style-name">Current (diffuse float)</div>
-        <div class="switcher-buttons">
-            <button class="switch-btn active" data-style="current">Current</button>
-            <button class="switch-btn" data-style="contact">Contact</button>
-            <button class="switch-btn" data-style="block">Block</button>
-            <button class="switch-btn" data-style="brass">Brass</button>
-            <button class="switch-btn" data-style="brass-block">Brass Block</button>
+        <div class="switcher-row" id="border-row">
+            <span class="switcher-row-label">Border</span>
+            <button class="switch-btn active" data-border="tan">Tan</button>
+            <button class="switch-btn" data-border="brass">Brass</button>
+        </div>
+        <div class="switcher-row" id="shadow-row">
+            <span class="switcher-row-label">Shadow</span>
+            <button class="switch-btn active" data-shadow="float">Float</button>
+            <button class="switch-btn" data-shadow="contact">Contact</button>
+            <button class="switch-btn" data-shadow="none">None</button>
         </div>
     </div>
 
     <script>
-        const descriptions = {
-            'current': 'Current — diffuse float shadow, tan border',
-            'contact': 'Contact — tight shadow at base, card on the surface',
-            'block': 'Block — solid offset shadow (craft.do style)',
-            'brass': 'Brass — brand accent border, contact shadow',
-            'brass-block': 'Brass Block — brand accent border + solid offset',
-        };
-
-        document.querySelectorAll('.switch-btn').forEach(btn => {
+        document.querySelectorAll('#border-row .switch-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('#border-row .switch-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                document.body.dataset.style = btn.dataset.style;
-                document.getElementById('style-name').textContent = descriptions[btn.dataset.style];
+                document.body.dataset.border = btn.dataset.border;
+            });
+        });
+
+        document.querySelectorAll('#shadow-row .switch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#shadow-row .switch-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.body.dataset.shadow = btn.dataset.shadow;
             });
         });
     </script>
