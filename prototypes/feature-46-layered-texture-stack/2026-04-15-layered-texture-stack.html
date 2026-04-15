@@ -141,74 +141,47 @@
 
         /* ============================================
            CARD STYLES — Switched by data attribute
+           All use 1px border. Only shadow + border color vary.
            ============================================ */
 
-        /* Current: diffuse float */
-        [data-style="current"] .hero-card {
-            border: 1.5px solid var(--border);
-            box-shadow: 0 1px 4px rgba(44,36,24,0.08), 0 0 1px rgba(44,36,24,0.06);
-        }
-        [data-style="current"] .card {
-            box-shadow: 0 4px 12px rgba(44,36,24,0.08), 0 12px 28px rgba(44,36,24,0.06);
-            border: 1px solid var(--border);
-        }
+        /* Current: diffuse float shadow, light tan border */
+        [data-style="current"] .hero-card,
+        [data-style="current"] .card,
         [data-style="current"] .wide-card {
-            box-shadow: 0 8px 32px rgba(44,36,24,0.08);
             border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(44,36,24,0.08), 0 12px 28px rgba(44,36,24,0.06);
         }
 
-        /* Contact: tight bottom shadow, touching surface */
+        /* Contact: tight shadow at base, card touching surface */
         [data-style="contact"] .hero-card,
         [data-style="contact"] .card,
         [data-style="contact"] .wide-card {
-            border: 1.5px solid var(--border);
-            box-shadow: 0 1px 2px rgba(44,36,24,0.12), 0 0 0 0.5px rgba(44,36,24,0.04);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(44,36,24,0.12);
         }
 
-        /* Block: solid offset shadow */
+        /* Block: solid offset shadow (craft.do style) */
         [data-style="block"] .hero-card,
         [data-style="block"] .card,
         [data-style="block"] .wide-card {
-            border: 1.5px solid oklch(0.82 0.025 75);
-            box-shadow: 3px 3px 0 0 oklch(0.86 0.022 75), 3px 3px 0 1.5px oklch(0.82 0.025 75);
+            border: 1px solid oklch(0.82 0.025 75);
+            box-shadow: 3px 3px 0 0 oklch(0.88 0.022 75);
         }
 
-        /* Brass border: brand accent defines the edge */
+        /* Brass: brand accent border, contact shadow */
         [data-style="brass"] .hero-card,
         [data-style="brass"] .card,
         [data-style="brass"] .wide-card {
-            border: 1.5px solid rgba(166,123,74,0.25);
-            box-shadow: 0 1px 2px rgba(44,36,24,0.10), 0 0 0 0.5px rgba(166,123,74,0.08);
+            border: 1px solid rgba(166,123,74,0.25);
+            box-shadow: 0 1px 2px rgba(44,36,24,0.10);
         }
 
-        /* Brass placed: brass border + heavy bottom + subtle gradient */
-        [data-style="brass-placed"] .hero-card,
-        [data-style="brass-placed"] .card,
-        [data-style="brass-placed"] .wide-card {
-            border: 1.5px solid rgba(166,123,74,0.20);
-            border-bottom: 3px solid rgba(166,123,74,0.30);
-            box-shadow: 0 1px 2px rgba(166,123,74,0.10), 0 0 0 0.5px rgba(166,123,74,0.05);
-            background: linear-gradient(180deg, oklch(0.997 0.006 75) 0%, oklch(0.992 0.009 75) 100%);
-        }
-
-        /* Brass block: brand accent block shadow */
+        /* Brass block: brand accent border + block shadow */
         [data-style="brass-block"] .hero-card,
         [data-style="brass-block"] .card,
         [data-style="brass-block"] .wide-card {
-            border: 1.5px solid rgba(166,123,74,0.30);
-            box-shadow: 3px 3px 0 0 rgba(166,123,74,0.12), 3px 3px 0 1.5px rgba(166,123,74,0.20);
-        }
-
-        /* Inset: card recessed into the surface */
-        [data-style="inset"] .hero-card,
-        [data-style="inset"] .card,
-        [data-style="inset"] .wide-card {
-            border: 1px solid rgba(255,255,255,0.7);
-            box-shadow: none;
-            outline: 4px solid oklch(0.975 0.008 75);
-            outline-offset: 0;
-            /* Simulating the inset wrapper with outline + shadow on a wrapper isn't clean,
-               so we use a different approach: darker bg behind card area */
+            border: 1px solid rgba(166,123,74,0.25);
+            box-shadow: 3px 3px 0 0 rgba(166,123,74,0.12);
         }
 
         /* ============================================
@@ -330,19 +303,17 @@
             <button class="switch-btn" data-style="contact">Contact</button>
             <button class="switch-btn" data-style="block">Block</button>
             <button class="switch-btn" data-style="brass">Brass</button>
-            <button class="switch-btn" data-style="brass-placed">Brass + Weight</button>
             <button class="switch-btn" data-style="brass-block">Brass Block</button>
         </div>
     </div>
 
     <script>
         const descriptions = {
-            'current': 'Current — diffuse float shadow, light tan border',
-            'contact': 'Contact — tight shadow at base, card touching surface',
+            'current': 'Current — diffuse float shadow, tan border',
+            'contact': 'Contact — tight shadow at base, card on the surface',
             'block': 'Block — solid offset shadow (craft.do style)',
-            'brass': 'Brass — brand accent border defines the edge',
-            'brass-placed': 'Brass + Weight — thick bottom edge, subtle gradient',
-            'brass-block': 'Brass Block — brand accent solid offset shadow',
+            'brass': 'Brass — brand accent border, contact shadow',
+            'brass-block': 'Brass Block — brand accent border + solid offset',
         };
 
         document.querySelectorAll('.switch-btn').forEach(btn => {
