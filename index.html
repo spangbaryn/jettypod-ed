@@ -195,7 +195,7 @@
             z-index: 1;
             object-fit: contain;
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 1.2s ease;
         }
 
         .hero-card {
@@ -2827,7 +2827,7 @@
         (function() {
             var video = document.querySelector('.hero-video');
             if (!video) return;
-            function showVideo() { video.style.opacity = '1'; }
+            function showVideo() { setTimeout(function() { video.style.opacity = '1'; }, 1500); }
             if (video.readyState >= 3) { showVideo(); }
             else { video.addEventListener('canplay', showVideo, { once: true }); }
         })();
