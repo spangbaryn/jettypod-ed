@@ -194,6 +194,8 @@
             position: relative;
             z-index: 1;
             object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
         .hero-card {
@@ -2820,6 +2822,15 @@
         document.getElementById('access-code-input').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') submitAccessCode();
         });
+    </script>
+    <script>
+        (function() {
+            var video = document.querySelector('.hero-video');
+            if (!video) return;
+            function showVideo() { video.style.opacity = '1'; }
+            if (video.readyState >= 3) { showVideo(); }
+            else { video.addEventListener('canplay', showVideo, { once: true }); }
+        })();
     </script>
 </body>
 </html>
