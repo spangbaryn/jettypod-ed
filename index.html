@@ -1212,19 +1212,22 @@
 
         /* Statement Section */
         .statement-section {
-            padding: 140px 24px 120px;
+            padding: 190px 24px 120px;
             text-align: center;
             width: 100vw;
             margin-left: calc(-50vw + 50%);
-            background: var(--background);
+            background: #ffffff;
+            position: relative;
+            z-index: 1;
+            isolation: isolate;
         }
 
         .statement-headline {
-            font-size: 2.75rem;
+            font-size: 3.5rem;
             font-weight: 600;
             line-height: 1.2;
             color: var(--foreground);
-            margin-bottom: 60px;
+            margin-bottom: 76px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
@@ -1261,12 +1264,12 @@
 
         @media (max-width: 640px) {
             .statement-headline {
-                font-size: 1.75rem;
-                margin-bottom: 48px;
+                font-size: 2.25rem;
+                margin-bottom: 56px;
             }
 
             .statement-section {
-                padding: 80px 24px 100px;
+                padding: 110px 24px 100px;
             }
 
             .statement-icons {
