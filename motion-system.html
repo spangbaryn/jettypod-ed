@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JettyPod Motion System</title>
+    <link rel="icon" type="image/svg+xml" href="jettypod-favicon.svg">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: oklch(0.985 0.005 75);
+            --foreground: #2C2418;
+            --card: oklch(0.995 0.008 75);
+            --border: oklch(0.88 0.025 75);
+            --brand-primary: #4F7363;
+            --brand-accent: #A67B4A;
+            --brand-accent-tint: #F2EBE0;
+            --muted-foreground: #6F6155;
+            --radius: 0.375rem;
+            --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* ── Motion Design Tokens ── */
+
+            /* Duration scale */
+            --motion-fast: 150ms;
+            --motion-normal: 250ms;
+            --motion-slow: 400ms;
+            --motion-slower: 600ms;
+
+            /* Easing curves */
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+            --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-emphasis: cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Composite shorthands */
+            --transition-fast: var(--motion-fast) var(--ease-out);
+            --transition-normal: var(--motion-normal) var(--ease-out);
+            --transition-slow: var(--motion-slow) var(--ease-out);
+
+            /* Load choreography stagger */
+            --stagger-base: 80ms;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            padding: 40px 24px 120px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--brand-primary);
+            margin-bottom: 48px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 56px 0 24px;
+            padding-top: 32px;
+            border-top: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 32px 0 12px;
+            color: var(--brand-primary);
+        }
+
+        p { margin-bottom: 16px; }
+
+        /* Token display */
+        .token-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .token-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius) * 2);
+            padding: 20px;
+        }
+
+        .token-name {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            color: var(--brand-primary);
+            margin-bottom: 4px;
+        }
+
+        .token-value {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            margin-bottom: 12px;
+        }
+
+        .token-desc {
+            font-size: 0.875rem;
+            color: var(--foreground);
+        }
+
+        /* Demo areas */
+        .demo-area {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius) * 2);
+            padding: 32px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .demo-label {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 0.7rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Duration bars */
+        .duration-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .duration-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .duration-label {
+            width: 140px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            color: var(--brand-primary);
+            flex-shrink: 0;
+        }
+
+        .duration-track {
+            flex: 1;
+            height: 36px;
+            background: var(--background);
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .duration-bar {
+            height: 100%;
+            background: var(--brand-primary);
+            border-radius: var(--radius);
+            width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .duration-bar.animate {
+            width: 100%;
+        }
+
+        .duration-bar[data-duration="fast"] {
+            transition: width var(--motion-fast) var(--ease-out);
+        }
+        .duration-bar[data-duration="normal"] {
+            transition: width var(--motion-normal) var(--ease-out);
+        }
+        .duration-bar[data-duration="slow"] {
+            transition: width var(--motion-slow) var(--ease-out);
+        }
+        .duration-bar[data-duration="slower"] {
+            transition: width var(--motion-slower) var(--ease-out);
+        }
+
+        .duration-value {
+            width: 60px;
+            font-size: 0.8rem;
+            color: var(--muted-foreground);
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* Easing demos */
+        .easing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .easing-card {
+            background: var(--background);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .easing-name {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.75rem;
+            color: var(--brand-primary);
+            margin-bottom: 4px;
+        }
+
+        .easing-desc {
+            font-size: 0.8rem;
+            color: var(--muted-foreground);
+            margin-bottom: 16px;
+        }
+
+        .easing-track {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .easing-dot {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--brand-primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .easing-dot.animate { left: calc(100% - 16px); }
+
+        .easing-dot[data-easing="out"] {
+            transition: left 800ms var(--ease-out);
+        }
+        .easing-dot[data-easing="in-out"] {
+            transition: left 800ms var(--ease-in-out);
+        }
+        .easing-dot[data-easing="spring"] {
+            transition: left 800ms var(--ease-spring);
+        }
+        .easing-dot[data-easing="emphasis"] {
+            transition: left 800ms var(--ease-emphasis);
+        }
+
+        .easing-use {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            font-style: italic;
+        }
+
+        /* Entrance demos */
+        @keyframes assemble {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .entrance-items {
+            display: flex;
+            gap: 16px;
+        }
+
+        .entrance-item {
+            flex: 1;
+            background: var(--background);
+            border-radius: var(--radius);
+            padding: 24px 16px;
+            text-align: center;
+            font-weight: 600;
+            opacity: 0;
+        }
+
+        .entrance-item.animate {
+            animation: assemble var(--motion-slower) var(--ease-out) forwards;
+        }
+
+        .entrance-item:nth-child(1).animate { animation-delay: calc(var(--stagger-base) * 1); }
+        .entrance-item:nth-child(2).animate { animation-delay: calc(var(--stagger-base) * 2); }
+        .entrance-item:nth-child(3).animate { animation-delay: calc(var(--stagger-base) * 3); }
+        .entrance-item:nth-child(4).animate { animation-delay: calc(var(--stagger-base) * 4); }
+        .entrance-item:nth-child(5).animate { animation-delay: calc(var(--stagger-base) * 5); }
+
+        /* Hover demos */
+        .hover-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn-primary {
+            background: var(--brand-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .demo-btn-primary:hover { filter: brightness(1.05); }
+        .demo-btn-primary:active { transform: scale(0.98); }
+
+        .demo-btn-outline {
+            background: transparent;
+            color: var(--foreground);
+            border: 1.5px solid var(--border);
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .demo-btn-outline:hover { background-color: var(--background); }
+        .demo-btn-outline:active { transform: scale(0.98); }
+
+        .demo-link {
+            color: var(--brand-primary);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color var(--transition-normal);
+            font-weight: 600;
+        }
+
+        .demo-link:hover { border-bottom-color: var(--brand-primary); }
+
+        .demo-nav-link {
+            color: var(--foreground);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity var(--transition-fast);
+        }
+
+        .demo-nav-link:hover { opacity: 1; }
+
+        /* Scroll reveal demo */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity var(--motion-slower) var(--ease-out),
+                        transform var(--motion-slower) var(--ease-out);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-stagger > .reveal { transition-delay: 0ms; }
+        .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+        .reveal-stagger > .reveal:nth-child(2) { transition-delay: calc(var(--stagger-base) * 1); }
+        .reveal-stagger > .reveal:nth-child(3) { transition-delay: calc(var(--stagger-base) * 2); }
+        .reveal-stagger > .reveal:nth-child(4) { transition-delay: calc(var(--stagger-base) * 3); }
+
+        .scroll-demo-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 200px;
+        }
+
+        .scroll-demo-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius) * 2);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .scroll-demo-card .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .scroll-demo-card .label {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* State transition demos */
+        .state-demo {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .state-control {
+            flex-shrink: 0;
+        }
+
+        .state-result {
+            flex: 1;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius) * 2);
+            padding: 24px 32px;
+            box-shadow: 0 8px 32px rgba(44, 36, 24, 0.12);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity var(--transition-normal), transform var(--transition-normal);
+            pointer-events: none;
+        }
+
+        .demo-modal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .demo-toast {
+            background: var(--foreground);
+            color: var(--background);
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .demo-toast.visible {
+            opacity: 1;
+        }
+
+        /* Play button */
+        .play-btn {
+            background: var(--brand-accent-tint);
+            color: var(--foreground);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: background-color var(--transition-fast);
+            margin-bottom: 16px;
+        }
+
+        .play-btn:hover { background: var(--border); }
+
+        /* Code blocks */
+        code {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            background: var(--brand-accent-tint);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: var(--foreground);
+            color: var(--brand-primary);
+            padding: 20px 24px;
+            border-radius: var(--radius);
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            margin-bottom: 16px;
+        }
+
+        pre .comment { color: var(--muted-foreground); }
+        pre .prop { color: #F2D6A2; }
+        pre .val { color: #7A9E9F; }
+
+        /* Decision log */
+        .decision-log {
+            margin-top: 64px;
+        }
+
+        .decision {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius) * 2);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .decision-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .decision-rationale {
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+            margin-bottom: 8px;
+        }
+
+        .decision-alternatives {
+            font-size: 0.8rem;
+            color: var(--brand-accent);
+            font-style: italic;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .entrance-item,
+            .reveal {
+                animation: none;
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+
+            .duration-bar,
+            .easing-dot {
+                transition: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .token-grid, .easing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scroll-demo-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .entrance-items {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Motion System</h1>
+<p class="page-subtitle">JettyPod's unified motion language. Every piece assembled with thought and care.</p>
+
+<!-- ─── TOKENS ─── -->
+<h2>Design Tokens</h2>
+
+<h3>Duration Scale</h3>
+<p>Four durations, each with a specific role. Faster for micro-feedback, slower for spatial movement.</p>
+
+<div class="demo-area">
+    <span class="demo-label">Interactive</span>
+    <button class="play-btn" onclick="playDurations()">Play durations</button>
+    <div class="duration-demo" id="duration-demo">
+        <div class="duration-row">
+            <span class="duration-label">--motion-fast</span>
+            <div class="duration-track">
+                <div class="duration-bar" data-duration="fast">150ms</div>
+            </div>
+            <span class="duration-value">150ms</span>
+        </div>
+        <div class="duration-row">
+            <span class="duration-label">--motion-normal</span>
+            <div class="duration-track">
+                <div class="duration-bar" data-duration="normal">250ms</div>
+            </div>
+            <span class="duration-value">250ms</span>
+        </div>
+        <div class="duration-row">
+            <span class="duration-label">--motion-slow</span>
+            <div class="duration-track">
+                <div class="duration-bar" data-duration="slow">400ms</div>
+            </div>
+            <span class="duration-value">400ms</span>
+        </div>
+        <div class="duration-row">
+            <span class="duration-label">--motion-slower</span>
+            <div class="duration-track">
+                <div class="duration-bar" data-duration="slower">600ms</div>
+            </div>
+            <span class="duration-value">600ms</span>
+        </div>
+    </div>
+</div>
+
+<div class="token-grid">
+    <div class="token-card">
+        <div class="token-name">--motion-fast</div>
+        <div class="token-value">150ms</div>
+        <div class="token-desc">Micro-interactions: hover states, button feedback, focus rings. Felt but not watched.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--motion-normal</div>
+        <div class="token-value">250ms</div>
+        <div class="token-desc">Standard transitions: fades, color changes, state toggles. The workhorse.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--motion-slow</div>
+        <div class="token-value">400ms</div>
+        <div class="token-desc">Emphasis transitions: panel slides, modal entries, tab switches. Deliberate movement.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--motion-slower</div>
+        <div class="token-value">600ms</div>
+        <div class="token-desc">Entrance choreography: page load reveals, scroll-triggered assemblies. Graceful arrival.</div>
+    </div>
+</div>
+
+<h3>Easing Curves</h3>
+<p>Four curves, each with a distinct character. The default is used for 80% of transitions.</p>
+
+<div class="demo-area">
+    <span class="demo-label">Interactive</span>
+    <button class="play-btn" onclick="playEasings()">Play easings</button>
+    <div class="easing-grid" id="easing-demo">
+        <div class="easing-card">
+            <div class="easing-name">--ease-out</div>
+            <div class="easing-desc">Quick start, gentle land</div>
+            <div class="easing-track">
+                <div class="easing-dot" data-easing="out"></div>
+            </div>
+            <div class="easing-use">Default. Buttons, fades, most transitions.</div>
+        </div>
+        <div class="easing-card">
+            <div class="easing-name">--ease-in-out</div>
+            <div class="easing-desc">Symmetric motion</div>
+            <div class="easing-track">
+                <div class="easing-dot" data-easing="in-out"></div>
+            </div>
+            <div class="easing-use">Rotating text, looping animations.</div>
+        </div>
+        <div class="easing-card">
+            <div class="easing-name">--ease-spring</div>
+            <div class="easing-desc">Playful overshoot</div>
+            <div class="easing-track">
+                <div class="easing-dot" data-easing="spring"></div>
+            </div>
+            <div class="easing-use">OS selector pill. Use sparingly.</div>
+        </div>
+        <div class="easing-card">
+            <div class="easing-name">--ease-emphasis</div>
+            <div class="easing-desc">Deliberate, weighty</div>
+            <div class="easing-track">
+                <div class="easing-dot" data-easing="emphasis"></div>
+            </div>
+            <div class="easing-use">Tab panels, slide indicators, large spatial moves.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ─── PATTERNS ─── -->
+<h2>Motion Patterns</h2>
+
+<h3>1. Entrance Choreography</h3>
+<p>Elements assemble in sequence on page load. Each item uses <code>--motion-slower</code> (600ms) with stagger delays of <code>--stagger-base</code> (80ms). The <code>assemble</code> keyframe combines opacity + translateY for a "rising into place" effect.</p>
+
+<div class="demo-area">
+    <span class="demo-label">Interactive</span>
+    <button class="play-btn" onclick="playEntrance()">Play entrance</button>
+    <div class="entrance-items" id="entrance-demo">
+        <div class="entrance-item">Logo</div>
+        <div class="entrance-item">Headline</div>
+        <div class="entrance-item">Subtitle</div>
+        <div class="entrance-item">Buttons</div>
+        <div class="entrance-item">Screenshot</div>
+    </div>
+</div>
+
+<pre><span class="comment">/* CSS */</span>
+<span class="prop">@keyframes</span> assemble {
+  <span class="val">from</span> { opacity: 0; transform: translateY(12px); }
+  <span class="val">to</span>   { opacity: 1; transform: translateY(0); }
+}
+
+.<span class="prop">hero-enter</span>   { opacity: 0; animation: assemble <span class="val">var(--motion-slower) var(--ease-out)</span> forwards; }
+.<span class="prop">hero-enter-1</span> { animation-delay: calc(<span class="val">var(--stagger-base)</span> * 1); }
+.<span class="prop">hero-enter-2</span> { animation-delay: calc(<span class="val">var(--stagger-base)</span> * 2); }
+<span class="comment">/* ...etc */</span></pre>
+
+<h3>2. Hover & Micro-interactions</h3>
+<p>All hover states use <code>--motion-fast</code> (150ms). Quick enough to feel instant, slow enough to feel smooth.</p>
+
+<div class="demo-area">
+    <span class="demo-label">Hover to see</span>
+    <div class="hover-row">
+        <button class="demo-btn-primary">Primary Button</button>
+        <button class="demo-btn-outline">Outline Button</button>
+        <a href="#" class="demo-link" onclick="return false">Underline Link</a>
+        <a href="#" class="demo-nav-link" onclick="return false">Nav Link</a>
+    </div>
+</div>
+
+<pre><span class="comment">/* All hover transitions use --transition-fast */</span>
+.<span class="prop">btn</span> {
+  transition: color <span class="val">var(--transition-fast)</span>,
+              background-color <span class="val">var(--transition-fast)</span>,
+              transform <span class="val">var(--transition-fast)</span>;
+}</pre>
+
+<h3>3. State Transitions</h3>
+<p>Show/hide states use <code>--motion-normal</code> (250ms) for simple fades, <code>--motion-slow</code> (400ms) for spatial movement (modals, panels).</p>
+
+<div class="demo-area">
+    <span class="demo-label">Interactive</span>
+    <div class="state-demo">
+        <div class="state-control">
+            <button class="play-btn" onclick="toggleModal()">Toggle modal</button>
+            <button class="play-btn" onclick="showToast()">Show toast</button>
+        </div>
+        <div class="state-result">
+            <div class="demo-modal" id="demo-modal">
+                <strong>Modal content</strong>
+                <p style="margin:8px 0 0; font-size:0.875rem; color:var(--muted-foreground);">Enters with translateY + opacity.</p>
+            </div>
+            <div class="demo-toast" id="demo-toast">Copied to clipboard</div>
+        </div>
+    </div>
+</div>
+
+<h3>4. Scroll Reveals</h3>
+<p>Below-fold content uses <code>.reveal</code> class with IntersectionObserver. Elements fade + rise into view with <code>--motion-slower</code> (600ms). Groups use <code>.reveal-stagger</code> for sequential reveals.</p>
+
+<p style="color: var(--muted-foreground); font-size: 0.875rem; margin-bottom: 16px;">Scroll down to see the cards reveal.</p>
+
+<div class="scroll-demo-cards reveal-stagger">
+    <div class="scroll-demo-card reveal">
+        <div class="icon">&#9678;</div>
+        <div class="label">Know what to build</div>
+    </div>
+    <div class="scroll-demo-card reveal">
+        <div class="icon">&#10003;</div>
+        <div class="label">Know it works</div>
+    </div>
+    <div class="scroll-demo-card reveal">
+        <div class="icon">&#9733;</div>
+        <div class="label">Know you're not alone</div>
+    </div>
+    <div class="scroll-demo-card reveal">
+        <div class="icon">&#9873;</div>
+        <div class="label">Know when to ship</div>
+    </div>
+</div>
+
+<pre><span class="comment">/* CSS */</span>
+.<span class="prop">reveal</span> {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity <span class="val">var(--motion-slower) var(--ease-out)</span>,
+              transform <span class="val">var(--motion-slower) var(--ease-out)</span>;
+}
+
+.<span class="prop">reveal.visible</span> { opacity: 1; transform: translateY(0); }
+
+<span class="comment">/* Stagger children */</span>
+.<span class="prop">reveal-stagger</span> > .reveal:nth-child(2) { transition-delay: calc(<span class="val">var(--stagger-base)</span> * 1); }
+.<span class="prop">reveal-stagger</span> > .reveal:nth-child(3) { transition-delay: calc(<span class="val">var(--stagger-base)</span> * 2); }
+
+<span class="comment">/* JS: IntersectionObserver, threshold: 0.15, unobserve after visible */</span></pre>
+
+<h3>5. Emphasis Transitions</h3>
+<p>Tab panels and slide indicators use <code>--ease-emphasis</code> with <code>--motion-slow</code>. This curve is weightier, suited for content that demands attention during its movement.</p>
+
+<pre><span class="comment">/* Tab panel slide */</span>
+.<span class="prop">slide-tab-panel</span> {
+  transition: opacity <span class="val">var(--motion-slow) var(--ease-emphasis)</span>,
+              transform <span class="val">var(--motion-slow) var(--ease-emphasis)</span>;
+}
+
+<span class="comment">/* Slide indicator */</span>
+.<span class="prop">slide-indicator</span> {
+  transition: top <span class="val">var(--motion-slow) var(--ease-emphasis)</span>,
+              height <span class="val">var(--motion-slow) var(--ease-emphasis)</span>;
+}</pre>
+
+<h3>6. Reduced Motion</h3>
+<p>All choreography and reveals are disabled when <code>prefers-reduced-motion: reduce</code> is active. Elements appear immediately with no animation or transition.</p>
+
+<pre><span class="comment">/* Respects user preference */</span>
+@media (<span class="prop">prefers-reduced-motion: reduce</span>) {
+  .hero-enter,
+  .reveal {
+    animation: <span class="val">none</span>;
+    transition: <span class="val">none</span>;
+    opacity: <span class="val">1</span>;
+    transform: <span class="val">none</span>;
+  }
+}</pre>
+
+<!-- ─── USAGE GUIDE ─── -->
+<h2>Usage Guide</h2>
+
+<h3>When to use each duration</h3>
+<div class="token-grid">
+    <div class="token-card">
+        <div class="token-name">--motion-fast (150ms)</div>
+        <div class="token-desc">Button hover, link hover, focus rings, active states, input focus, nav opacity changes. Anything the user's finger/cursor directly triggers.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--motion-normal (250ms)</div>
+        <div class="token-desc">Fades in/out, state toggles (show/hide), color changes, scroll section opacity, challenge card opacity, rotating text, toast/copied messages.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--motion-slow (400ms)</div>
+        <div class="token-desc">Tab panel slides, modal entries, triangle image crossfade, OS selector pill, slide indicator movement, hero screenshot fade.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--motion-slower (600ms)</div>
+        <div class="token-desc">Page load choreography, scroll-triggered reveals, email form entrance. Spatial entrance animations that establish presence.</div>
+    </div>
+</div>
+
+<h3>When to use each easing</h3>
+<div class="token-grid">
+    <div class="token-card">
+        <div class="token-name">--ease-out</div>
+        <div class="token-desc">Default for everything. Elements arrive quickly and settle gently. Use this unless you have a specific reason not to.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--ease-in-out</div>
+        <div class="token-desc">Symmetric/looping motion only: rotating text carousel, any animation that cycles. The symmetry matches the cyclical nature.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--ease-spring</div>
+        <div class="token-desc">Playful overshoot. Currently only used for OS selector pill. Adds personality but can feel chaotic if overused. Max 1-2 uses per page.</div>
+    </div>
+    <div class="token-card">
+        <div class="token-name">--ease-emphasis</div>
+        <div class="token-desc">Large spatial moves where content replaces other content: tab panels sliding in/out, slide indicators tracking position. The deliberate feel matches the weight of a content change.</div>
+    </div>
+</div>
+
+<!-- ─── DECISION LOG ─── -->
+<div class="decision-log">
+    <h2>Decision Log</h2>
+    <p>Design decisions made during the creation of this motion system, with rationale and alternatives considered.</p>
+
+    <div class="decision">
+        <div class="decision-title">D1: Four-step duration scale (150/250/400/600ms)</div>
+        <div class="decision-rationale">Chosen for clear semantic separation. Each step is roughly 1.6x the previous (close to the golden ratio), creating a natural visual hierarchy. 150ms is the threshold where movement feels "instant but smooth." 600ms is the upper bound before motion feels sluggish.</div>
+        <div class="decision-alternatives">Alternatives considered: Three-step scale (150/300/500) felt too coarse &mdash; no distinction between "standard fade" and "panel slide." Five steps added complexity without clear use cases for the extra tier. Linear scale (100/200/300/400) lacked the perceptual spacing needed.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D2: cubic-bezier(0.16, 1, 0.3, 1) as default easing</div>
+        <div class="decision-rationale">This is a refined ease-out that starts fast and decelerates smoothly. It gives elements a sense of arriving with purpose &mdash; they snap into position rather than drifting. Matches the "assembled with care" brand principle: things arrive decisively, not lazily.</div>
+        <div class="decision-alternatives">Alternatives considered: CSS <code>ease-out</code> (0, 0, 0.58, 1) decelerates too gently, making things feel floaty. Material's standard curve (0.4, 0, 0.2, 1) is too subtle for small elements. The chosen curve sits between confident and graceful.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D3: 80ms stagger base for choreography</div>
+        <div class="decision-rationale">80ms creates a perceptible but rapid cascade. At 5 items (hero sequence), total stagger span is 400ms &mdash; the entire sequence completes within 1 second (600ms animation + 400ms stagger = last item finishes at ~1s). Fast enough to not feel like waiting, slow enough to read as intentional sequence rather than simultaneous pop.</div>
+        <div class="decision-alternatives">Alternatives considered: 50ms felt simultaneous beyond 3 items. 120ms made 5-item sequences feel slow (720ms span). 100ms was viable but 80ms hit the sweet spot of "noticeable cascade without drag."</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D4: translateY(12px) for entrance, translateY(16px) for scroll reveals</div>
+        <div class="decision-rationale">Entrance elements (hero) use 12px &mdash; subtle enough to not distract from content on first impression. Scroll reveals use 16px &mdash; slightly more pronounced since the user is already engaged and scrolling. Both are small enough to feel like "assembling in place" rather than "flying in from somewhere."</div>
+        <div class="decision-alternatives">Alternatives considered: translateY(20px+) felt like slide-in animations from a UI framework, not "considered assembly." translateY(8px) was too subtle to register on scroll. No translateY (opacity-only) lacked the spatial quality that signals physical assembly. Scale transforms (0.95 &rarr; 1) felt more "zoom" than "place."</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D5: CSS custom properties over a JS motion library</div>
+        <div class="decision-rationale">This is a static site with no build system or framework. CSS custom properties provide the token system natively with zero runtime cost and no dependencies. The motion patterns needed (entrance, fade, slide) are all achievable with CSS alone. JS is only needed for IntersectionObserver triggers.</div>
+        <div class="decision-alternatives">Alternatives considered: Framer Motion requires React. GSAP adds 30KB+ for capabilities we don't need. Web Animations API would work but adds JS complexity for transitions CSS handles natively. animate.css provides premade animations but not a token system.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D6: Removing all transition: all declarations</div>
+        <div class="decision-rationale">Replaced 10 instances with explicit property lists. <code>transition: all</code> is a performance anti-pattern &mdash; it forces the browser to watch every property for changes, and it can cause unintended transitions (e.g., layout shifts triggering width/height animations). Explicit properties make intent clear and prevent surprises.</div>
+        <div class="decision-alternatives">Alternatives considered: Keeping <code>transition: all</code> with <code>will-change</code> hints &mdash; rejected because it treats symptoms, not the cause. The effort to enumerate properties is trivial and the benefit in both performance and maintainability is clear.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D7: IntersectionObserver with unobserve for scroll reveals</div>
+        <div class="decision-rationale">Elements reveal once and stay visible. No reverse animation on scroll-up. This matches the "assembled" metaphor &mdash; once a piece is placed, it stays. Unobserving after reveal also eliminates ongoing observer overhead. Threshold of 0.15 (15% visible) triggers early enough that the animation is visible, not already past.</div>
+        <div class="decision-alternatives">Alternatives considered: Scroll-linked animations (CSS scroll-timeline) would enable reverse animations but add complexity and lack Safari support. Re-animating on scroll-up (bidirectional reveals) would undermine the "assembled" metaphor. Larger threshold (0.3+) would cause elements to pop in too late, especially on mobile.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D8: Keeping the spring easing for OS selector pill</div>
+        <div class="decision-rationale">The bouncy overshoot on the OS selector pill is a deliberate moment of personality. It signals "this is interactive and fun" in a UI that's otherwise restrained. Limiting spring easing to this one element prevents it from feeling chaotic while still injecting a moment of delight.</div>
+        <div class="decision-alternatives">Alternatives considered: Replacing with --ease-out for full consistency &mdash; rejected because it would flatten the only playful moment in the UI. Using spring on more elements &mdash; rejected because it would dilute the effect and make the page feel bouncy rather than precise. Removing the pill animation entirely &mdash; rejected because the sliding pill is satisfying UX feedback for OS selection.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D9: Email form entrance uses assemble keyframe with 150ms delay</div>
+        <div class="decision-rationale">When the user clicks "Request Access," buttons exit immediately (opacity 0 via class toggle), then the form assembles 150ms later. This gap is short enough to feel continuous but long enough to prevent visual collision between the exiting buttons and entering form. The screenshot fades simultaneously via its own CSS transition.</div>
+        <div class="decision-alternatives">Alternatives considered: Simultaneous crossfade &mdash; rejected because buttons and form overlap spatially, creating visual noise. Longer delay (300ms+) &mdash; felt sluggish and broke the "responsive UI" expectation. No delay &mdash; form appeared before buttons finished hiding, looking glitchy.</div>
+    </div>
+
+    <div class="decision">
+        <div class="decision-title">D10: Removing inline transition styles from section-renderer.js</div>
+        <div class="decision-rationale">The JS renderers were setting <code>transition: opacity 0.3s ease-out</code> inline, duplicating what the CSS classes (<code>.section-background</code>, <code>.section-content</code>) already provide. Removed the inline styles so transitions are governed solely by the stylesheet, making them token-driven and centrally maintainable.</div>
+        <div class="decision-alternatives">Alternatives considered: Keeping inline styles as "safety net" in case CSS classes change &mdash; rejected because dual sources of truth create maintenance confusion. Reading CSS custom properties via <code>getComputedStyle</code> &mdash; rejected as over-engineered for values that the stylesheet already handles.</div>
+    </div>
+</div>
+
+<script>
+    // Duration demo
+    function playDurations() {
+        const bars = document.querySelectorAll('#duration-demo .duration-bar');
+        bars.forEach(bar => bar.classList.remove('animate'));
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                bars.forEach(bar => bar.classList.add('animate'));
+            });
+        });
+        setTimeout(() => {
+            bars.forEach(bar => bar.classList.remove('animate'));
+        }, 2000);
+    }
+
+    // Easing demo
+    function playEasings() {
+        const dots = document.querySelectorAll('#easing-demo .easing-dot');
+        dots.forEach(dot => dot.classList.remove('animate'));
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                dots.forEach(dot => dot.classList.add('animate'));
+            });
+        });
+        setTimeout(() => {
+            dots.forEach(dot => dot.classList.remove('animate'));
+        }, 2000);
+    }
+
+    // Entrance demo
+    function playEntrance() {
+        const items = document.querySelectorAll('#entrance-demo .entrance-item');
+        items.forEach(item => {
+            item.classList.remove('animate');
+            item.style.opacity = '0';
+        });
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                items.forEach(item => item.classList.add('animate'));
+            });
+        });
+    }
+
+    // Modal toggle
+    function toggleModal() {
+        document.getElementById('demo-modal').classList.toggle('visible');
+    }
+
+    // Toast
+    function showToast() {
+        const toast = document.getElementById('demo-toast');
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 2000);
+    }
+
+    // Scroll reveals
+    document.addEventListener('DOMContentLoaded', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        if (!reveals.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        reveals.forEach(el => observer.observe(el));
+    });
+</script>
+
+</body>
+</html>
