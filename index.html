@@ -559,7 +559,7 @@
             gap: 12px;
             margin-top: 12px;
             opacity: 0;
-            transform: translateY(8px);
+            transform: translateY(12px);
         }
 
         .email-form.visible {
@@ -1089,9 +1089,25 @@
             }
         }
 
+        /* Screenshot-specific: preserves positioning transform */
+        @keyframes assemble-screenshot {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 50%) translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 50%);
+            }
+        }
+
         .hero-enter {
             opacity: 0;
             animation: assemble var(--motion-slower) var(--ease-out) forwards;
+        }
+
+        .hero-video-container.hero-enter {
+            animation-name: assemble-screenshot;
         }
 
         .hero-enter-1 { animation-delay: calc(var(--stagger-base) * 1); }
@@ -1128,6 +1144,11 @@
                 transition: none;
                 opacity: 1;
                 transform: none;
+            }
+
+            /* Preserve positioning transform when motion is reduced */
+            .hero-video-container.hero-enter {
+                transform: translate(-50%, 50%);
             }
         }
 
@@ -2433,6 +2454,10 @@
         }
 
         @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
