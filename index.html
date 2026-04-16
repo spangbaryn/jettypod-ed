@@ -219,23 +219,21 @@
         }
 
         .hero-video-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 100%;
             max-width: 900px;
-            margin: 0 auto 0;
             padding: 0 24px;
-            flex: 1;
-            min-height: 0;
-            display: flex;
-            align-items: flex-end;
+            box-sizing: border-box;
+            z-index: 1;
         }
 
         .hero-screenshot {
             width: 100%;
-            border-radius: calc(var(--radius) * 1.5) calc(var(--radius) * 1.5) 0 0;
-            box-shadow: 0 -4px 24px rgba(44, 36, 24, 0.12), 0 -8px 48px rgba(44, 36, 24, 0.08);
-            position: relative;
-            z-index: 1;
-            object-fit: cover;
-            object-position: top center;
+            border-radius: calc(var(--radius) * 1.5);
+            box-shadow: 0 8px 32px rgba(44, 36, 24, 0.18), 0 2px 8px rgba(44, 36, 24, 0.10);
         }
 
         .hero-card {
@@ -1104,7 +1102,6 @@
             }
 
             .hero-video-container {
-                margin-bottom: 0;
                 padding: 0 16px;
             }
 
