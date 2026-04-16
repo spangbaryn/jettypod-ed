@@ -26,6 +26,27 @@
             --ring: oklch(0.7 0.15 75);
             --ring-offset: 2px;
             --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Motion Design Tokens */
+            /* Duration scale */
+            --motion-fast: 150ms;
+            --motion-normal: 250ms;
+            --motion-slow: 400ms;
+            --motion-slower: 600ms;
+
+            /* Easing curves */
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* Default: quick start, gentle land */
+            --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);    /* Symmetric: rotating text, looping */
+            --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);  /* Playful overshoot: OS selector pill */
+            --ease-emphasis: cubic-bezier(0.4, 0, 0.2, 1);    /* Deliberate: tab panels, large moves */
+
+            /* Composite shorthands */
+            --transition-fast: var(--motion-fast) var(--ease-out);
+            --transition-normal: var(--motion-normal) var(--ease-out);
+            --transition-slow: var(--motion-slow) var(--ease-out);
+
+            /* Load choreography stagger base */
+            --stagger-base: 80ms;
         }
 
         * {
@@ -127,7 +148,7 @@
             color: var(--text-primary);
             text-decoration: none;
             opacity: 0.7;
-            transition: opacity 0.2s;
+            transition: opacity var(--transition-fast);
         }
 
         .floating-nav .nav-links a:hover {
@@ -157,7 +178,7 @@
             font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
-            transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
         }
 
         .floating-nav .nav-cta-btn:active {
@@ -201,7 +222,7 @@
             font-weight: 500;
             padding: 8px 16px;
             border-radius: var(--radius);
-            transition: background 0.2s ease;
+            transition: background-color var(--transition-fast);
         }
 
         .nav-link:hover {
@@ -228,7 +249,7 @@
             padding: 0 24px;
             box-sizing: border-box;
             z-index: 1;
-            transition: opacity 0.4s ease;
+            transition: opacity var(--motion-slow) var(--ease-out);
         }
 
         .hero-screenshot {
@@ -333,7 +354,7 @@
             font-weight: 500;
             border-radius: var(--radius);
             cursor: pointer;
-            transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
             margin-top: 0;
         }
 
@@ -418,7 +439,7 @@
             letter-spacing: 0.1em;
             background: var(--card);
             color: var(--foreground);
-            transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .access-code-input:focus {
@@ -441,7 +462,7 @@
             font-weight: 500;
             border-radius: var(--radius);
             cursor: pointer;
-            transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
             box-shadow: 0 1px 2px rgba(44, 36, 24, 0.08), 0 4px 12px color-mix(in srgb, var(--brand-primary) 25%, transparent);
             width: 100%;
             margin-top: 12px;
@@ -498,7 +519,7 @@
             font-weight: 500;
             border-radius: var(--radius);
             cursor: pointer;
-            transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
             box-shadow: 0 1px 2px rgba(44, 36, 24, 0.08), 0 4px 12px color-mix(in srgb, var(--brand-primary) 25%, transparent);
         }
 
@@ -525,8 +546,10 @@
         .download-btn.hidden,
         .beta-hint.hidden {
             opacity: 0;
+            transform: translateY(-4px);
             pointer-events: none;
             position: absolute;
+            transition: opacity var(--transition-fast), transform var(--transition-fast);
         }
 
         .email-form {
@@ -536,12 +559,13 @@
             gap: 12px;
             margin-top: 12px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(8px);
         }
 
         .email-form.visible {
             display: flex;
-            opacity: 1;
+            animation: assemble var(--motion-slower) var(--ease-out) forwards;
+            animation-delay: var(--motion-fast);
         }
 
         .email-input {
@@ -553,7 +577,7 @@
             text-align: left;
             background: var(--card);
             color: var(--foreground);
-            transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .email-input:focus {
@@ -571,7 +595,7 @@
             font-weight: 500;
             border-radius: var(--radius);
             cursor: pointer;
-            transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
             box-shadow: 0 1px 2px rgba(44, 36, 24, 0.08), 0 4px 12px color-mix(in srgb, var(--brand-primary) 25%, transparent);
         }
 
@@ -639,7 +663,7 @@
             padding: 40px;
             margin-bottom: 64px;
             position: relative;
-            transition: all 0.3s ease;
+            transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
         }
 
         .install-header {
@@ -675,7 +699,7 @@
             height: calc(100% - 8px);
             background: var(--brand-primary);
             border-radius: var(--radius);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: left var(--motion-slow) var(--ease-spring), width var(--motion-slow) var(--ease-spring);
             box-shadow: 0 4px 12px rgba(79, 115, 99, 0.25);
             z-index: 1;
         }
@@ -688,7 +712,7 @@
             background: transparent;
             color: var(--brand-primary);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: color var(--transition-normal), transform var(--transition-normal);
             font-family: inherit;
             position: relative;
             z-index: 2;
@@ -716,7 +740,7 @@
             border-radius: var(--radius);
             padding: 24px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color var(--transition-normal);
         }
 
         .command-box:hover {
@@ -752,7 +776,7 @@
             font-weight: bold;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity var(--transition-normal);
         }
 
         .copied.show {
@@ -798,7 +822,7 @@
             border-radius: var(--radius);
             border: 2px solid var(--brand-primary);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: border-color var(--transition-normal), background-color var(--transition-normal), transform var(--transition-normal);
         }
 
         .github-link:hover {
@@ -825,7 +849,7 @@
             width: 100%;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.3s ease-out;
+            transition: opacity var(--transition-normal);
             z-index: 0;
         }
 
@@ -839,7 +863,7 @@
             padding: 40px;
             z-index: 10;
             opacity: 0;
-            transition: opacity 0.3s ease-out;
+            transition: opacity var(--transition-normal);
             pointer-events: none;
         }
 
@@ -945,7 +969,7 @@
         }
 
         .challenge-card {
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            transition: opacity var(--transition-normal), transform var(--transition-normal);
         }
 
         .rotating-text-container {
@@ -956,7 +980,7 @@
         }
 
         .rotating-text {
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity var(--motion-normal) var(--ease-in-out);
             color: var(--brand-accent);
         }
 
@@ -966,7 +990,7 @@
             text-decoration: none;
             font-size: 1.125rem;
             border-bottom: 2px solid transparent;
-            transition: border-color 0.3s ease;
+            transition: border-color var(--transition-normal);
             font-weight: 600;
         }
 
@@ -1046,11 +1070,65 @@
             color: var(--brand-primary);
             text-decoration: none;
             font-size: 1rem;
-            transition: color 0.3s ease;
+            transition: color var(--transition-fast);
         }
 
         footer a:hover {
             color: var(--foreground);
+        }
+
+        /* ── Hero Load Choreography ── */
+        @keyframes assemble {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-enter {
+            opacity: 0;
+            animation: assemble var(--motion-slower) var(--ease-out) forwards;
+        }
+
+        .hero-enter-1 { animation-delay: calc(var(--stagger-base) * 1); }
+        .hero-enter-2 { animation-delay: calc(var(--stagger-base) * 2); }
+        .hero-enter-3 { animation-delay: calc(var(--stagger-base) * 3); }
+        .hero-enter-4 { animation-delay: calc(var(--stagger-base) * 4); }
+        .hero-enter-5 { animation-delay: calc(var(--stagger-base) * 5); }
+
+        /* Scroll-triggered reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity var(--motion-slower) var(--ease-out),
+                        transform var(--motion-slower) var(--ease-out);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children within a reveal group */
+        .reveal-stagger > .reveal { transition-delay: 0ms; }
+        .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+        .reveal-stagger > .reveal:nth-child(2) { transition-delay: calc(var(--stagger-base) * 1); }
+        .reveal-stagger > .reveal:nth-child(3) { transition-delay: calc(var(--stagger-base) * 2); }
+        .reveal-stagger > .reveal:nth-child(4) { transition-delay: calc(var(--stagger-base) * 3); }
+
+        /* Prefers reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-enter,
+            .reveal {
+                animation: none;
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1440,7 +1518,7 @@
             color: var(--brand-primary);
             text-decoration: none;
             font-size: 0.875rem;
-            transition: color 0.2s ease;
+            transition: color var(--transition-fast);
         }
 
         .footer-links a:hover {
@@ -1627,7 +1705,7 @@
             padding: 24px 20px;
             cursor: pointer;
             border-left: 3px solid transparent;
-            transition: all 0.3s ease;
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
             position: relative;
         }
 
@@ -1662,7 +1740,7 @@
             font-size: 1.125rem;
             opacity: 0;
             transform: translateX(-5px);
-            transition: all 0.3s ease;
+            transition: opacity var(--transition-normal), transform var(--transition-normal);
         }
 
         .slide-tab.active .slide-tab-arrow {
@@ -1706,7 +1784,7 @@
             padding: 0;
             opacity: 0;
             transform: translateX(30px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity var(--motion-slow) var(--ease-emphasis), transform var(--motion-slow) var(--ease-emphasis);
             pointer-events: none;
         }
 
@@ -1729,7 +1807,7 @@
             height: 70px;
             background: var(--foreground);
             border-radius: 2px;
-            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: top var(--motion-slow) var(--ease-emphasis), height var(--motion-slow) var(--ease-emphasis);
         }
 
         .placeholder-content {
@@ -1806,7 +1884,7 @@
         .mode-option {
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color var(--transition-normal), transform var(--transition-normal), border-color var(--transition-normal);
             padding: 12px 16px;
             border-radius: calc(var(--radius) * 1.5);
             background: transparent;
@@ -1871,7 +1949,7 @@
             max-width: 420px;
             height: auto;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity var(--motion-slow) var(--ease-out);
             pointer-events: none;
         }
 
@@ -1930,7 +2008,7 @@
             font-size: 1.5rem;
             color: var(--foreground);
             flex-shrink: 0;
-            transition: all 0.2s ease;
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
         }
 
         .mobile-nav-btn:active {
@@ -1986,7 +2064,7 @@
             position: absolute;
             width: 100%;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity var(--motion-slow) var(--ease-out);
             pointer-events: none;
         }
 
@@ -2349,12 +2427,15 @@
             font-size: 1rem;
             font-weight: 500;
             opacity: 0;
-            animation: fade-in-up 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: fade-in-up var(--motion-slow) var(--ease-out) forwards;
         }
 
         @keyframes fade-in-up {
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -2474,16 +2555,16 @@
             </nav>
         </div>
         -->
-        <header class="site-header">
+        <header class="site-header hero-enter hero-enter-1">
             <a href="/" class="logo-link">
                 <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="logo-lockup">
             </a>
         </header>
         <div class="container hero-section-content">
             <div class="hero">
-                <h1>Vibe Code a Business</h1>
-                <p class="subtitle">JettyPod is the platform for building profitable software projects in the age of AI.<br>No engineering background required.</p>
-                <div class="hero-buttons">
+                <h1 class="hero-enter hero-enter-2">Vibe Code a Business</h1>
+                <p class="subtitle hero-enter hero-enter-3">JettyPod is the platform for building profitable software projects in the age of AI.<br>No engineering background required.</p>
+                <div class="hero-buttons hero-enter hero-enter-4">
                     <button class="request-access-btn" onclick="showEmailForm()">Request Access</button>
                     <div class="email-form" id="email-form">
                         <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
@@ -2503,7 +2584,7 @@
                 </div>
             </div>
 
-            <div class="hero-video-container">
+            <div class="hero-video-container hero-enter hero-enter-5">
                 <img
                     class="hero-screenshot"
                     src="backlog-screenshot.png"
@@ -2611,24 +2692,24 @@
 
 
         <section class="statement-section">
-            <h2 class="statement-headline">
+            <h2 class="statement-headline reveal">
                 AI is here,<br>
                 <em>builders</em> decide what's next.
             </h2>
-            <div class="statement-icons">
-                <div class="statement-icon-item">
+            <div class="statement-icons reveal-stagger">
+                <div class="statement-icon-item reveal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220ZM174.21,76.42l-64,32a4.08,4.08,0,0,0-1.79,1.79l-32,64A4,4,0,0,0,80,180a4.05,4.05,0,0,0,1.79-.42l64-32a4.08,4.08,0,0,0,1.79-1.79l32-64a4,4,0,0,0-5.37-5.37ZM141,141l-52.08,26L115,115l52.08-26Z"/></svg>
                     <span class="statement-icon-label">Know what to build</span>
                 </div>
-                <div class="statement-icon-item">
+                <div class="statement-icon-item reveal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M170.83,101.17a4,4,0,0,1,0,5.66l-56,56a4,4,0,0,1-5.66,0l-24-24a4,4,0,0,1,5.66-5.66L112,154.34l53.17-53.17A4,4,0,0,1,170.83,101.17ZM228,128A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z"/></svg>
                     <span class="statement-icon-label">Know it works</span>
                 </div>
-                <div class="statement-icon-item">
+                <div class="statement-icon-item reveal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M250.73,109.69l-25.53-51a12,12,0,0,0-16.1-5.37L182.88,66.38,129,52.14a3.92,3.92,0,0,0-2,0L73.12,66.38,46.9,53.27a12,12,0,0,0-16.1,5.37L5.27,109.69a12,12,0,0,0,5.37,16.1l27.29,13.65,55.75,39.82a3.87,3.87,0,0,0,1.35.62l64,16a4,4,0,0,0,3.8-1l55.54-55.54,27-13.5a12,12,0,0,0,5.37-16.1Zm-51,36.95-37.2-29.8a4,4,0,0,0-5.34.3c-19.49,19.64-41.34,17.11-55.29,8.2a4.07,4.07,0,0,1-1.85-3,3.91,3.91,0,0,1,1.11-3.21L145.62,76h35.91l29.6,59.21ZM12.21,116.32a4,4,0,0,1,.22-3L38,62.22h0A4,4,0,0,1,41.54,60a4,4,0,0,1,1.78.43l24,12L38.21,130.64l-24-12A4,4,0,0,1,12.21,116.32Zm146.56,71.25L97.71,172.3l-52.6-37.57L75.45,74,128,60.14,157.72,68H144a4,4,0,0,0-2.79,1.13l-45.7,44.33a12,12,0,0,0,2.06,18.62c19.88,12.71,44.13,10,62.66-6.81L194,152.33Zm85-71.25a4,4,0,0,1-2,2.32l-24,12L188.68,72.43l24-12A4,4,0,0,1,218,62.22l25.53,51.05A4,4,0,0,1,243.79,116.32ZM127.94,217a4,4,0,0,1-3.88,3,4.09,4.09,0,0,1-1-.12L81.38,209.45a4,4,0,0,1-1.36-.62L53.68,190a4,4,0,0,1,4.65-6.51l25.72,18.37,41,10.25A4,4,0,0,1,127.94,217Z"/></svg>
                     <span class="statement-icon-label">Know you're not alone</span>
                 </div>
-                <div class="statement-icon-item">
+                <div class="statement-icon-item reveal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M45.39,53.06a4,4,0,0,0-1.39,3V224a4,4,0,0,0,8,0V177.87c29.41-24.39,55.08-11.69,82.23,1.73,16.5,8.17,33.33,16.5,51.13,16.5,13.14,0,26.81-4.55,41.26-17.06a4,4,0,0,0,1.38-3v-120a4,4,0,0,0-6.62-3c-30,26-56,13.07-83.61-.57C109.07,38.28,79.4,23.62,45.39,53.06ZM220,174.17c-29.41,24.4-55.08,11.7-82.23-1.73-26.82-13.27-54.5-27-85.77-4.66V57.92c29.41-24.4,55.08-11.7,82.23,1.73,26.82,13.27,54.5,27,85.77,4.66Z"/></svg>
                     <span class="statement-icon-label">Know when to ship</span>
                 </div>
@@ -2636,7 +2717,7 @@
         </section>
 
         <footer class="site-footer">
-            <div class="footer-content">
+            <div class="footer-content reveal">
                 <div class="footer-brand">
                     <img src="jettypod-lockup-claude-badge.svg" alt="JettyPod" class="footer-lockup">
                 </div>
@@ -2971,6 +3052,28 @@
                     }, 1500);
                 }
             }, 100);
+        });
+    </script>
+
+    <!-- Scroll-triggered reveals -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            if (!reveals.length) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            reveals.forEach(el => observer.observe(el));
         });
     </script>
 

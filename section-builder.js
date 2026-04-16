@@ -39,7 +39,6 @@ function buildSection(section) {
         padding: 40px;
         z-index: 100;
         opacity: 0;
-        transition: opacity 0.3s ease-out;
         pointer-events: none;
     `;
 

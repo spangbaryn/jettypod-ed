@@ -22,7 +22,6 @@ const renderers = {
             width: 100%;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.3s ease-out;
             z-index: ${layer.z || 0};
             background: ${layer.color};
         `;
@@ -55,7 +54,6 @@ const renderers = {
             min-width: 200px;
             z-index: ${layer.z || 1};
             opacity: 0;
-            transition: opacity 0.3s ease-out;
             max-width: 100%;
             object-fit: contain;
         `;
@@ -324,7 +322,6 @@ const customRenderers = {
             transform: translateX(-50%);
             z-index: ${z};
             opacity: 0;
-            transition: opacity 0.3s ease-out;
             text-align: center;
             width: 100%;
             max-width: 90%;
@@ -418,7 +415,6 @@ const customRenderers = {
             transform: translateX(-50%);
             z-index: ${z};
             opacity: 0;
-            transition: opacity 0.3s ease-out;
             text-align: center;
             width: 100%;
         `;
