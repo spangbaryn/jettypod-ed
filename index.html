@@ -228,6 +228,7 @@
             padding: 0 24px;
             box-sizing: border-box;
             z-index: 1;
+            transition: opacity 0.4s ease;
         }
 
         .hero-screenshot {
@@ -2663,6 +2664,8 @@
             form.classList.add('visible');
             downloadBtn.classList.add('hidden');
             betaHint.classList.add('hidden');
+            var heroScreenshot = document.querySelector('.hero-video-container');
+            if (heroScreenshot) heroScreenshot.style.opacity = '0';
             document.getElementById('email-input').focus();
         }
 
