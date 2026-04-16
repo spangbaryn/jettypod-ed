@@ -225,25 +225,23 @@
             flex: 1;
             min-height: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
         }
 
-        .hero-video {
+        .hero-screenshot {
             width: 100%;
-            max-height: 100%;
-            border-radius: calc(var(--radius) * 1.5);
-            box-shadow: 0 8px 24px rgba(44, 36, 24, 0.14), 0 16px 48px rgba(44, 36, 24, 0.10);
+            border-radius: calc(var(--radius) * 1.5) calc(var(--radius) * 1.5) 0 0;
+            box-shadow: 0 -4px 24px rgba(44, 36, 24, 0.12), 0 -8px 48px rgba(44, 36, 24, 0.08);
             position: relative;
             z-index: 1;
-            object-fit: contain;
-            opacity: 0;
-            transition: opacity 1.2s ease;
+            object-fit: cover;
+            object-position: top center;
         }
 
         .hero-card {
             position: relative;
             border-radius: 24px;
-            overflow: visible;
+            overflow: hidden;
             border: 1px solid var(--border);
             box-shadow: 0 1px 4px rgba(44, 36, 24, 0.08), 0 0 1px rgba(44, 36, 24, 0.06);
             height: calc(100vh - 1vw - 20px);
@@ -2508,16 +2506,12 @@
             </div>
 
             <div class="hero-video-container">
-                <video
-                    class="hero-video"
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    preload="auto"
+                <img
+                    class="hero-screenshot"
+                    src="backlog-screenshot.png"
+                    alt="JettyPod backlog view showing features, chores, and bugs organized in a kanban board"
+                    loading="eager"
                 >
-                    <source src="https://res.cloudinary.com/djzbbnujo/video/upload/JettyPod-demo-4k-wood_amcoxe.mp4" type="video/mp4">
-                </video>
             </div>
         </div>
     </div>
@@ -3109,15 +3103,6 @@
         document.getElementById('access-code-input').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') submitAccessCode();
         });
-    </script>
-    <script>
-        (function() {
-            var video = document.querySelector('.hero-video');
-            if (!video) return;
-            function showVideo() { setTimeout(function() { video.style.opacity = '1'; }, 1500); }
-            if (video.readyState >= 3) { showVideo(); }
-            else { video.addEventListener('canplay', showVideo, { once: true }); }
-        })();
     </script>
 </body>
 </html>
