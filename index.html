@@ -2744,6 +2744,19 @@
             const groups = ['177237166380812033']; // waitlist group
             if (newsletterOptIn) {
                 groups.push('177319791881618855'); // newsletter group
+
+                // Also subscribe to Substack newsletter (fire-and-forget)
+                fetch('https://shipsolo.substack.com/api/v1/free', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        first_url: 'https://shipsolo.substack.com',
+                        first_referrer: 'https://jettypod.com',
+                        current_url: 'https://shipsolo.substack.com',
+                        current_referrer: 'https://jettypod.com'
+                    })
+                });
             }
 
             // Show confirmation immediately (optimistic UI)
