@@ -2754,20 +2754,19 @@
                 });
             }
 
-            // Show confirmation immediately (optimistic UI)
+            // Show confirmation immediately (truly optimistic UI)
+            document.getElementById('email-form').innerHTML = '<p style="color: var(--brand-primary); font-weight: 600;">You\'re in! You\'ll hear back soon.</p>';
+
+            // Update waitlist count in background
             const binId = '6984e451d0ea881f40a38f56';
             const apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
 
-            // Get count and show message immediately
             fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
                 headers: { 'X-Master-Key': apiKey }
             })
             .then(res => res.json())
             .then(data => {
                 const newCount = data.record.count + 1;
-                document.getElementById('email-form').innerHTML = '<p style="color: var(--brand-primary); font-weight: 600;">There are ' + newCount + ' people ahead of you. You\'ll hear back soon.</p>';
-
-                // Update count in background
                 fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
                     method: 'PUT',
                     headers: {
