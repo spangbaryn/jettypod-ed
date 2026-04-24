@@ -243,7 +243,7 @@
             position: absolute;
             bottom: 0;
             left: 50%;
-            transform: translate(-50%, 1%);
+            transform: translate(-50%, 10%);
             width: 100%;
             max-width: 1200px;
             padding: 0 24px;
@@ -1093,11 +1093,11 @@
         @keyframes assemble-screenshot {
             from {
                 opacity: 0;
-                transform: translate(-50%, 1%) translateY(12px);
+                transform: translate(-50%, 10%) translateY(12px);
             }
             to {
                 opacity: 1;
-                transform: translate(-50%, 1%);
+                transform: translate(-50%, 10%);
             }
         }
 
@@ -1148,7 +1148,7 @@
 
             /* Preserve positioning transform when motion is reduced */
             .hero-video-container.hero-enter {
-                transform: translate(-50%, 1%);
+                transform: translate(-50%, 10%);
             }
         }
 
@@ -2618,12 +2618,12 @@
             <div class="hero-video-container hero-enter hero-enter-5">
                 <img
                     class="hero-screenshot"
-                    src="https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto,w_900/v1777047250/hero-screenshot_1_haf4x2.png"
+                    src="https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto:best,w_900/v1777047250/hero-screenshot_1_haf4x2.png"
                     srcset="
-                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto,w_600/v1777047250/hero-screenshot_1_haf4x2.png 600w,
-                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto,w_900/v1777047250/hero-screenshot_1_haf4x2.png 900w,
-                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto,w_1200/v1777047250/hero-screenshot_1_haf4x2.png 1200w,
-                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto,w_1800/v1777047250/hero-screenshot_1_haf4x2.png 1800w
+                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto:best,w_600/v1777047250/hero-screenshot_1_haf4x2.png 600w,
+                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto:best,w_900/v1777047250/hero-screenshot_1_haf4x2.png 900w,
+                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto:best,w_1200/v1777047250/hero-screenshot_1_haf4x2.png 1200w,
+                        https://res.cloudinary.com/djzbbnujo/image/upload/f_auto,q_auto:best,w_1800/v1777047250/hero-screenshot_1_haf4x2.png 1800w
                     "
                     sizes="(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 900px"
                     alt="JettyPod backlog view showing features, chores, and bugs organized in a kanban board with detail panel"
