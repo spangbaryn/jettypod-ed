@@ -2732,6 +2732,15 @@
             document.getElementById('email-input').focus();
         }
 
+        // Pre-fetch waitlist count on page load so it's ready at submit time
+        (function() {
+            fetch('https://api.jsonbin.io/v3/b/6984e451d0ea881f40a38f56/latest', {
+                headers: { 'X-Master-Key': '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG' }
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) { window._waitlistCount = data.record.count; });
+        })();
+
         function submitEmail() {
             const email = document.getElementById('email-input').value;
             const newsletterOptIn = document.getElementById('newsletter-checkbox').checked;
@@ -2754,30 +2763,22 @@
                 });
             }
 
-            // Show confirmation immediately, then update with count when available
+            // Show confirmation with pre-fetched count (or update when it arrives)
             var confirmEl = document.getElementById('email-form');
-            confirmEl.innerHTML = '<p id="confirm-msg" style="color: var(--brand-primary); font-weight: 600;">You\'re on the list! You\'ll hear back soon.</p>';
+            var newCount = (window._waitlistCount || 0) + 1;
+            if (window._waitlistCount) {
+                confirmEl.innerHTML = '<p id="confirm-msg" style="color: var(--brand-primary); font-weight: 600;">There are ' + newCount + ' people ahead of you. Check your email!</p>';
+            } else {
+                confirmEl.innerHTML = '<p id="confirm-msg" style="color: var(--brand-primary); font-weight: 600;">You\'re on the list! Check your email!</p>';
+            }
 
-            // Fetch waitlist count and update message
-            const binId = '6984e451d0ea881f40a38f56';
-            const apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
-
-            fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-                headers: { 'X-Master-Key': apiKey }
-            })
-            .then(res => res.json())
-            .then(data => {
-                const newCount = data.record.count + 1;
-                var msg = document.getElementById('confirm-msg');
-                if (msg) msg.textContent = 'There are ' + newCount + ' people ahead of you. You\'ll hear back soon.';
-                fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': apiKey
-                    },
-                    body: JSON.stringify({ count: newCount })
-                });
+            // Update count in background
+            var binId = '6984e451d0ea881f40a38f56';
+            var apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
+            fetch('https://api.jsonbin.io/v3/b/' + binId, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'X-Master-Key': apiKey },
+                body: JSON.stringify({ count: newCount })
             });
 
             // Fire MailerLite API call in background (don't wait)
