@@ -2745,11 +2745,12 @@
             if (newsletterOptIn) {
                 groups.push('177319791881618855'); // newsletter group
 
-                // Also subscribe to Substack newsletter via server-side proxy (fire-and-forget)
-                fetch('/api/substack-subscribe', {
+                // Also subscribe to Substack newsletter (fire-and-forget, no-cors to avoid preflight)
+                fetch('https://shipsolo.substack.com/api/v1/free', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email })
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'email=' + encodeURIComponent(email) + '&first_url=https%3A%2F%2Fshipsolo.substack.com&first_referrer=https%3A%2F%2Fjettypod.com&current_url=https%3A%2F%2Fshipsolo.substack.com&current_referrer=https%3A%2F%2Fjettypod.com'
                 });
             }
 
