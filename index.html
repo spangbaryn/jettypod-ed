@@ -2754,10 +2754,11 @@
                 });
             }
 
-            // Show confirmation immediately (truly optimistic UI)
-            document.getElementById('email-form').innerHTML = '<p style="color: var(--brand-primary); font-weight: 600;">You\'re in! You\'ll hear back soon.</p>';
+            // Show confirmation immediately, then update with count when available
+            var confirmEl = document.getElementById('email-form');
+            confirmEl.innerHTML = '<p id="confirm-msg" style="color: var(--brand-primary); font-weight: 600;">You\'re in! You\'ll hear back soon.</p>';
 
-            // Update waitlist count in background
+            // Fetch waitlist count and update message
             const binId = '6984e451d0ea881f40a38f56';
             const apiKey = '$2a$10$jewjW65U/G.TDjZoolDwt.00fBYaKCyiqWLr9PFLmQ47.cU1YYZmG';
 
@@ -2767,6 +2768,8 @@
             .then(res => res.json())
             .then(data => {
                 const newCount = data.record.count + 1;
+                var msg = document.getElementById('confirm-msg');
+                if (msg) msg.textContent = 'There are ' + newCount + ' people ahead of you. You\'ll hear back soon.';
                 fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
                     method: 'PUT',
                     headers: {
