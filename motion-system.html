@@ -912,7 +912,7 @@
 
     <div class="decision">
         <div class="decision-title">D9: Email form entrance uses assemble keyframe with 150ms delay</div>
-        <div class="decision-rationale">When the user clicks "Request Access," buttons exit immediately (opacity 0 via class toggle), then the form assembles 150ms later. This gap is short enough to feel continuous but long enough to prevent visual collision between the exiting buttons and entering form. The screenshot fades simultaneously via its own CSS transition.</div>
+        <div class="decision-rationale">When the user clicks "Join the Waitlist," buttons exit immediately (opacity 0 via class toggle), then the form assembles 150ms later. This gap is short enough to feel continuous but long enough to prevent visual collision between the exiting buttons and entering form. The screenshot fades simultaneously via its own CSS transition.</div>
         <div class="decision-alternatives">Alternatives considered: Simultaneous crossfade &mdash; rejected because buttons and form overlap spatially, creating visual noise. Longer delay (300ms+) &mdash; felt sluggish and broke the "responsive UI" expectation. No delay &mdash; form appeared before buttons finished hiding, looking glitchy.</div>
     </div>
 
